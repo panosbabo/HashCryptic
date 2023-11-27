@@ -42,18 +42,29 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.991" />
 
-        <TextView
-            android:id="@+id/homepageTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="HomePage"
-            android:textAlignment="center"
-            android:textColor="@color/darker_blue"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:layout_marginTop="50dp"
+<!--        <TextView-->
+<!--            android:id="@+id/homepageTitle"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="HomePage"-->
+<!--            android:textAlignment="center"-->
+<!--            android:textColor="@color/darker_blue"-->
+<!--            android:textSize="20sp"-->
+<!--            android:textStyle="bold"-->
+<!--            android:layout_marginTop="50dp"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintHorizontal_bias="0.498"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent" />-->
+
+        <ImageView
+            android:id="@+id/takHome_view"
+            android:layout_width="500dp"
+            android:layout_height="790dp"
+            android:layout_marginTop="100dp"
+            android:src="@drawable/home"
+            app:layout_constraintBottom_toTopOf="@+id/welcome_txt"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
