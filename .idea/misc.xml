@@ -1,6 +1,17 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="ExternalStorageConfigurationManager" enabled="true" />
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/panos/Documents/TUDublin/Mobile Software Development Labs/CA/TakOwnersMart/app/src/main/res/drawable/top_background_profile.xml" value="0.2265" />
+        <entry key="..\:/Users/panos/Documents/TUDublin/Mobile Software Development Labs/CA/TakOwnersMart/app/src/main/res/drawable/white_background_profile.xml" value="0.2265" />
+        <entry key="..\:/Users/panos/Documents/TUDublin/Mobile Software Development Labs/CA/TakOwnersMart/app/src/main/res/layout/activity_main.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/panos/Documents/TUDublin/Mobile Software Development Labs/CA/TakOwnersMart/app/src/main/res/layout/activity_profile_editing.xml" value="0.11302083333333333" />
+        <entry key="..\:/Users/panos/Documents/TUDublin/Mobile Software Development Labs/CA/TakOwnersMart/app/src/main/res/layout/fragment_home_page.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/panos/Documents/TUDublin/Mobile Software Development Labs/CA/TakOwnersMart/app/src/main/res/layout/fragment_profile_page.xml" value="0.264" />
+        <entry key="..\:/Users/panos/Documents/TUDublin/Mobile Software Development Labs/CA/TakOwnersMart/app/src/main/res/layout/fragment_settings_page.xml" value="0.22826086956521738" />
+      </map>
+    </option>
+  </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="jbr-17" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
