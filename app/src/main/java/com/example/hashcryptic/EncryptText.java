@@ -69,7 +69,7 @@ public class EncryptText extends AppCompatActivity implements AdapterView.OnItem
                     cpb.setPrimaryClip(temp);
 
                     // display message that the text has been copied
-                    Toast.makeText(EncryptText.this, "Copied", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EncryptText.this, "Hash Copied", Toast.LENGTH_SHORT).show();
                 }
             }
         });

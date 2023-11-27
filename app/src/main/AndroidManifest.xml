@@ -19,6 +19,9 @@
         <activity
             android:name=".EncryptText"
             android:exported="false" />
+        <activity
+            android:name=".DecryptText"
+            android:exported="false" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

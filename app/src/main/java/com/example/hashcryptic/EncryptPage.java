@@ -66,10 +66,12 @@ public class EncryptPage extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         Button encryptButton;
+        Button decryptButton;
 
         // Inflate the layout for this fragment
         View encryptView = inflater.inflate(R.layout.fragment_encrypt_decrypt, container, false);
         encryptButton = encryptView.findViewById(R.id.encryptBtn);
+        decryptButton = encryptView.findViewById(R.id.decryptBtn);
 
         // Button function listener for the Profile Editing page activity
         encryptButton.setOnClickListener(new View.OnClickListener() {
@@ -77,6 +79,15 @@ public class EncryptPage extends Fragment {
             public void onClick(View view) {
                 // Creating an Intent for the next activity of the profile editing page
                 Intent intent = new Intent(EncryptPage.super.getContext(), EncryptText.class);
+                startActivity(intent);
+            }
+        });
+
+        decryptButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Creating an Intent for the next activity of the profile editing page
+                Intent intent = new Intent(EncryptPage.super.getContext(), DecryptText.class);
                 startActivity(intent);
             }
         });
