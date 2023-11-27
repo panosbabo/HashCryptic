@@ -16,6 +16,7 @@
         android:textColor="@color/darker_blue"
         android:textSize="20sp"
         android:textStyle="bold"
+        android:layout_marginTop="40dp"
         tools:layout_editor_absoluteX="28dp"
         tools:layout_editor_absoluteY="-80dp" />
 
