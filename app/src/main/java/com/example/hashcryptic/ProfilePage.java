@@ -54,7 +54,6 @@ public class ProfilePage extends Fragment {
         TextView mUsernameText;
         TextView mEmailText;
         TextView mAddressText;
-        TextView mGuitarText;
         TextView mavatarusernameText;
         TextView mavataremailText;
         Button editprofbtn;
@@ -63,7 +62,6 @@ public class ProfilePage extends Fragment {
         String usrnm;
         String eml;
         String adrs;
-        String gtr;
 
         // Inflate the layout for this fragment
         View profView = inflater.inflate(R.layout.fragment_profile_page, container, false);
@@ -97,7 +95,6 @@ public class ProfilePage extends Fragment {
             usrnm = "Empty";
             eml = "Empty";
             adrs = "Empty";
-            gtr = "Empty";
         }
         else {
             // Initialization from Profile database to String variables

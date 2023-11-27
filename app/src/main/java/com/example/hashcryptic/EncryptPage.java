@@ -1,6 +1,7 @@
 package com.example.hashcryptic;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 
@@ -8,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -53,6 +55,7 @@ public class EncryptPage extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         if (getArguments() != null) {
 //            mParam1 = getArguments().getString(ARG_PARAM1);
 //            mParam2 = getArguments().getString(ARG_PARAM2);
@@ -60,9 +63,25 @@ public class EncryptPage extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        Button encryptButton;
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_encrypt_decrypt, container, false);
+        View encryptView = inflater.inflate(R.layout.fragment_encrypt_decrypt, container, false);
+        encryptButton = encryptView.findViewById(R.id.encryptBtn);
+
+        // Button function listener for the Profile Editing page activity
+        encryptButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Creating an Intent for the next activity of the profile editing page
+                Intent intent = new Intent(EncryptPage.super.getContext(), EncryptText.class);
+                startActivity(intent);
+            }
+        });
+
+        // Inflate the layout for this fragment
+        return encryptView;
     }
 }
