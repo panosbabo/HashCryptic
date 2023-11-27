@@ -2,49 +2,139 @@ package com.example.hashcryptic;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
-public class EncryptText extends AppCompatActivity {
+import com.example.hashcryptic.hashtypes.*;
+
+public class EncryptText extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private Spinner spinner;
-    private static final String[] paths = {"MD5", "SHA-1", "SHA-2", "SHA-256"};
+    private Button encrpt_btn;
+    private Button copy_btn;
+    private static final String[] paths = {"MD5", "SHA-1", "SHA-256", "SHA-512"};
+    private EditText etenc;
+    private TextView enctv;
+    private int pos;
+    ClipboardManager cpb;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_encrypt_text);
+
+        encrpt_btn = findViewById(R.id.buttonEncrypt);
+        copy_btn = findViewById(R.id.copyencr_txt);
+
         spinner = (Spinner)findViewById(R.id.spinner);
         ArrayAdapter<String>adapter = new ArrayAdapter<String>(EncryptText.this,
                 android.R.layout.simple_spinner_item,paths);
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
-//        spinner.setOnItemSelectedListener(this);
+        spinner.setOnItemSelectedListener(this);
 
+        // link the edittext and textview with its id
+        etenc = findViewById(R.id.encrpt_editText);
+        enctv = findViewById(R.id.encr_msg_cntxt);
+
+        // create a clipboard manager variable to copy text
+        cpb = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+
+        // onClick function of copy text button
+        copy_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // get the string from the textview and trim all spaces
+                String data = enctv.getText().toString().trim();
+
+                // check if the textview is not empty
+                if (!data.isEmpty()) {
+
+                    // copy the text in the clip board
+                    ClipData temp = ClipData.newPlainText("text", data);
+                    cpb.setPrimaryClip(temp);
+
+                    // display message that the text has been copied
+                    Toast.makeText(EncryptText.this, "Copied", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        encrpt_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Intent function to move to another activity
+                // get text from edittext
+                if (etenc.getText().toString().isEmpty()) {
+                    Toast.makeText(EncryptText.this, "Please enter text to encrypt.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                else {
+                    String temp = etenc.getText().toString();
+
+                    // pass the string to the encryption
+                    // algorithm and get the encrypted code
+                    switch (pos) {
+                        case 0:
+                            String rv0 = enc_MD5.encryptMD5(temp);
+                            enctv.setText(rv0);
+                            break;
+                        case 1:
+                            String rv1 = enc_SHA1.encryptSHA1(temp);
+                            enctv.setText(rv1);
+                            break;
+                        case 2:
+                            String rv2 = enc_SHA256.encryptSHA256(temp);
+                            enctv.setText(rv2);
+                            break;
+                        case 3:
+                            String rv3 = enc_SHA512.encryptSHA512(temp);
+                            enctv.setText(rv3);
+                            break;
+                    }
+                }
+            }
+        });
     }
 
     public void onItemSelected(AdapterView<?> parent, View v, int position, long id) {
 
         switch (position) {
             case 0:
-                // Whatever you want to happen when the first item gets selected
+                pos = 0;
                 break;
             case 1:
-                // Whatever you want to happen when the second item gets selected
+                pos = 1;
                 break;
             case 2:
-                // Whatever you want to happen when the thrid item gets selected
+                pos = 2;
                 break;
-
+            case 3:
+                pos = 3;
+                break;
         }
     }
 
     public void onNothingSelected(AdapterView<?> parent) {
         // TODO Auto-generated method stub
+    }
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+        super.onPointerCaptureChanged(hasCapture);
     }
 }
