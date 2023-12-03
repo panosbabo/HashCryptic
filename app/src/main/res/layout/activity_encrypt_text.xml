@@ -31,18 +31,28 @@
         app:layout_constraintHorizontal_bias="0.595"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/encryptTitle"
-        app:layout_constraintVertical_bias="0.499">
+        app:layout_constraintVertical_bias="0.47">
 
     </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/buttonEncrypt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Encrypt Text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
 
     <Spinner
         android:id="@+id/spinner"
         android:layout_width="182dp"
-        android:layout_height="136dp"
+        android:layout_height="100dp"
         android:layout_marginTop="124dp"
         app:layout_constraintBottom_toTopOf="@+id/textInputLayout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/encryptTitle"
         app:layout_constraintVertical_bias="0.0" />
@@ -58,17 +68,7 @@
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="@+id/encryptTitle"
         app:layout_constraintTop_toBottomOf="@+id/spinner"
-        app:layout_constraintVertical_bias="0.23" />
-
-    <Button
-        android:id="@+id/buttonEncrypt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:text="Encrypt Text"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/copyencr_txt"
@@ -76,6 +76,16 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:text="Copy Hash Value"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonEncrypt" />
+
+    <Button
+        android:id="@+id/store_hash"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="72dp"
+        android:text="Store Hash Value"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buttonEncrypt" />
@@ -88,9 +98,10 @@
         android:text="Choose Encryption Type"
         app:layout_constraintBottom_toTopOf="@+id/spinner"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/encryptTitle"
-        app:layout_constraintVertical_bias="0.79" />
+        app:layout_constraintVertical_bias="0.841" />
 
     <TextView
         android:id="@+id/encr_msg_title"
@@ -103,8 +114,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/copyencr_txt"
-        app:layout_constraintVertical_bias="0.104" />
+        app:layout_constraintTop_toBottomOf="@+id/store_hash"
+        app:layout_constraintVertical_bias="0.171" />
 
     <TextView
         android:id="@+id/encr_msg_cntxt"
@@ -122,6 +133,6 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/encr_msg_title"
-        app:layout_constraintVertical_bias="0.133" />
+        app:layout_constraintVertical_bias="0.108" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
