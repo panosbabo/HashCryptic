@@ -20,11 +20,12 @@
             android:id="@+id/hint_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="584dp"
+            android:layout_marginTop="512dp"
             android:gravity="center"
             android:text="   Encrypt, Decrypt Text and Files\n quick and fast"
             android:textSize="15sp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -37,11 +38,20 @@
             android:textSize="20sp"
             app:layout_constraintBottom_toTopOf="@+id/hint_txt"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.532"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.991" />
+            app:layout_constraintVertical_bias="0.954" />
 
+        <Button
+            android:id="@+id/hashvlsBtn"
+            android:layout_width="189dp"
+            android:layout_height="51dp"
+            android:text="My Hash Values"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/hint_txt"
+            app:layout_constraintVertical_bias="0.103" />
 <!--        <TextView-->
 <!--            android:id="@+id/homepageTitle"-->
 <!--            android:layout_width="wrap_content"-->
@@ -65,8 +75,10 @@
             android:src="@drawable/home"
             app:layout_constraintBottom_toTopOf="@+id/welcome_txt"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.505"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.411" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

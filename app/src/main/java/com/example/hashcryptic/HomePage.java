@@ -1,6 +1,9 @@
 package com.example.hashcryptic;
 
+import static com.example.hashcryptic.db.HashDatabase.getDbInstance;
+
 import android.content.Intent;
+import android.database.sqlite.SQLiteConstraintException;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -10,6 +13,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
+
+import com.example.hashcryptic.db.HashDatabase;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -26,7 +32,6 @@ public class HomePage extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    private Button viw_wishlist;
 
     public HomePage() {
         // Required empty public constructor
@@ -63,7 +68,28 @@ public class HomePage extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home_page, container, false);
+        Button myhash_values = view.findViewById(R.id.hashvlsBtn);
 
+        HashDatabase db  = getDbInstance(this.getContext());
+
+        myhash_values.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (!db.hashDao().gethash().isEmpty()) {
+                    // Fragment transaction to bring my stored hash values on screen
+                    MyStoredHashValues myHashValues = new MyStoredHashValues();
+                    // New fragment on stack
+                    getActivity().getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.frame_layout, myHashValues)
+                            .commit();
+                }
+                else {
+                    // Message displayed for catching error of profile update
+                    Toast.makeText(getContext(), "You have No Hash Values stored", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
         return view;
     }

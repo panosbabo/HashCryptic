@@ -20,7 +20,6 @@ import android.widget.Toast;
 
 import com.example.hashcryptic.db.Hash;
 import com.example.hashcryptic.db.HashDatabase;
-import com.example.hashcryptic.db.ProfileDatabase;
 import com.example.hashcryptic.hashtypes.*;
 
 public class EncryptText extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
@@ -76,7 +75,7 @@ public class EncryptText extends AppCompatActivity implements AdapterView.OnItem
                     cpb.setPrimaryClip(temp);
 
                     // display message that the text has been copied
-                    Toast.makeText(EncryptText.this, "Hash Copied", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EncryptText.this, "Hash Value Copied", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -87,7 +86,7 @@ public class EncryptText extends AppCompatActivity implements AdapterView.OnItem
                 // Intent function to move to another activity
                 // get text from edittext
                 if (etenc.getText().toString().isEmpty()) {
-                    Toast.makeText(EncryptText.this, "Please enter text to encrypt.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EncryptText.this, "Please enter text to encrypt", Toast.LENGTH_SHORT).show();
                 }
                 else {
                     String temp = etenc.getText().toString();
@@ -161,7 +160,7 @@ public class EncryptText extends AppCompatActivity implements AdapterView.OnItem
                     }
                 }
                 else {
-                    Toast.makeText(EncryptText.this, "Please encrypt the text first.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EncryptText.this, "Please encrypt the text first", Toast.LENGTH_SHORT).show();
                 }
             }
         });
