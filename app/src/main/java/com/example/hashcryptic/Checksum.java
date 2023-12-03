@@ -78,7 +78,7 @@ public class Checksum extends AppCompatActivity implements AdapterView.OnItemSel
                     cpb.setPrimaryClip(temp);
 
                     // display message that the text has been copied
-                    Toast.makeText(Checksum.this, "Hash Copied", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Checksum.this, "Checksum Copied", Toast.LENGTH_SHORT).show();
                 }
             }
         });

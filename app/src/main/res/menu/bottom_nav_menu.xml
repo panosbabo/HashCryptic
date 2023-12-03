@@ -7,7 +7,7 @@
     <item
         android:id="@+id/encrypt"
         android:icon="@android:drawable/ic_lock_idle_lock"
-        android:title="Encrypt" />
+        android:title="Hashcrypt" />
     <item
         android:id="@+id/profile"
         android:icon="@drawable/ic_baseline_person_24"
