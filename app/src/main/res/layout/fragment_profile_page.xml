@@ -32,6 +32,7 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/constraintLayout"
                         android:layout_width="match_parent"
                         android:layout_height="360dp"
                         android:background="@drawable/top_background_profile"
@@ -47,7 +48,7 @@
                         android:layout_width="150dp"
                         android:layout_height="170dp"
                         android:layout_marginTop="30dp"
-                        android:layout_marginLeft="30dp"
+                        android:layout_marginLeft="10dp"
                         android:layout_weight="1"
                         android:icon="@drawable/logo_icon"
                         android:scaleType="centerCrop"
@@ -59,17 +60,17 @@
                         app:strokeColor="@color/white" />
 
 
-
                     <TextView
                         android:id="@+id/username"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
-                        android:textColor="#ffffff"
+
                         android:autoSizeTextType="uniform"
+                        android:textColor="#ffffff"
                         android:textStyle="bold"
-                        app:layout_constraintEnd_toEndOf="@+id/userimage2"
-                        app:layout_constraintStart_toStartOf="@+id/userimage2"
+                        app:layout_constraintEnd_toEndOf="@+id/constraintLayout"
+                        app:layout_constraintStart_toStartOf="@+id/constraintLayout"
                         app:layout_constraintTop_toBottomOf="@+id/userimage2" />
 
                     <TextView
