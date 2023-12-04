@@ -9,7 +9,6 @@ import com.example.hashcryptic.db.ProfileDatabase;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
-import android.widget.ImageView;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
@@ -65,18 +64,6 @@ public class ProfilePage extends Fragment {
 
         // Inflate the layout for this fragment
         View profView = inflater.inflate(R.layout.fragment_profile_page, container, false);
-        // User image is initialized
-        ImageView userView = (ImageView) profView.findViewById(R.id.userimage2);
-
-        // TODO: correct the nullity when fetching image from activity
-        // User image fetched from Profile Editing page
-//        if(usr_avatar == null) {
-//            userView.setImageResource(R.drawable.small_icon);
-//        }
-//        else {
-//            usr_avatar = getArguments().getParcelable("userImage");
-//            userView.setImageURI(usr_avatar);
-//        }
 
         // Calling database from Profile database
         ProfileDatabase db  = ProfileDatabase.getDbInstance(this.getContext());

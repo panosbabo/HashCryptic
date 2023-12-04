@@ -1,12 +1,9 @@
 package com.example.hashcryptic;
 
-import android.Manifest;
-import android.annotation.SuppressLint;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -16,22 +13,9 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.content.Context;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-
-import com.example.hashcryptic.hashtypes.enc_MD5;
-import com.example.hashcryptic.hashtypes.enc_SHA256;
-//import com.example.hashcryptic.untils.checksum_class;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 
 public class Checksum extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     private static final int PICK_FILE_REQUEST = 1;

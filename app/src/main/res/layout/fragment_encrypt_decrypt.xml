@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".EncryptPage">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -24,8 +23,8 @@
 
         <Button
             android:id="@+id/decryptBtn"
-            android:layout_width="157dp"
-            android:layout_height="49dp"
+            android:layout_width="155dp"
+            android:layout_height="50dp"
             android:text="Decrypt"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -36,40 +35,38 @@
 
         <Button
             android:id="@+id/chksumBtn"
-            android:layout_width="154dp"
-            android:layout_height="47dp"
+            android:layout_width="155dp"
+            android:layout_height="50dp"
             android:text="Checksum"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.501"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/decryptBtn"
-            app:layout_constraintVertical_bias="0.288" />
-
-
+            app:layout_constraintVertical_bias="0.054" />
 
         <Button
             android:id="@+id/encryptBtn"
             android:layout_width="155dp"
-            android:layout_height="49dp"
+            android:layout_height="50dp"
             android:text="Encrypt"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.501"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.367" />
+            app:layout_constraintVertical_bias="0.300" />
 
         <Button
             android:id="@+id/encryptFileBtn"
             android:layout_width="155dp"
-            android:layout_height="49dp"
+            android:layout_height="50dp"
             android:text="Encrypt File"
-            app:layout_constraintBottom_toTopOf="@+id/chksumBtn"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.501"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/decryptBtn"
-            app:layout_constraintVertical_bias="0.54" />
+            app:layout_constraintTop_toBottomOf="@+id/chksumBtn"
+            app:layout_constraintVertical_bias="0.054" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

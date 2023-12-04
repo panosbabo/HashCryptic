@@ -1,4 +1,5 @@
 package com.example.hashcryptic.hashtypes;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 

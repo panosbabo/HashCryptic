@@ -1,7 +1,6 @@
 package com.example.hashcryptic;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.content.ClipData;
 import android.content.ClipboardManager;
@@ -17,7 +16,6 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.hashcryptic.db.Hash;
 import com.example.hashcryptic.db.HashDatabase;
 import com.example.hashcryptic.hashtypes.*;

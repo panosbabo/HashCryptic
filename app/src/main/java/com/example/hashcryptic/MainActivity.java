@@ -22,10 +22,6 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-//        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-//        fragmentTransaction.add(R.id.frame_layout, new profile_editing());
-//        fragmentTransaction.commit();
-
         // Setting home page fragment as the main page after the main activity is initialized
         changeScreen(new HomePage());
 
