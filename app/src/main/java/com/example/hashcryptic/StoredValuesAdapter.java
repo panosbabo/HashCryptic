@@ -46,12 +46,11 @@ public class StoredValuesAdapter extends RecyclerView.Adapter<HashLT> {
     // A view holder for the adapter
     @Override
     public void onBindViewHolder(@NonNull HashLT holder, int position) {
+
         // Holder to display the item's details on screen
         holder.myhashID.setText(String.valueOf(this.hashesListItems.get(position).uid));
         holder.myhashType.setText(this.hashesListItems.get(position).hashType);
-//        holder.myhashText.setText(this.hashesListItems.get(position).hashTxt);
         holder.myhashValue.setText(this.hashesListItems.get(position).hashValue);
-
     }
 
     // getItemCount to retrieve the size of hashesListItems
@@ -69,48 +68,25 @@ class HashLT extends RecyclerView.ViewHolder{
     private StoredValuesAdapter adapter;
     private Context context;
 
-    // TODO: Must fix clipboard on Recycler View
-//    Context context = recyclerView.getContext();
-//    ClipboardManager clipboardManager = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
-
-
     // Holder for the Texts and Image Views and Remove Button
     public HashLT (@NonNull View itemView) {
         super(itemView);
 
-        Button copy_btn = itemView.findViewById(R.id.copyencr_txt);
-
-        // TODO: Must fix clipboard on Recycler View
-        // create a clipboard manager variable to copy text
-//        cpb = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
-
-        // onClick function of copy text button
-        copy_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // get the string from the textview and trim all spaces
-                String data = myhashValue.getText().toString().trim();
-
-                // check if the textview is not empty
-                if (!data.isEmpty()) {
-
-                    // copy the text in the clip board
-                    ClipData temp = ClipData.newPlainText("text", data);
-                    // TODO: Must fix clipboard on Recycler View
-//                    clipboardManager.setPrimaryClip(temp);
-
-                    // display message that the text has been copied
-                    Toast.makeText(itemView.getContext(), "Hash Value Copied", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
         // Views initialized to related Resource id's
-//        hashIDVw = itemView.findViewById(R.id.hashIDView);
         myhashID = itemView.findViewById(R.id.hashID);
         myhashType = itemView.findViewById(R.id.hashType);
-//        myhashText = itemView.findViewById(R.id.hashText);
         myhashValue = itemView.findViewById(R.id.hashValue);
+
+        Button copy_btn = itemView.findViewById(R.id.copyencr_txt);
+
+        copy_btn.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view){
+                clipboardcopyApadter(myhashValue.getText().toString());
+                Toast.makeText(itemView.getContext(), "Copied to clipboard", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         // Creating an instance for the Remove item button
         Button removeItem = itemView.findViewById(R.id.remove_item_btn);
@@ -140,5 +116,12 @@ class HashLT extends RecyclerView.ViewHolder{
     public HashLT linkAdapter(StoredValuesAdapter adapter){
         this.adapter = adapter;
         return this;
+    }
+
+    // Function to be used for clipboard in the adapter
+    public void clipboardcopyApadter(String dat) {
+        ClipboardManager clipboardManager = (ClipboardManager) itemView.getContext().getSystemService(Context.CLIPBOARD_SERVICE);
+        ClipData clipData = ClipData.newPlainText("text", dat);
+        clipboardManager.setPrimaryClip(clipData);
     }
 }
