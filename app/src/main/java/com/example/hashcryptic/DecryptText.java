@@ -6,21 +6,14 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.hashcryptic.hashtypes.dec_Hash;
-import com.example.hashcryptic.hashtypes.enc_MD5;
-import com.example.hashcryptic.hashtypes.enc_SHA1;
-import com.example.hashcryptic.hashtypes.enc_SHA256;
-import com.example.hashcryptic.hashtypes.enc_SHA512;
+import com.example.hashcryptic.db.HashDatabase;
 
 public class DecryptText extends AppCompatActivity {
 
@@ -28,6 +21,7 @@ public class DecryptText extends AppCompatActivity {
     private Button copy_btn;
     private EditText etdec;
     private TextView dectv;
+    private boolean found;
     ClipboardManager cpb;
 
     @SuppressLint("MissingInflatedId")
@@ -36,6 +30,9 @@ public class DecryptText extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_decrypt_text);
+
+        // Calling Hashdatabase for decryption
+        HashDatabase db  = HashDatabase.getDbInstance(this.getApplicationContext());
 
         decrpt_btn = findViewById(R.id.buttonDecrypt);
         copy_btn = findViewById(R.id.copydecr_txt);
@@ -70,16 +67,29 @@ public class DecryptText extends AppCompatActivity {
         decrpt_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 // Intent function to move to another activity
                 // get text from edittext
                 if (etdec.getText().toString().isEmpty()) {
-                    Toast.makeText(DecryptText.this, "Please enter text to decrypt.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(DecryptText.this, "Please enter text to decrypt", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 else {
-                    String temp = etdec.getText().toString();
-                    String rv0 = dec_Hash.decryptHash(temp);
-                    dectv.setText(rv0);
+                    found = false;
+                    // Receiving Plaintext from database
+                    for (int i = 0; i < db.hashDao().gethash().size(); i++){
+                        if (etdec.getText().toString().matches(db.hashDao().gethash().get(i).hashValue)) {
+                            String data = db.hashDao().gethash().get(i).hashTxt;
+                            dectv.setText(data);
+//                            Toast.makeText(DecryptText.this, "Plaintext found!", Toast.LENGTH_SHORT).show();
+                            found = true;
+                            break;
+                        }
+                    }
+                    if (!found) {
+                        dectv.setText("");
+                        Toast.makeText(DecryptText.this, "Plaintext NOT found!", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });

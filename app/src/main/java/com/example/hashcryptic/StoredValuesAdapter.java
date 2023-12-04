@@ -103,7 +103,7 @@ class HashLT extends RecyclerView.ViewHolder{
         });
     }
 
-    // Function to run Dao DELETE command for the specific item selected from the wishlist
+    // Function to run Dao DELETE command for the specific item selected from the hash list
     public void removeItemList(int position) {
         // Calling Database
         HashDatabase db = HashDatabase.getDbInstance(this.context);

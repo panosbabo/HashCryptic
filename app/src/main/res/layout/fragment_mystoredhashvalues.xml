@@ -18,7 +18,7 @@
 
     <TextView
         android:id="@+id/hashlist_titleview"
-        android:layout_width="89dp"
+        android:layout_width="160dp"
         android:layout_height="22dp"
         android:text="My Stored Hash Values"
         android:textSize="15sp"

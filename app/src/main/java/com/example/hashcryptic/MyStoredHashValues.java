@@ -55,7 +55,7 @@ public class MyStoredHashValues extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment WishList.
+     * @return A new instance of fragment Hash List.
      */
     // TODO: Rename and change types and number of parameters
     public static MyStoredHashValues newInstance(String param1, String param2) {
@@ -100,14 +100,14 @@ public class MyStoredHashValues extends Fragment {
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
         recyclerView.addItemDecoration(dividerItemDecoration);
 
-        // Setting the adapter to WishListAdapter
+        // Setting the adapter to Hash List Adapter
         hashListAdapter = new StoredValuesAdapter(getContext());
         recyclerView.setAdapter(hashListAdapter);
 
-        // Loading all items in the WishList
+        // Loading all items in the Hash List
         loadHashList();
 
-        // Creating a descent textview for the wish list page title
+        // Creating a descent textview for the hash list page title
         TextView titleview = new TextView(getContext());
         titleview = view.findViewById(R.id.hashlist_titleview);
         titleview.setTypeface(Typeface.DEFAULT_BOLD);
