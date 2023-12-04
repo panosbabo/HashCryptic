@@ -132,7 +132,7 @@ public class Checksum extends AppCompatActivity implements AdapterView.OnItemSel
 
                 if (globchksum != null) {
                     enctv.setText(globchksum);
-                    Toast.makeText(this, "Checksum: " + globchksum, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Checksum Generated Successfully", Toast.LENGTH_SHORT).show();
                 } else {
                     globchksum = "Failed Checksum";
                     enctv.setText(globchksum);
