@@ -101,7 +101,7 @@ public class Checksum extends AppCompatActivity implements AdapterView.OnItemSel
                         globchksum = calculateChecksum(selectedFileUri, "MD5");
                         break;
                     case 1:
-                        // Calculate checksum for SHA-256
+                        // Calculate checksum for SHA-1
                         globchksum = calculateChecksum(selectedFileUri, "SHA-1");
                         break;
                     case 2:
@@ -109,7 +109,7 @@ public class Checksum extends AppCompatActivity implements AdapterView.OnItemSel
                         globchksum = calculateChecksum(selectedFileUri, "SHA-256");
                         break;
                     case 3:
-                        // Calculate checksum for SHA-256
+                        // Calculate checksum for SHA-512
                         globchksum = calculateChecksum(selectedFileUri, "SHA-512");
                         break;
                 }
