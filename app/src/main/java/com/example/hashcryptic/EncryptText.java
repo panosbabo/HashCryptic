@@ -18,7 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.example.hashcryptic.db.Hash;
 import com.example.hashcryptic.db.HashDatabase;
-import com.example.hashcryptic.hashtypes.*;
+import com.example.hashcryptic.hashencryption.*;
 
 public class EncryptText extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
@@ -94,25 +94,25 @@ public class EncryptText extends AppCompatActivity implements AdapterView.OnItem
                     switch (pos) {
                         case 0:
                             globtype = "MD5";
-                            globhashvalu = enc_MD5.encryptMD5(temp);
+                            globhashvalu = encryptHash.encrypt2Hash(temp, globtype);
                             globhashtxt = temp;
                             enctv.setText(globhashvalu);
                             break;
                         case 1:
                             globtype = "SHA-1";
-                            globhashvalu = enc_SHA1.encryptSHA1(temp);
+                            globhashvalu = encryptHash.encrypt2Hash(temp, globtype);
                             globhashtxt = temp;
                             enctv.setText(globhashvalu);
                             break;
                         case 2:
                             globtype = "SHA-256";
-                            globhashvalu = enc_SHA256.encryptSHA256(temp);
+                            globhashvalu = encryptHash.encrypt2Hash(temp, globtype);
                             globhashtxt = temp;
                             enctv.setText(globhashvalu);
                             break;
                         case 3:
                             globtype = "SHA-512";
-                            globhashvalu = enc_SHA512.encryptSHA512(temp);
+                            globhashvalu = encryptHash.encrypt2Hash(temp, globtype);
                             globhashtxt = temp;
                             enctv.setText(globhashvalu);
                             break;

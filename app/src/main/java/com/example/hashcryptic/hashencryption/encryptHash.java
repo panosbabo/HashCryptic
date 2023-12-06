@@ -1,16 +1,18 @@
-package com.example.hashcryptic.hashtypes;
+package com.example.hashcryptic.hashencryption;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-public class enc_MD5 {
-    public static String encryptMD5(String text) {
+// class to be used for all provided Hash Encryption types
+public class encryptHash {
+    public static String encrypt2Hash(String text, String hashtype) {
         try {
-            MessageDigest md = MessageDigest.getInstance("MD5");
+            // Encryption type is chosen by the parameter String hashtype
+            MessageDigest md = MessageDigest.getInstance(hashtype);
             md.update(text.getBytes());
             byte[] digest = md.digest();
             StringBuilder sb = new StringBuilder();
-
+            // Every byte of message digest is handled accordingly for encryption process to chosen hash type
             for (byte b : digest) {
                 sb.append(String.format("%02x", b & 0xff));
             }
