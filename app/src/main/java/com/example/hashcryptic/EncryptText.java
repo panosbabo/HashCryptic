@@ -89,7 +89,7 @@ public class EncryptText extends AppCompatActivity implements AdapterView.OnItem
                 else {
                     String temp = etenc.getText().toString();
 
-                    // pass the string to the encryption
+                    // pass the string to the encryption along with each encryption type
                     // algorithm and get the encrypted code
                     switch (pos) {
                         case 0:

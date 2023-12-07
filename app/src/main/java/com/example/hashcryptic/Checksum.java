@@ -155,6 +155,7 @@ public class Checksum extends AppCompatActivity implements AdapterView.OnItemSel
 
     public String calculateChecksum(Uri uri, String hashtype) {
         try {
+            // Message digest use to determine which hash type will the file generated to
             String checksumHex = "";
             InputStream inputStream = getContentResolver().openInputStream(uri);
             MessageDigest digest = MessageDigest.getInstance(hashtype);
@@ -164,7 +165,7 @@ public class Checksum extends AppCompatActivity implements AdapterView.OnItemSel
             while ((bytesRead = inputStream.read(buffer)) != -1) {
                 digest.update(buffer, 0, bytesRead);
             }
-
+            // Similarly with encryptHash class for each byte of checksum
             ((InputStream) inputStream).close();
             byte[] checksum = digest.digest();
 
@@ -177,7 +178,6 @@ public class Checksum extends AppCompatActivity implements AdapterView.OnItemSel
 
             return checksumHex;
 
-            // Do something with the checksumHex
         } catch (Exception e) {
             e.printStackTrace();
         }
