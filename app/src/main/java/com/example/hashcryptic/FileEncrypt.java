@@ -1,7 +1,6 @@
 package com.example.hashcryptic;
 
-import static com.example.hashcryptic.hashencryption.fileEncryption.encryptFile;
-
+import static com.example.hashcryptic.hashencryption.fileEncryption.saveFile;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -9,6 +8,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -52,7 +52,6 @@ public class FileEncrypt extends AppCompatActivity implements AdapterView.OnItem
     private static final String[] paths = {"AES 128", "AES 192", "AES 256"};
     private int pos;
     private EditText keyText_view;
-    ClipboardManager cpb;
 
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -93,47 +92,116 @@ public class FileEncrypt extends AppCompatActivity implements AdapterView.OnItem
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
+        Handler handler = new Handler();
         if (requestCode == PICK_FILE_REQUEST && resultCode == RESULT_OK) {
             if (data != null) {
                 Uri selectedFileUri = data.getData();
                 assert selectedFileUri != null;
                 String filePath = selectedFileUri.getPath(); // Get the file path from URI
                 String password = keyText_view.getText().toString();
-
+//                Toast.makeText(this, "Your key is: \""+ password +"\"" , Toast.LENGTH_SHORT).show();
                 switch (pos) {
                     case 0:
-                        try {
-                            fileEncryption.encryptFile(selectedFileUri.toString(), password, 128);
-                            System.out.println("File encrypted successfully");
-                            Toast.makeText(this, "File Encrypted Successfully", Toast.LENGTH_SHORT).show();
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                            System.out.println("Error while encrypting the file");
-                            Toast.makeText(this, "Failed to encrypt file", Toast.LENGTH_SHORT).show();
-                        }
+                        Runnable runnable = new Runnable() {
+                            @Override
+                            public void run() {
+                                // Code to be executed
+                                try {
+                                    SecretKey my_key = fileEncryption.generateSecretKey(128);
+                                    byte[] readData = fileEncryption.readFile(filePath);
+                                    byte[] encryptedData = fileEncryption.encrypt(my_key, readData);
+                                    saveFile(encryptedData, filePath + ".encrypted");
+                                    System.out.println("File encrypted successfully");
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            // UI-related code
+                                            Toast.makeText(FileEncrypt.this, "File Encrypted Successfully", Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                    System.out.println("Error while encrypting the file");
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            // UI-related code
+                                            Toast.makeText(FileEncrypt.this, "Failed to encrypt file", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(FileEncrypt.this, "Exception: " + e, Toast.LENGTH_LONG).show();
+                                        }
+                                    });
+                                }
+                            }
+                        };
+                        handler.post(runnable);
                         break;
                     case 1:
-                        try {
-                            fileEncryption.encryptFile(selectedFileUri.toString(), password, 192);
-                            System.out.println("File encrypted successfully");
-                            Toast.makeText(this, "File Encrypted Successfully", Toast.LENGTH_SHORT).show();
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                            System.out.println("Error while encrypting the file");
-                            Toast.makeText(this, "Failed to encrypt file", Toast.LENGTH_SHORT).show();
-                        }
+                        runnable = new Runnable() {
+                            @Override
+                            public void run() {
+                                // Code to be executed
+                                try {
+                                    SecretKey my_key = fileEncryption.generateSecretKey(192);
+                                    byte[] readData = fileEncryption.readFile(filePath);
+                                    byte[] encryptedData = fileEncryption.encrypt(my_key, readData);
+                                    saveFile(encryptedData, filePath + ".encrypted");
+                                    System.out.println("File encrypted successfully");
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            // UI-related code
+                                            Toast.makeText(FileEncrypt.this, "File Encrypted Successfully", Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                    System.out.println("Error while encrypting the file");
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            // UI-related code
+                                            Toast.makeText(FileEncrypt.this, "Failed to encrypt file", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(FileEncrypt.this, "Exception: " + e, Toast.LENGTH_LONG).show();
+                                        }
+                                    });
+                                }
+                            }
+                        };
+                        handler.post(runnable);
                         break;
                     case 2:
-                        try {
-                            fileEncryption.encryptFile(selectedFileUri.toString(), password, 256);
-                            System.out.println("File encrypted successfully");
-                            Toast.makeText(this, "File Encrypted Successfully", Toast.LENGTH_SHORT).show();
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                            System.out.println("Error while encrypting the file");
-                            Toast.makeText(this, "Failed to encrypt file", Toast.LENGTH_SHORT).show();
-                        }
+                        runnable = new Runnable() {
+                            @Override
+                            public void run() {
+                                // Code to be executed
+                                try {
+                                    SecretKey my_key = fileEncryption.generateSecretKey(256);
+                                    byte[] readData = fileEncryption.readFile(filePath);
+                                    byte[] encryptedData = fileEncryption.encrypt(my_key, readData);
+                                    saveFile(encryptedData, filePath + ".encrypted");
+                                    System.out.println("File encrypted successfully");
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            // UI-related code
+                                            Toast.makeText(FileEncrypt.this, "File Encrypted Successfully", Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                    System.out.println("Error while encrypting the file");
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            // UI-related code
+                                            Toast.makeText(FileEncrypt.this, "Failed to encrypt file", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(FileEncrypt.this, "Exception: " + e, Toast.LENGTH_LONG).show();
+                                        }
+                                    });
+                                }
+                            }
+                        };
+                        handler.post(runnable);
                         break;
                 }
             }

@@ -1,87 +1,62 @@
 package com.example.hashcryptic.hashencryption;
 
+import android.annotation.SuppressLint;
 import javax.crypto.Cipher;
-import javax.crypto.CipherOutputStream;
-import javax.crypto.NoSuchPaddingException;
+import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
-import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.IvParameterSpec;
-import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.SecretKeySpec;
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.security.AlgorithmParameters;
-import java.security.InvalidAlgorithmParameterException;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
-import java.security.spec.InvalidKeySpecException;
-import java.security.spec.InvalidParameterSpecException;
-import java.security.spec.KeySpec;
 
 public class fileEncryption {
-    private static final String TRANSFORMATION = "AES/CBC/PKCS5Padding";
-    private static final String SECRET_KEY_FACTORY_ALGORITHM = "PBKDF2WithHmacSHA1";
-    private static final String KEY_SPEC_ALGORITHM = "AES";
-    private static final int ITERATION_COUNT = 65536;
-    private static final int SALT_LENGTH = 16;
-
-    public static void encryptFile(String filePath, String password, int keySize) throws NoSuchAlgorithmException, InvalidKeySpecException, NoSuchPaddingException,
-            InvalidAlgorithmParameterException, InvalidKeyException, IOException {
-        File inputFile = new File(filePath);
-        File encryptedFile = new File(filePath + ".encrypted");
-
-        FileInputStream fileInputStream = new FileInputStream(inputFile);
-        FileOutputStream fileOutputStream = new FileOutputStream(encryptedFile);
-
-        byte[] salt = generateSalt();
-        SecretKey secretKey = generateSecretKey(password, salt, keySize);
-        byte[] iv = generateInitializationVector();
-
-        fileOutputStream.write(salt);
-        fileOutputStream.write(iv);
-
-        Cipher cipher = Cipher.getInstance(TRANSFORMATION);
-        cipher.init(Cipher.ENCRYPT_MODE, secretKey, new IvParameterSpec(iv));
-        CipherOutputStream cipherOutputStream = new CipherOutputStream(fileOutputStream, cipher);
-
-        byte[] buffer = new byte[4096];
-        int bytesRead;
-        while ((bytesRead = fileInputStream.read(buffer)) != -1) {
-            cipherOutputStream.write(buffer, 0, bytesRead);
+    public static SecretKey generateSecretKey(int keySize) throws Exception {
+        SecureRandom secureRandom = new SecureRandom();
+        KeyGenerator keyGenerator = KeyGenerator.getInstance("AES");
+        // generate a key with a secure random
+        keyGenerator.init(keySize, secureRandom);
+        return keyGenerator.generateKey();
+    }
+    public static byte[] readFile(String filePath) throws IOException {
+        try {
+            File file = new File(filePath);
+            // TODO: Resolve issue where NoSuchFile exception is received
+            FileInputStream fis = new FileInputStream(file);
+            // TODO: End
+            byte[] fileBytes = new byte[(int) file.length()];
+            fis.read(fileBytes);
+            fis.close();
+            return fileBytes;
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Handle the exception as needed
+            return null;
         }
-
-        cipherOutputStream.flush();
-        cipherOutputStream.close();
-        fileInputStream.close();
-        fileOutputStream.close();
-
-//        inputFile.delete();
     }
 
-    private static byte[] generateSalt() {
-        byte[] salt = new byte[SALT_LENGTH];
-        SecureRandom secureRandom = new SecureRandom();
-        secureRandom.nextBytes(salt);
+//    public String saveSecretKey(SharedPreferences sharedPref, SecretKey secretKey) {
+//        String encodedKey = Base64.encodeToString(secretKey.getEncoded(), Base64.NO_WRAP);
+//        sharedPref.edit().putString(AppConstants.secretKeyPref, encodedKey).apply();
+//        return encodedKey;
+//    }
 
-        return salt;
+    public static void saveFile(byte[] fileData, String path) throws Exception {
+        File file = new File(path);
+        BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(file, false));
+        bos.write(fileData);
+        bos.flush();
+        bos.close();
     }
 
-    private static SecretKey generateSecretKey(String password, byte[] salt, int key_size) throws NoSuchAlgorithmException, InvalidKeySpecException {
-        SecretKeyFactory factory = SecretKeyFactory.getInstance(SECRET_KEY_FACTORY_ALGORITHM);
-        KeySpec spec = new PBEKeySpec(password.toCharArray(), salt, ITERATION_COUNT, key_size);
-        SecretKey secretKey = new SecretKeySpec(factory.generateSecret(spec).getEncoded(), KEY_SPEC_ALGORITHM);
-
-        return secretKey;
-    }
-
-    private static byte[] generateInitializationVector() {
-        byte[] iv = new byte[16];
-        SecureRandom secureRandom = new SecureRandom();
-        secureRandom.nextBytes(iv);
-
-        return iv;
+    public static byte[] encrypt(SecretKey yourKey, byte[] fileData) throws Exception {
+        byte[] data = yourKey.getEncoded();
+        SecretKeySpec skeySpec = new SecretKeySpec(data, 0, data.length, "AES");
+        @SuppressLint({"GetInstance", "DeprecatedProvider"}) Cipher cipher = Cipher.getInstance("AES", "BC");
+        cipher.init(Cipher.ENCRYPT_MODE, skeySpec, new IvParameterSpec(new byte[cipher.getBlockSize()]));
+        return cipher.doFinal(fileData);
     }
 }
