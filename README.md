@@ -29,16 +29,16 @@ Setup your profile to give a personal touch
 <br><br>
 <p align="center">
   <img src="Screenshots/2.png" width=250></img>
-  <img src="Screenshots/3.png" width=250></img>
   <img src="Screenshots/4.png" width=250></img>
+  <img src="Screenshots/5.png" width=250></img>
 </p>
 <br>
-Encrypt any text in different encryption algorithms
+Encrypt and decrypt any text in different encryption algorithms
 <br><br>
 <p align="center">
-  <img src="Screenshots/5.png" width=250></img>
   <img src="Screenshots/6.png" width=250></img>
   <img src="Screenshots/7.png" width=250></img>
+  <img src="Screenshots/12.png" width=250></img>
 </p>
 <br>
 View and manage all stored hash values
