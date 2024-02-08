@@ -82,13 +82,26 @@
 
     <Button
         android:id="@+id/store_hash"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="72dp"
+        android:layout_width="131dp"
+        android:layout_height="54dp"
+        android:layout_marginTop="68dp"
         android:text="Store Hash Value"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.252"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buttonEncrypt" />
+
+    <Button
+        android:id="@+id/share_hash"
+        android:layout_width="112dp"
+        android:layout_height="49dp"
+        android:text="Share to"
+        app:layout_constraintBottom_toTopOf="@+id/encr_msg_title"
+        app:layout_constraintEnd_toEndOf="@+id/encryptTitle"
+        app:layout_constraintHorizontal_bias="0.138"
+        app:layout_constraintStart_toEndOf="@+id/store_hash"
+        app:layout_constraintTop_toBottomOf="@+id/buttonEncrypt"
+        app:layout_constraintVertical_bias="0.693" />
 
     <TextView
         android:id="@+id/encryptOption"

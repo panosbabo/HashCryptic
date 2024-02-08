@@ -7,6 +7,7 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteConstraintException;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -19,6 +20,8 @@ import android.widget.Toast;
 import com.example.hashcryptic.db.Hash;
 import com.example.hashcryptic.db.HashDatabase;
 import com.example.hashcryptic.hashencryption.*;
+
+import java.io.File;
 
 public class EncryptText extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
@@ -42,6 +45,7 @@ public class EncryptText extends AppCompatActivity implements AdapterView.OnItem
         Button encrpt_btn = findViewById(R.id.buttonEncrypt);
         Button copy_btn = findViewById(R.id.copyencr_txt);
         Button store_btn = findViewById(R.id.store_hash);
+        Button share_btn = findViewById(R.id.share_hash);
 
         Spinner spinner = (Spinner) findViewById(R.id.spinner);
         ArrayAdapter<String>adapter = new ArrayAdapter<String>(EncryptText.this,
@@ -57,6 +61,29 @@ public class EncryptText extends AppCompatActivity implements AdapterView.OnItem
 
         // create a clipboard manager variable to copy text
         cpb = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+
+
+        share_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                // copy the text in the clip board
+                String data = enctv.getText().toString().trim();
+                ClipData temp = ClipData.newPlainText("text", data);
+                cpb.setPrimaryClip(temp);
+
+                // Passing hash value to new share to intent
+                Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                shareIntent.setType("text/plain");
+                shareIntent.putExtra(Intent.EXTRA_TEXT, data);
+                startActivity(Intent.createChooser(shareIntent, "Share to:"));
+
+                // display message for Choose share to option
+                Toast.makeText(EncryptText.this, "Choose share to option", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
 
         // onClick function of copy text button
         copy_btn.setOnClickListener(new View.OnClickListener() {

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.hashcryptic.db.Hash;
 import com.example.hashcryptic.db.HashDatabase;
@@ -98,6 +100,26 @@ class HashLT extends RecyclerView.ViewHolder{
 
             Toast.makeText(v.getContext(), "Your hash has been deleted", Toast.LENGTH_SHORT).show();
         });
+
+        Button share_to = itemView.findViewById(R.id.shareto_item_btn);
+
+        share_to.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view){
+                // Passing hash value to clipboard
+                clipboardcopyApadter(myhashValue.getText().toString());
+
+                // Passing hash value to new share to intent
+                Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                shareIntent.setType("text/plain");
+                shareIntent.putExtra(Intent.EXTRA_TEXT, myhashValue.getText().toString());
+                itemView.getContext().startActivity(Intent.createChooser(shareIntent, "Share to:"));
+
+                // display message for Choose share to option
+                Toast.makeText(itemView.getContext(), "Choose share to option", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     // Function to run Dao DELETE command for the specific item selected from the hash list
@@ -109,6 +131,21 @@ class HashLT extends RecyclerView.ViewHolder{
         db.hashDao().delete(adapter.hashesListItems.get(position));
     }
 
+    private void shareData(String data) {
+//        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+//        shareIntent.setType("text/plain");
+//        shareIntent.putExtra(Intent.EXTRA_TEXT, data);
+//        context.startActivity(Intent.createChooser(shareIntent, "Share via"));
+
+//        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+//        shareIntent.setType("text/plain");
+//        shareIntent.putExtra(Intent.EXTRA_TEXT, data);
+//        getActivity().startActivity(Intent.createChooser(shareIntent, "Share via"));
+
+//        AppCompatActivity activity = (AppCompatActivity) context;
+//        activity.startActivity(Intent.createChooser(shareIntent, "Share via"));
+    }
+
     // Adapter initialization
     public HashLT linkAdapter(StoredValuesAdapter adapter){
         this.adapter = adapter;
@@ -116,9 +153,11 @@ class HashLT extends RecyclerView.ViewHolder{
     }
 
     // Function to be used for clipboard in the adapter
-    public void clipboardcopyApadter(String dat) {
+    public String clipboardcopyApadter(String dat) {
         ClipboardManager clipboardManager = (ClipboardManager) itemView.getContext().getSystemService(Context.CLIPBOARD_SERVICE);
         ClipData clipData = ClipData.newPlainText("text", dat);
         clipboardManager.setPrimaryClip(clipData);
+
+        return clipData.toString();
     }
 }
