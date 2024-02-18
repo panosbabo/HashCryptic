@@ -16,6 +16,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.hashcryptic.db.Hash;
 import com.example.hashcryptic.db.HashDatabase;
+import com.example.hashcryptic.hashencryption.encryptHash;
+
+import java.util.Enumeration;
 import java.util.List;
 
 public class StoredValuesAdapter extends RecyclerView.Adapter<HashLT> {
@@ -118,6 +121,27 @@ class HashLT extends RecyclerView.ViewHolder{
 
                 // display message for Choose share to option
                 Toast.makeText(itemView.getContext(), "Choose share to option", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        Button qr_code = itemView.findViewById(R.id.qrcode_btn);
+
+        qr_code.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view){
+
+                // Passing hash value to QR Code Generator
+//                String hash_to_qr = myhashValue.getText().toString();
+
+                // Passing hash value to new share to intent
+                Intent shareIntent = new Intent(itemView.getContext(), QRCode_Gen.class);
+                shareIntent.setType("text/plain");
+                shareIntent.putExtra("hashvalue", myhashValue.getText().toString());
+                itemView.getContext().startActivity(shareIntent);
+//                Intent intent = new Intent(itemView.getContext(), EncryptPage.class);
+//                intent.putExtra("selectedItem", hash_to_qr);
+//                context.startActivity(intent);
             }
         });
     }
