@@ -32,9 +32,7 @@ public class QRCode_Gen extends AppCompatActivity {
         setContentView(R.layout.activity_qrcode_gen);
 
         ImageView imageView = findViewById(R.id.qrcode_image);
-
         hashtv = findViewById(R.id.hash_txt_view);
-
 
         int width = 800;
         int height = 800;
