@@ -25,7 +25,7 @@ import java.io.File;
 
 public class EncryptText extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
-    private static final String[] paths = {"MD5", "SHA-1", "SHA-256", "SHA-512"};
+    private static final String[] paths = {"MD5", "SHA-1", "SHA-224", "SHA-256", "SHA-384", "SHA-512"};
     private String globhashvalu, globhashtxt, globtype;
     private EditText etenc;
     private TextView enctv;
@@ -67,19 +67,24 @@ public class EncryptText extends AppCompatActivity implements AdapterView.OnItem
             @Override
             public void onClick(View view) {
 
-                // copy the text in the clip board
-                String data = enctv.getText().toString().trim();
-                ClipData temp = ClipData.newPlainText("text", data);
-                cpb.setPrimaryClip(temp);
+                if (etenc.getText().toString().isEmpty()) {
+                    Toast.makeText(EncryptText.this, "Please enter text to encrypt", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    // copy the text in the clip board
+                    String data = enctv.getText().toString().trim();
+                    ClipData temp = ClipData.newPlainText("text", data);
+                    cpb.setPrimaryClip(temp);
 
-                // Passing hash value to new share to intent
-                Intent shareIntent = new Intent(Intent.ACTION_SEND);
-                shareIntent.setType("text/plain");
-                shareIntent.putExtra(Intent.EXTRA_TEXT, data);
-                startActivity(Intent.createChooser(shareIntent, "Share to:"));
+                    // Passing hash value to new share to intent
+                    Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                    shareIntent.setType("text/plain");
+                    shareIntent.putExtra(Intent.EXTRA_TEXT, data);
+                    startActivity(Intent.createChooser(shareIntent, "Share to:"));
 
-                // display message for Choose share to option
-                Toast.makeText(EncryptText.this, "Choose share to option", Toast.LENGTH_SHORT).show();
+                    // display message for Choose share to option
+                    Toast.makeText(EncryptText.this, "Choose share to option", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -89,18 +94,24 @@ public class EncryptText extends AppCompatActivity implements AdapterView.OnItem
         copy_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // get the string from the textview and trim all spaces
-                String data = enctv.getText().toString().trim();
 
-                // check if the textview is not empty
-                if (!data.isEmpty()) {
+                if (etenc.getText().toString().isEmpty()) {
+                    Toast.makeText(EncryptText.this, "Please enter text to encrypt", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    // get the string from the textview and trim all spaces
+                    String data = enctv.getText().toString().trim();
 
-                    // copy the text in the clip board
-                    ClipData temp = ClipData.newPlainText("text", data);
-                    cpb.setPrimaryClip(temp);
+                    // check if the textview is not empty
+                    if (!data.isEmpty()) {
 
-                    // display message that the text has been copied
-                    Toast.makeText(EncryptText.this, "Hash Value Copied", Toast.LENGTH_SHORT).show();
+                        // copy the text in the clip board
+                        ClipData temp = ClipData.newPlainText("text", data);
+                        cpb.setPrimaryClip(temp);
+
+                        // display message that the text has been copied
+                        Toast.makeText(EncryptText.this, "Hash Value Copied", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
@@ -132,12 +143,24 @@ public class EncryptText extends AppCompatActivity implements AdapterView.OnItem
                             enctv.setText(globhashvalu);
                             break;
                         case 2:
-                            globtype = "SHA-256";
+                            globtype = "SHA-224";
                             globhashvalu = encryptHash.encrypt2Hash(temp, globtype);
                             globhashtxt = temp;
                             enctv.setText(globhashvalu);
                             break;
                         case 3:
+                            globtype = "SHA-256";
+                            globhashvalu = encryptHash.encrypt2Hash(temp, globtype);
+                            globhashtxt = temp;
+                            enctv.setText(globhashvalu);
+                            break;
+                        case 4:
+                            globtype = "SHA-384";
+                            globhashvalu = encryptHash.encrypt2Hash(temp, globtype);
+                            globhashtxt = temp;
+                            enctv.setText(globhashvalu);
+                            break;
+                        case 5:
                             globtype = "SHA-512";
                             globhashvalu = encryptHash.encrypt2Hash(temp, globtype);
                             globhashtxt = temp;
@@ -205,6 +228,12 @@ public class EncryptText extends AppCompatActivity implements AdapterView.OnItem
                 break;
             case 3:
                 pos = 3;
+                break;
+            case 4:
+                pos = 4;
+                break;
+            case 5:
+                pos = 5;
                 break;
         }
     }

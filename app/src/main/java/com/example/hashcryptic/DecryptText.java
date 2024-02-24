@@ -46,18 +46,23 @@ public class DecryptText extends AppCompatActivity {
         copy_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // get the string from the textview and trim all spaces
-                String data = dectv.getText().toString().trim();
+                if (dectv.getText().toString().isEmpty()) {
+                    Toast.makeText(DecryptText.this, "Please enter hash to decrypt", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    // get the string from the textview and trim all spaces
+                    String data = dectv.getText().toString().trim();
 
-                // check if the textview is not empty
-                if (!data.isEmpty()) {
+                    // check if the textview is not empty
+                    if (!data.isEmpty()) {
 
-                    // copy the text in the clip board
-                    ClipData temp = ClipData.newPlainText("text", data);
-                    cpb.setPrimaryClip(temp);
+                        // copy the text in the clip board
+                        ClipData temp = ClipData.newPlainText("text", data);
+                        cpb.setPrimaryClip(temp);
 
-                    // display message that the text has been copied
-                    Toast.makeText(DecryptText.this, "Text Copied", Toast.LENGTH_SHORT).show();
+                        // display message that the text has been copied
+                        Toast.makeText(DecryptText.this, "Text Copied", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
@@ -69,7 +74,7 @@ public class DecryptText extends AppCompatActivity {
                 // Intent function to move to another activity
                 // get text from edittext
                 if (etdec.getText().toString().isEmpty()) {
-                    Toast.makeText(DecryptText.this, "Please enter text to decrypt", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(DecryptText.this, "Please enter hash to decrypt", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 else {

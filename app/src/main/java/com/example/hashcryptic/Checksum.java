@@ -51,18 +51,24 @@ public class Checksum extends AppCompatActivity implements AdapterView.OnItemSel
         copy_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // get the string from the textview and trim all spaces
-                String data = enctv.getText().toString().trim();
+                if (enctv.getText().toString().isEmpty()) {
+                    Toast.makeText(Checksum.this, "Please choose file to\n generate checksum", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                else {
+                    // get the string from the textview and trim all spaces
+                    String data = enctv.getText().toString().trim();
 
-                // check if the textview is not empty
-                if (!data.isEmpty()) {
+                    // check if the textview is not empty
+                    if (!data.isEmpty()) {
 
-                    // copy the text in the clip board
-                    ClipData temp = ClipData.newPlainText("text", data);
-                    cpb.setPrimaryClip(temp);
+                        // copy the text in the clip board
+                        ClipData temp = ClipData.newPlainText("text", data);
+                        cpb.setPrimaryClip(temp);
 
-                    // display message that the text has been copied
-                    Toast.makeText(Checksum.this, "Checksum Copied", Toast.LENGTH_SHORT).show();
+                        // display message that the text has been copied
+                        Toast.makeText(Checksum.this, "Checksum Copied", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
