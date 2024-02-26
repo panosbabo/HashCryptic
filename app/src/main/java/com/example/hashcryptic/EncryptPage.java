@@ -54,6 +54,7 @@ public class EncryptPage extends Fragment {
         Button decryptButton;
         Button checksumButton;
         Button encrFileButton;
+        Button ciphersList;
 
         // Inflate the layout for this fragment
         View encryptView = inflater.inflate(R.layout.fragment_encrypt_decrypt, container, false);
@@ -61,12 +62,26 @@ public class EncryptPage extends Fragment {
         decryptButton = encryptView.findViewById(R.id.decryptBtn);
         checksumButton = encryptView.findViewById(R.id.chksumBtn);
         encrFileButton = encryptView.findViewById(R.id.encryptFileBtn);
+        ciphersList = encryptView.findViewById(R.id.ciphersBtn);
 
-        // Button function listener for the Profile Editing page activity
+        // Button function listener for the ciphers list page
+        ciphersList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Creating an Intent for the next fragment of the ciphers list page
+                // Fragment transaction to bring my stored hash values on screen
+                Ciphers ciphers_list = new Ciphers();
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.frame_layout, ciphers_list)
+                        .commit();
+            }
+        });
+
+        // Button function listener for the Encrypt Text page activity
         encryptButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Creating an Intent for the next activity of the profile editing page
+                // Creating an Intent for the next activity of the encrypt text page
                 Intent intent = new Intent(EncryptPage.super.getContext(), EncryptText.class);
                 startActivity(intent);
             }
@@ -75,7 +90,7 @@ public class EncryptPage extends Fragment {
         decryptButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Creating an Intent for the next activity of the profile editing page
+                // Creating an Intent for the next activity of the decrypt text page
                 Intent intent = new Intent(EncryptPage.super.getContext(), DecryptText.class);
                 startActivity(intent);
             }
@@ -84,7 +99,7 @@ public class EncryptPage extends Fragment {
         checksumButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Creating an Intent for the next activity of the profile editing page
+                // Creating an Intent for the next activity of the checksum files page
                 Intent intent = new Intent(EncryptPage.super.getContext(), Checksum.class);
                 startActivity(intent);
             }
@@ -93,7 +108,7 @@ public class EncryptPage extends Fragment {
         encrFileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Creating an Intent for the next activity of the profile editing page
+                // Creating an Intent for the next activity of the file encryption page
                 Intent intent = new Intent(EncryptPage.super.getContext(), FileEncrypt.class);
                 startActivity(intent);
             }
