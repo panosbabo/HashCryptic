@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.hashcryptic.ciphers.Caesar;
+import com.example.hashcryptic.ciphers.Vigenere;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -76,7 +77,7 @@ public class Ciphers extends Fragment {
             @Override
             public void onClick(View view) {
                 // Creating an Intent for the next activity of the profile editing page
-                Intent intent = new Intent(Ciphers.super.getContext(), DecryptText.class);
+                Intent intent = new Intent(Ciphers.super.getContext(), Vigenere.class);
                 startActivity(intent);
             }
         });

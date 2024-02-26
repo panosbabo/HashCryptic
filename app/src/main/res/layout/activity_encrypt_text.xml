@@ -59,8 +59,8 @@
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/encrpt_editText"
-        android:layout_width="254dp"
-        android:layout_height="71dp"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
         android:hint="enter text to encrypt"
         android:textAlignment="center"
         app:layout_constraintBottom_toTopOf="@+id/buttonEncrypt"

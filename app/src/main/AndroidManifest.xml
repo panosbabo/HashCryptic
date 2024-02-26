@@ -17,6 +17,9 @@
         android:theme="@style/Theme.HashCryptic"
         tools:targetApi="31">
         <activity
+            android:name=".ciphers.Vigenere"
+            android:exported="false" />
+        <activity
             android:name=".ciphers.Caesar"
             android:exported="false" />
         <activity

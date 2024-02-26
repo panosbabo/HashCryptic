@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ciphers.Caesar">
+    tools:context=".ciphers.Vigenere">
 
 
     <TextView
-        android:id="@+id/caesar_title"
+        android:id="@+id/vigenere_title"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Caesar Cipher"
+        android:text="Vigenere Cipher"
         android:textAlignment="center"
         android:textColor="@color/darker_blue"
         android:textSize="20sp"
@@ -26,43 +26,43 @@
         android:id="@+id/textInputLayout_dec"
         android:layout_width="280dp"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/caesar_title"
+        app:layout_constraintBottom_toBottomOf="@+id/vigenere_title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.595"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/caesar_title"
+        app:layout_constraintTop_toTopOf="@+id/vigenere_title"
         app:layout_constraintVertical_bias="0.499">
 
     </com.google.android.material.textfield.TextInputLayout>
 
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/encrypt_Caesar_text"
+        android:id="@+id/encrypt_Vigenere_text"
         android:layout_width="250dp"
         android:layout_height="80dp"
         android:layout_marginBottom="40dp"
         android:hint="enter text to cipher"
         android:textAlignment="center"
-        app:layout_constraintBottom_toTopOf="@+id/caesarKey_size"
-        app:layout_constraintEnd_toEndOf="@+id/caesar_title"
+        app:layout_constraintBottom_toTopOf="@+id/vigenereKey_size"
+        app:layout_constraintEnd_toEndOf="@+id/vigenere_title"
         app:layout_constraintHorizontal_bias="0.493"
-        app:layout_constraintStart_toStartOf="@+id/caesar_title" />
+        app:layout_constraintStart_toStartOf="@+id/vigenere_title" />
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/caesarKey_size"
-        android:layout_width="100dp"
+        android:id="@+id/vigenereKey_size"
+        android:layout_width="250dp"
         android:layout_height="50dp"
         android:layout_marginBottom="52dp"
-        android:inputType="number"
+        android:inputType="text"
         android:hint="enter key"
         android:textAlignment="center"
-        app:layout_constraintBottom_toTopOf="@+id/encrCaesar"
+        app:layout_constraintBottom_toTopOf="@+id/encrVigenere"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.493"
-        app:layout_constraintStart_toStartOf="@+id/caesar_title" />
+        app:layout_constraintStart_toStartOf="@+id/vigenere_title" />
 
     <Button
-        android:id="@+id/encrCaesar"
+        android:id="@+id/encrVigenere"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
@@ -72,14 +72,14 @@
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout_dec" />
 
     <Button
-        android:id="@+id/decrCaesar"
+        android:id="@+id/decrVigenere"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:text="Decrypt Text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/encrCaesar" />
+        app:layout_constraintTop_toBottomOf="@+id/encrVigenere" />
 
     <TextView
         android:id="@+id/decr_msg_title"
@@ -92,7 +92,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/decrCaesar"
+        app:layout_constraintTop_toBottomOf="@+id/decrVigenere"
         app:layout_constraintVertical_bias="0.104" />
 
     <TextView
