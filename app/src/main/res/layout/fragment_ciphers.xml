@@ -44,6 +44,17 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.406" />
 
+        <Button
+            android:id="@+id/railFenceCiph_btn"
+            android:layout_width="155dp"
+            android:layout_height="wrap_content"
+            android:text="Rail Fence Cipher"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.533" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

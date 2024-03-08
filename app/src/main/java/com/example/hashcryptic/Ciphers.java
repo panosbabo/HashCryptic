@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.hashcryptic.ciphers.Caesar;
+import com.example.hashcryptic.ciphers.RailFence;
 import com.example.hashcryptic.ciphers.Vigenere;
 
 /**
@@ -57,11 +58,13 @@ public class Ciphers extends Fragment {
 
         Button caesarCiph;
         Button vigenereCiph;
+        Button railFenceCiph;
 
         // Inflate the layout for this fragment
         View cipherList = inflater.inflate(R.layout.fragment_ciphers, container, false);
         caesarCiph = cipherList.findViewById(R.id.caesarCiph_btn);
         vigenereCiph = cipherList.findViewById(R.id.vigenereCiph_btn);
+        railFenceCiph = cipherList.findViewById(R.id.railFenceCiph_btn);
 
         // Button function listener for the Profile Editing page activity
         caesarCiph.setOnClickListener(new View.OnClickListener() {
@@ -78,6 +81,15 @@ public class Ciphers extends Fragment {
             public void onClick(View view) {
                 // Creating an Intent for the next activity of the profile editing page
                 Intent intent = new Intent(Ciphers.super.getContext(), Vigenere.class);
+                startActivity(intent);
+            }
+        });
+
+        railFenceCiph.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Creating an Intent for the next activity of the profile editing page
+                Intent intent = new Intent(Ciphers.super.getContext(), RailFence.class);
                 startActivity(intent);
             }
         });
