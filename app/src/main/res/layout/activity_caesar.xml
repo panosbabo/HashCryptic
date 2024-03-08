@@ -41,7 +41,7 @@
         android:layout_width="250dp"
         android:layout_height="80dp"
         android:layout_marginBottom="40dp"
-        android:hint="enter text to cipher"
+        android:hint="enter text/cipher"
         android:textAlignment="center"
         app:layout_constraintBottom_toTopOf="@+id/caesarKey_size"
         app:layout_constraintEnd_toEndOf="@+id/caesar_title"

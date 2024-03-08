@@ -11,7 +11,7 @@
         android:id="@+id/vigenere_title"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Vigenere Cipher"
+        android:text="Vigenère Cipher"
         android:textAlignment="center"
         android:textColor="@color/darker_blue"
         android:textSize="20sp"
@@ -41,7 +41,7 @@
         android:layout_width="250dp"
         android:layout_height="80dp"
         android:layout_marginBottom="40dp"
-        android:hint="enter text to cipher"
+        android:hint="enter text/cipher"
         android:textAlignment="center"
         app:layout_constraintBottom_toTopOf="@+id/vigenereKey_size"
         app:layout_constraintEnd_toEndOf="@+id/vigenere_title"
@@ -96,7 +96,7 @@
         app:layout_constraintVertical_bias="0.104" />
 
     <TextView
-        android:id="@+id/msg_cntxt"
+        android:id="@+id/vgnr_msg_cntxt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"

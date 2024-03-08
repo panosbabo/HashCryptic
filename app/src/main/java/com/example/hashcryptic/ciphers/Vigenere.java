@@ -26,7 +26,7 @@ public class Vigenere extends AppCompatActivity {
 
         encrCaesar = findViewById(R.id.encrVigenere);
         decrCaesar = findViewById(R.id.decrVigenere);
-        message = findViewById(R.id.msg_cntxt);
+        message = findViewById(R.id.vgnr_msg_cntxt);
 
         // link the edittext and textview with its id
         encryText = findViewById(R.id.encrypt_Vigenere_text);
@@ -38,10 +38,16 @@ public class Vigenere extends AppCompatActivity {
             public void onClick(View view) {
                 if (encryText.getText().toString().isEmpty() || keySize.getText().toString().isEmpty()) {
                     Toast.makeText(Vigenere.this, "Please enter text and key to cipher", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (keySize.getText().toString().matches(".*\\d.*")) {
+                    Toast.makeText(Vigenere.this, "Please enter a non-numeric key", Toast.LENGTH_SHORT).show();
                 }
                 else {
                     // get the string from the textview and trim all spaces
-
+                    String key = keySize.getText().toString().trim();
+                    String encryptedText = vignrEncrypt(encryText.getText().toString().trim(), key);
+                    message.setText(encryptedText.toUpperCase());
                 }
             }
         });
@@ -54,12 +60,66 @@ public class Vigenere extends AppCompatActivity {
                 // get text from edittext
                 if (encryText.getText().toString().isEmpty() || keySize.getText().toString().isEmpty()) {
                     Toast.makeText(Vigenere.this, "Please enter cipher and key to decrypt", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (keySize.getText().toString().matches(".*\\d.*")) {
+                    Toast.makeText(Vigenere.this, "Please enter a non-numeric key", Toast.LENGTH_SHORT).show();
                 }
                 else {
                     // get the string from the textview and trim all spaces
-
+                    String key = keySize.getText().toString().trim();
+                    String decryptText = vignrDecrypt(encryText.getText().toString().trim(), key);
+                    message.setText(decryptText.toUpperCase());
                 }
             }
         });
+    }
+
+    // Private function for Vigenere Encryption
+    private String vignrEncrypt(String plaintext, String key) {
+        StringBuilder ciphertext = new StringBuilder();
+        int keyIndex = 0;
+        for (int i = 0; i < plaintext.length(); i++) {
+            char plainChar = plaintext.charAt(i);
+            if (Character.isLetter(plainChar)) {
+                char keyChar = key.charAt(keyIndex);
+                int shift = Character.toUpperCase(keyChar) - 'A';
+                char encryptedChar;
+                if (Character.isUpperCase(plainChar)) {
+                    encryptedChar = (char) ('A' + (plainChar - 'A' + shift) % 26);
+                } else {
+                    encryptedChar = (char) ('a' + (plainChar - 'a' + shift) % 26);
+                }
+                ciphertext.append(encryptedChar);
+                keyIndex = (keyIndex + 1) % key.length();
+            } else {
+                ciphertext.append(plainChar);
+            }
+        }
+        return ciphertext.toString();
+    }
+
+    // Private function for Vigenere Decryption
+    private String vignrDecrypt(String ciphertext, String key) {
+        StringBuilder plaintext = new StringBuilder();
+        int keyIndex = 0;
+        for (int i = 0; i < ciphertext.length(); i++) {
+            char cipherChar = ciphertext.charAt(i);
+            if (Character.isLetter(cipherChar)) {
+                char keyChar = key.charAt(keyIndex);
+                int shift = Character.toUpperCase(keyChar) - 'A';
+                char decryptedChar;
+                if (Character.isUpperCase(cipherChar)) {
+                    decryptedChar = (char) ('A' + (cipherChar - 'A' - shift + 26) % 26);
+                } else {
+                    decryptedChar = (char) ('a' + (cipherChar - 'a' - shift + 26) % 26);
+                }
+                plaintext.append(decryptedChar);
+                keyIndex = (keyIndex + 1) % key.length();
+            } else {
+                plaintext.append(cipherChar);
+            }
+        }
+        return plaintext.toString();
     }
 }
