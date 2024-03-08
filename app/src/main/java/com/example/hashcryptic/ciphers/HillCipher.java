@@ -66,11 +66,11 @@ public class HillCipher extends AppCompatActivity {
                     // Loop through the key and map it into a 2 by 2 array
                     for (int i = 0; i < 2; i++) {
                         for (int j = 0; j < 2; j++) {
-                            keyMatrix[i][j] = key.getText().toString().trim().codePointAt(keyIndex) % 65;
+                            keyMatrix[i][j] = (key.getText().toString().trim().toUpperCase()).codePointAt(keyIndex) % 65;
                             keyIndex++;
                         }
                     }
-                    String encryptedText = hillEncrypt(encryText.getText().toString().trim(), keyMatrix);
+                    String encryptedText = hillEncrypt((encryText.getText().toString().trim().toUpperCase()), keyMatrix);
                     message.setText(encryptedText.toUpperCase());
                 }
             }
@@ -101,11 +101,11 @@ public class HillCipher extends AppCompatActivity {
                     // Loop through the key and map it into a 2 by 2 array
                     for (int i = 0; i < 2; i++) {
                         for (int j = 0; j < 2; j++) {
-                            keyMatrix[i][j] = key.getText().toString().trim().codePointAt(keyIndex) % 65;
+                            keyMatrix[i][j] = (key.getText().toString().trim().toUpperCase()).codePointAt(keyIndex) % 65;
                             keyIndex++;
                         }
                     }
-                    String encryptedText = hillDecrypt(encryText.getText().toString().trim(), keyMatrix);
+                    String encryptedText = hillDecrypt((encryText.getText().toString().trim().toUpperCase()), keyMatrix);
                     message.setText(encryptedText.toUpperCase());
                 }
             }
