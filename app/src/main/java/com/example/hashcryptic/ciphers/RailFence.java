@@ -1,6 +1,9 @@
 package com.example.hashcryptic.ciphers;
 
 import android.annotation.SuppressLint;
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -12,6 +15,8 @@ import com.example.hashcryptic.R;
 
 public class RailFence extends AppCompatActivity {
 
+    ClipboardManager cpb;
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,17 +24,21 @@ public class RailFence extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rail_fence);
 
-        Button encrRailfence, decrRailfence;
+        Button encrRailfence, decrRailfence, copyResult;
         EditText encryText, rowSize;
         TextView message;
 
         encrRailfence = findViewById(R.id.encrRailFence);
         decrRailfence = findViewById(R.id.decrRailFence);
         message = findViewById(R.id.msg_cntxt);
+        copyResult = findViewById(R.id.copyRailFence);
 
         // link the edittext and textview with its id
         encryText = findViewById(R.id.encrypt_RailFence_text);
         rowSize = findViewById(R.id.railRow_size);
+
+        // create a clipboard manager variable to copy text
+        cpb = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
 
         // onClick function of encrypt text button
         encrRailfence.setOnClickListener(new View.OnClickListener() {
@@ -57,6 +66,31 @@ public class RailFence extends AppCompatActivity {
                     // get the string from the textview and trim all spaces
                     String enryptTextToCaesar = raildecrypt(encryText.getText().toString().trim(), Integer.parseInt(rowSize.getText().toString().trim()));
                     message.setText(enryptTextToCaesar.toUpperCase());
+                }
+            }
+        });
+
+        copyResult.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (message.getText().toString().isEmpty()) {
+                    Toast.makeText(RailFence.this, "Please enter text to encrypt/decrypt", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    // get the string from the textview and trim all spaces
+                    String data = message.getText().toString().trim();
+
+                    // check if the textview is not empty
+                    if (!data.isEmpty()) {
+
+                        // copy the text in the clip board
+                        ClipData temp = ClipData.newPlainText("text", data);
+                        cpb.setPrimaryClip(temp);
+
+                        // display message that the text has been copied
+                        Toast.makeText(RailFence.this, "Message Copied", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });

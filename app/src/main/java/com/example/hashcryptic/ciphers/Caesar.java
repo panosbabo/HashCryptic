@@ -1,6 +1,9 @@
 package com.example.hashcryptic.ciphers;
 
 import android.annotation.SuppressLint;
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -12,6 +15,8 @@ import com.example.hashcryptic.R;
 
 public class Caesar extends AppCompatActivity {
 
+    ClipboardManager cpb;
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,17 +24,21 @@ public class Caesar extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_caesar);
 
-        Button encrCaesar, decrCaesar;
+        Button encrCaesar, decrCaesar, copyResult;
         EditText encryText, keySize;
         TextView message;
 
         encrCaesar = findViewById(R.id.encrCaesar);
         decrCaesar = findViewById(R.id.decrCaesar);
+        copyResult = findViewById(R.id.copyCaesar);
         message = findViewById(R.id.msg_cntxt);
 
         // link the edittext and textview with its id
         encryText = findViewById(R.id.encrypt_Caesar_text);
         keySize = findViewById(R.id.caesarKey_size);
+
+        // create a clipboard manager variable to copy text
+        cpb = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
 
         // onClick function of encrypt text button
         encrCaesar.setOnClickListener(new View.OnClickListener() {
@@ -65,6 +74,31 @@ public class Caesar extends AppCompatActivity {
                     // get the string from the textview and trim all spaces
                     String enryptTextToCaesar = decryptCaesar(encryText.getText().toString().trim(), Integer.parseInt(keySize.getText().toString().trim()));
                     message.setText(enryptTextToCaesar.toUpperCase());
+                }
+            }
+        });
+
+        copyResult.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (message.getText().toString().isEmpty()) {
+                    Toast.makeText(Caesar.this, "Please enter text to encrypt/decrypt", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    // get the string from the textview and trim all spaces
+                    String data = message.getText().toString().trim();
+
+                    // check if the textview is not empty
+                    if (!data.isEmpty()) {
+
+                        // copy the text in the clip board
+                        ClipData temp = ClipData.newPlainText("text", data);
+                        cpb.setPrimaryClip(temp);
+
+                        // display message that the text has been copied
+                        Toast.makeText(Caesar.this, "Message Copied", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });

@@ -1,6 +1,9 @@
 package com.example.hashcryptic.ciphers;
 
 import android.annotation.SuppressLint;
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -13,6 +16,8 @@ import com.example.hashcryptic.R;
 
 public class Vigenere extends AppCompatActivity {
 
+    ClipboardManager cpb;
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,20 +25,24 @@ public class Vigenere extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vigenere);
 
-        Button encrCaesar, decrCaesar;
+        Button encrVignr, decrVignr, copyResult;
         EditText encryText, keySize;
         TextView message;
 
-        encrCaesar = findViewById(R.id.encrVigenere);
-        decrCaesar = findViewById(R.id.decrVigenere);
+        encrVignr = findViewById(R.id.encrVigenere);
+        decrVignr = findViewById(R.id.decrVigenere);
         message = findViewById(R.id.vgnr_msg_cntxt);
+        copyResult = findViewById(R.id.copyVignr);
 
         // link the edittext and textview with its id
         encryText = findViewById(R.id.encrypt_Vigenere_text);
         keySize = findViewById(R.id.vigenereKey_size);
 
+        // create a clipboard manager variable to copy text
+        cpb = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+
         // onClick function of encrypt text button
-        encrCaesar.setOnClickListener(new View.OnClickListener() {
+        encrVignr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (encryText.getText().toString().isEmpty() || keySize.getText().toString().isEmpty()) {
@@ -52,7 +61,7 @@ public class Vigenere extends AppCompatActivity {
             }
         });
 
-        decrCaesar.setOnClickListener(new View.OnClickListener() {
+        decrVignr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -70,6 +79,31 @@ public class Vigenere extends AppCompatActivity {
                     String key = keySize.getText().toString().trim();
                     String decryptText = vignrDecrypt(encryText.getText().toString().trim(), key);
                     message.setText(decryptText.toUpperCase());
+                }
+            }
+        });
+
+        copyResult.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (message.getText().toString().isEmpty()) {
+                    Toast.makeText(Vigenere.this, "Please enter text to encrypt/decrypt", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    // get the string from the textview and trim all spaces
+                    String data = message.getText().toString().trim();
+
+                    // check if the textview is not empty
+                    if (!data.isEmpty()) {
+
+                        // copy the text in the clip board
+                        ClipData temp = ClipData.newPlainText("text", data);
+                        cpb.setPrimaryClip(temp);
+
+                        // display message that the text has been copied
+                        Toast.makeText(Vigenere.this, "Message Copied", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });

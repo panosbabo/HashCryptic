@@ -20,21 +20,6 @@
         tools:layout_editor_absoluteX="28dp"
         tools:layout_editor_absoluteY="-80dp" />
 
-    <com.google.android.material.textfield.TextInputLayout
-
-
-        android:id="@+id/textInputLayout_dec"
-        android:layout_width="280dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/railfence_title"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.595"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/railfence_title"
-        app:layout_constraintVertical_bias="0.499">
-
-    </com.google.android.material.textfield.TextInputLayout>
-
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/encrypt_RailFence_text"
@@ -47,28 +32,44 @@
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="@+id/railfence_title"
         app:layout_constraintTop_toTopOf="@+id/railfence_title"
-        app:layout_constraintVertical_bias="0.671" />
+        app:layout_constraintVertical_bias="0.558" />
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/railRow_size"
         android:layout_width="189dp"
         android:layout_height="43dp"
-        android:layout_marginBottom="52dp"
+        android:layout_marginBottom="36dp"
         android:hint="enter number of rows"
         android:inputType="number"
         android:textAlignment="center"
         app:layout_constraintBottom_toTopOf="@+id/encrRailFence"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="@+id/railfence_title" />
+
+    <com.google.android.material.textfield.TextInputLayout
+
+
+        android:id="@+id/textInputLayout_dec"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/railfence_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.58"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/railfence_title"
+        app:layout_constraintVertical_bias="0.374">
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/encrRailFence"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="20dp"
         android:text="Encrypt Text"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout_dec" />
 
@@ -76,11 +77,23 @@
         android:id="@+id/decrRailFence"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:text="Decrypt Text"
+        android:layout_marginTop="4dp"
+        android:text="Decrypt Cipher"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/encrRailFence" />
+
+    <Button
+        android:id="@+id/copyRailFence"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Copy Result"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/decrRailFence" />
 
     <TextView
         android:id="@+id/decr_msg_title"
@@ -91,10 +104,10 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/decrRailFence"
-        app:layout_constraintVertical_bias="0.104" />
+        app:layout_constraintTop_toBottomOf="@+id/copyRailFence"
+        app:layout_constraintVertical_bias="0.109" />
 
     <TextView
         android:id="@+id/msg_cntxt"
@@ -109,9 +122,9 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/decr_msg_title"
-        app:layout_constraintVertical_bias="0.133" />
+        app:layout_constraintVertical_bias="0.139" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
