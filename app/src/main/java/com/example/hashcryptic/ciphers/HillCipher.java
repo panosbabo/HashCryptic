@@ -45,9 +45,15 @@ public class HillCipher extends AppCompatActivity {
         encrHill.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // Constraints to resolve error handling using wrong type of entity
                 if (encryText.getText().toString().isEmpty() || key.getText().toString().isEmpty()) {
                     Toast.makeText(HillCipher.this, "Please enter text and key to cipher", Toast.LENGTH_SHORT).show();
-                    return;
+                }
+                else if (encryText.getText().toString().matches(".*\\d.*") || key.getText().toString().matches(".*\\d.*")) {
+                    Toast.makeText(HillCipher.this, "Please enter characters only", Toast.LENGTH_SHORT).show();
+                }
+                else if (encryText.getText().toString().length() < 4 || encryText.getText().toString().length() > 4) {
+                    Toast.makeText(HillCipher.this, "Text size must be 4 characters", Toast.LENGTH_SHORT).show();
                 }
                 else if (key.getText().toString().length() < 4 || key.getText().toString().length() > 4) {
                     Toast.makeText(HillCipher.this, "Key size must be 4 numbers", Toast.LENGTH_SHORT).show();
@@ -60,7 +66,7 @@ public class HillCipher extends AppCompatActivity {
                     // Loop through the key and map it into a 2 by 2 array
                     for (int i = 0; i < 2; i++) {
                         for (int j = 0; j < 2; j++) {
-                            keyMatrix[i][j] = (int) key.getText().toString().trim().charAt(keyIndex) % 65;
+                            keyMatrix[i][j] = key.getText().toString().trim().codePointAt(keyIndex) % 65;
                             keyIndex++;
                         }
                     }
@@ -74,11 +80,15 @@ public class HillCipher extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                // Intent function to move to another activity
-                // get text from edittext
+                // Constraints to resolve error handling using wrong type of entity
                 if (encryText.getText().toString().isEmpty() || key.getText().toString().isEmpty()) {
                     Toast.makeText(HillCipher.this, "Please enter cipher and key to decrypt", Toast.LENGTH_SHORT).show();
-                    return;
+                }
+                else if (encryText.getText().toString().matches(".*\\d.*") || key.getText().toString().matches(".*\\d.*")) {
+                    Toast.makeText(HillCipher.this, "Please enter characters only", Toast.LENGTH_SHORT).show();
+                }
+                else if (encryText.getText().toString().length() < 4 || encryText.getText().toString().length() > 4) {
+                    Toast.makeText(HillCipher.this, "Text size must be 4 characters", Toast.LENGTH_SHORT).show();
                 }
                 else if (key.getText().toString().length() < 4 || key.getText().toString().length() > 4) {
                     Toast.makeText(HillCipher.this, "Key size must be 4 numbers", Toast.LENGTH_SHORT).show();
@@ -91,7 +101,7 @@ public class HillCipher extends AppCompatActivity {
                     // Loop through the key and map it into a 2 by 2 array
                     for (int i = 0; i < 2; i++) {
                         for (int j = 0; j < 2; j++) {
-                            keyMatrix[i][j] = (int) key.getText().toString().trim().charAt(keyIndex) % 65;
+                            keyMatrix[i][j] = key.getText().toString().trim().codePointAt(keyIndex) % 65;
                             keyIndex++;
                         }
                     }
@@ -154,26 +164,61 @@ public class HillCipher extends AppCompatActivity {
         return ciphertext.toString();
     }
 
+    // Function the calculates the inverse of a 2 by 2 matrix
+    private int[][] calculateInverse(int[][] matrix) {
+        int det = (matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0]) % 26;
+        // Compute the determinant modulo mod to ensure it's within the range [0, mod - 1]
+        if (det < 0) {
+            det += 26;
+        }
+
+        // Calculate the determinant inverse modulo mod using modular multiplicative inverse
+        int detInv = -1;
+        for (int i = 0; i < 26; i++) {
+            if ((det * i) % 26 == 1) {
+                detInv = i;
+                break;
+            }
+        }
+
+        // Calculate the inverse matrix
+        int[][] inverse = new int[2][2];
+        inverse[0][0] = (matrix[1][1] * detInv) % 26;
+        inverse[0][1] = (-matrix[0][1] * detInv) % 26;
+        inverse[1][0] = (-matrix[1][0] * detInv) % 26;
+        inverse[1][1] = (matrix[0][0] * detInv) % 26;
+
+        // Ensure all elements are positive by adding mod if necessary
+        for (int i = 0; i < 2; i++) {
+            for (int j = 0; j < 2; j++) {
+                if (inverse[i][j] < 0) {
+                    inverse[i][j] += 26;
+                }
+            }
+        }
+
+        return inverse;
+    }
+
     // Hill Cipher Decryption function
     private String hillDecrypt(String ciphertext, int[][] keyMatrix) {
-//        int n = keyMatrix.length;
-//        int blockSize = n;
-//        StringBuilder plaintext = new StringBuilder();
-//        int[][] inverseKeyMatrix = calculateInverse(keyMatrix);
-//
-//        for (int i = 0; i < ciphertext.length(); i += blockSize) {
-//            String block = ciphertext.substring(i, i + blockSize);
-//            for (int j = 0; j < blockSize; j++) {
-//                int sum = 0;
-//                for (int k = 0; k < blockSize; k++) {
-//                    sum += (inverseKeyMatrix[j][k] * (block.charAt(k) - 'A'));
-//                }
-//                char decryptedChar = (char) ((sum % 26 + 26) % 26 + 'A');
-//                plaintext.append(decryptedChar);
-//            }
-//        }
-//        return plaintext.toString();
-        return ciphertext; // TODO: to be deleted!
+        StringBuilder plainText = new StringBuilder();
+        int[][] inverseKeyMatrix = calculateInverse(keyMatrix);
+
+        for (int i = 0; i < ciphertext.length(); i += keyMatrix.length) {
+            int[] vector = new int[keyMatrix.length];
+            for (int j = 0; j < keyMatrix.length; j++) {
+                for (int k = 0; k < keyMatrix.length; k++) {
+                    vector[j] += (ciphertext.charAt(i + k) - 'A') * inverseKeyMatrix[j][k];
+                    vector[j] %= 26;
+                    if (vector[j] < 0) {
+                        vector[j] += 26;
+                    }
+                }
+                plainText.append((char) ('A' + vector[j]));
+            }
+        }
+        return plainText.toString();
     }
 
 }

@@ -44,6 +44,7 @@ public class RailFence extends AppCompatActivity {
         encrRailfence.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // Constraints to resolve error handling using wrong type of entity
                 if (encryText.getText().toString().isEmpty() || rowSize.getText().toString().isEmpty()) {
                     Toast.makeText(RailFence.this, "Please enter text and row size to cipher", Toast.LENGTH_SHORT).show();
                 } else {
@@ -57,9 +58,7 @@ public class RailFence extends AppCompatActivity {
         decrRailfence.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                // Intent function to move to another activity
-                // get text from edittext
+                // Constraints to resolve error handling using wrong type of entity
                 if (encryText.getText().toString().isEmpty() || rowSize.getText().toString().isEmpty()) {
                     Toast.makeText(RailFence.this, "Please enter cipher and row size to decrypt", Toast.LENGTH_SHORT).show();
                 } else {

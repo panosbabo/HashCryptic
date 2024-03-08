@@ -44,6 +44,7 @@ public class Caesar extends AppCompatActivity {
         encrCaesar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // Constraints to resolve error handling using wrong type of entity
                 if (encryText.getText().toString().isEmpty() || keySize.getText().toString().isEmpty()) {
                     Toast.makeText(Caesar.this, "Please enter text and key to cipher", Toast.LENGTH_SHORT).show();
                 }
@@ -61,9 +62,7 @@ public class Caesar extends AppCompatActivity {
         decrCaesar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                // Intent function to move to another activity
-                // get text from edittext
+                // Constraints to resolve error handling using wrong type of entity
                 if (encryText.getText().toString().isEmpty() || keySize.getText().toString().isEmpty()) {
                     Toast.makeText(Caesar.this, "Please enter cipher and key to decrypt", Toast.LENGTH_SHORT).show();
                 }
