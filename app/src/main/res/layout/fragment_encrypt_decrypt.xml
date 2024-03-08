@@ -24,8 +24,8 @@
         <Button
             android:id="@+id/encryptBtn"
             android:layout_width="155dp"
-            android:layout_height="50dp"
-            android:text="Text Encryption"
+            android:layout_height="wrap_content"
+            android:text="Hash Encryption"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -36,7 +36,7 @@
         <Button
             android:id="@+id/ciphersBtn"
             android:layout_width="155dp"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:text="Ciphers"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintBottom_toTopOf="@+id/encryptBtn"
@@ -48,7 +48,7 @@
         <Button
             android:id="@+id/chksumBtn"
             android:layout_width="155dp"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:text="Checksum"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -59,8 +59,8 @@
         <Button
             android:id="@+id/decryptBtn"
             android:layout_width="155dp"
-            android:layout_height="50dp"
-            android:text="Text Decryption"
+            android:layout_height="wrap_content"
+            android:text="Hash Decryption"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -71,7 +71,7 @@
         <Button
             android:id="@+id/encryptFileBtn"
             android:layout_width="155dp"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:text="Encrypt File"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
