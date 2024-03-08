@@ -31,7 +31,7 @@ public class Caesar extends AppCompatActivity {
         encrCaesar = findViewById(R.id.encrCaesar);
         decrCaesar = findViewById(R.id.decrCaesar);
         copyResult = findViewById(R.id.copyCaesar);
-        message = findViewById(R.id.msg_cntxt);
+        message = findViewById(R.id.caesar_msg_cntxt);
 
         // link the edittext and textview with its id
         encryText = findViewById(R.id.encrypt_Caesar_text);

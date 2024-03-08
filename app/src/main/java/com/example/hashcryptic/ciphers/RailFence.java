@@ -30,8 +30,8 @@ public class RailFence extends AppCompatActivity {
 
         encrRailfence = findViewById(R.id.encrRailFence);
         decrRailfence = findViewById(R.id.decrRailFence);
-        message = findViewById(R.id.msg_cntxt);
         copyResult = findViewById(R.id.copyRailFence);
+        message = findViewById(R.id.rail_msg_cntxt);
 
         // link the edittext and textview with its id
         encryText = findViewById(R.id.encrypt_RailFence_text);

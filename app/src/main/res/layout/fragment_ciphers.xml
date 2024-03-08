@@ -55,6 +55,17 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.533" />
 
+        <Button
+            android:id="@+id/hillCiph_btn"
+            android:layout_width="155dp"
+            android:layout_height="wrap_content"
+            android:text="Hill Cipher"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/railFenceCiph_btn"
+            app:layout_constraintVertical_bias="0.131" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ciphers.Vigenere">
+    tools:context=".ciphers.HillCipher">
 
 
     <TextView
-        android:id="@+id/vigenere_title"
+        android:id="@+id/hillCipher_title"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Vigenère Cipher"
+        android:text="Hill Cipher"
         android:textAlignment="center"
         android:textColor="@color/darker_blue"
         android:textSize="20sp"
@@ -22,16 +22,16 @@
 
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/encrypt_Vigenere_text"
+        android:id="@+id/encrypt_Hill_text"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
         android:hint="enter text/cipher"
         android:textAlignment="center"
-        app:layout_constraintBottom_toTopOf="@+id/vigenereKey_size"
-        app:layout_constraintEnd_toEndOf="@+id/vigenere_title"
+        app:layout_constraintBottom_toTopOf="@+id/hillKey"
+        app:layout_constraintEnd_toEndOf="@+id/hillCipher_title"
         app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="@+id/vigenere_title" />
+        app:layout_constraintStart_toStartOf="@+id/hillCipher_title" />
 
     <com.google.android.material.textfield.TextInputLayout
 
@@ -39,17 +39,17 @@
         android:id="@+id/textInputLayout_dec"
         android:layout_width="280dp"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/vigenere_title"
+        app:layout_constraintBottom_toBottomOf="@+id/hillCipher_title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.595"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/vigenere_title"
+        app:layout_constraintTop_toTopOf="@+id/hillCipher_title"
         app:layout_constraintVertical_bias="0.384">
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
-        android:id="@+id/encrVigenere"
+        android:id="@+id/encrHill"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -59,37 +59,37 @@
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout_dec" />
 
     <Button
-        android:id="@+id/decrVigenere"
+        android:id="@+id/decrHill"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:text="Decrypt Cipher"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/encrVigenere" />
+        app:layout_constraintTop_toBottomOf="@+id/encrHill" />
 
     <Button
-        android:id="@+id/copyVignr"
+        android:id="@+id/copyHill"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:text="Copy Result"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/decrVigenere" />
+        app:layout_constraintTop_toBottomOf="@+id/decrHill" />
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/vigenereKey_size"
+        android:id="@+id/hillKey"
         android:layout_width="250dp"
         android:layout_height="50dp"
         android:layout_marginBottom="48dp"
         android:hint="enter key"
-        android:inputType="text"
+        android:inputType="number"
         android:textAlignment="center"
-        app:layout_constraintBottom_toTopOf="@+id/encrVigenere"
+        app:layout_constraintBottom_toTopOf="@+id/encrHill"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="@+id/vigenere_title" />
+        app:layout_constraintStart_toStartOf="@+id/hillCipher_title" />
 
     <TextView
         android:id="@+id/decr_msg_title"
@@ -102,11 +102,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/copyVignr"
+        app:layout_constraintTop_toBottomOf="@+id/copyHill"
         app:layout_constraintVertical_bias="0.153" />
 
     <TextView
-        android:id="@+id/vgnr_msg_cntxt"
+        android:id="@+id/hill_msg_cntxt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"

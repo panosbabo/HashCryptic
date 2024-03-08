@@ -24,7 +24,7 @@
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/encrypt_RailFence_text"
         android:layout_width="250dp"
-        android:layout_height="80dp"
+        android:layout_height="wrap_content"
         android:hint="enter text/cipher"
         android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="@+id/textInputLayout_dec"
@@ -110,7 +110,7 @@
         app:layout_constraintVertical_bias="0.109" />
 
     <TextView
-        android:id="@+id/msg_cntxt"
+        android:id="@+id/rail_msg_cntxt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"

@@ -31,8 +31,8 @@ public class Vigenere extends AppCompatActivity {
 
         encrVignr = findViewById(R.id.encrVigenere);
         decrVignr = findViewById(R.id.decrVigenere);
-        message = findViewById(R.id.vgnr_msg_cntxt);
         copyResult = findViewById(R.id.copyVignr);
+        message = findViewById(R.id.vgnr_msg_cntxt);
 
         // link the edittext and textview with its id
         encryText = findViewById(R.id.encrypt_Vigenere_text);
