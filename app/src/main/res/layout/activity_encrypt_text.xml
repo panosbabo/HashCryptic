@@ -68,7 +68,7 @@
         android:id="@+id/spinner"
         android:layout_width="182dp"
         android:layout_height="100dp"
-        android:layout_marginTop="124dp"
+        android:layout_marginTop="80dp"
         app:layout_constraintBottom_toTopOf="@+id/textInputLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
