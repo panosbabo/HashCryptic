@@ -2,8 +2,6 @@ package com.example.hashcryptic.compression;
 
 import android.annotation.SuppressLint;
 import com.example.hashcryptic.db.Profile;
-import com.example.hashcryptic.db.ProfileDatabase;
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
