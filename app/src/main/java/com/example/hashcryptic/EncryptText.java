@@ -9,19 +9,31 @@ import android.content.Intent;
 import android.database.sqlite.SQLiteConstraintException;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.hashcryptic.compression.SecureCompression;
 import com.example.hashcryptic.db.Hash;
 import com.example.hashcryptic.db.HashDatabase;
 import com.example.hashcryptic.hashencryption.*;
-
 import java.io.File;
+import java.io.IOException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.util.List;
+import java.util.Objects;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 
 public class EncryptText extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
@@ -41,11 +53,13 @@ public class EncryptText extends AppCompatActivity implements AdapterView.OnItem
 
         // Calling Hash Value Database
         HashDatabase db  = HashDatabase.getDbInstance(this.getApplicationContext());
+        List<Hash> hashListItems = db.hashDao().gethash();
 
         Button encrpt_btn = findViewById(R.id.buttonEncrypt);
         Button copy_btn = findViewById(R.id.copyencr_txt);
         Button store_btn = findViewById(R.id.store_hash);
         Button share_btn = findViewById(R.id.share_hash);
+        Switch compressionSw = findViewById(R.id.compressionSwitch);
 
         Spinner spinner = (Spinner) findViewById(R.id.spinner);
         ArrayAdapter<String>adapter = new ArrayAdapter<String>(EncryptText.this,
@@ -132,38 +146,116 @@ public class EncryptText extends AppCompatActivity implements AdapterView.OnItem
                     switch (pos) {
                         case 0:
                             globtype = "MD5";
-                            globhashvalu = encryptHash.encrypt2Hash(temp, globtype);
-                            globhashtxt = temp;
+                            try {
+                                if (compressionSw.isChecked()){
+                                    String tempByte = SecureCompression.compressb4encryption(temp);
+                                    globhashvalu = encryptHash.encrypt2Hash(tempByte, globtype);
+                                    globhashtxt = temp;
+                                }
+                                else {
+                                    globhashvalu = encryptHash.encrypt2Hash(temp, globtype);
+                                    globhashtxt = temp;
+                                }
+                            } catch (IOException | IllegalBlockSizeException | BadPaddingException |
+                                     InvalidKeyException | NoSuchPaddingException |
+                                     NoSuchAlgorithmException e) {
+                                throw new RuntimeException(e);
+                            }
                             enctv.setText(globhashvalu);
                             break;
                         case 1:
                             globtype = "SHA-1";
-                            globhashvalu = encryptHash.encrypt2Hash(temp, globtype);
-                            globhashtxt = temp;
+                            try {
+                                if (compressionSw.isChecked()){
+                                    String tempByte = SecureCompression.compressb4encryption(temp);
+                                    globhashvalu = encryptHash.encrypt2Hash(tempByte, globtype);
+                                    globhashtxt = temp;
+                                }
+                                else {
+                                    globhashvalu = encryptHash.encrypt2Hash(temp, globtype);
+                                    globhashtxt = temp;
+                                }
+                            } catch (IOException | IllegalBlockSizeException | BadPaddingException |
+                                     InvalidKeyException | NoSuchPaddingException |
+                                     NoSuchAlgorithmException e) {
+                                throw new RuntimeException(e);
+                            }
                             enctv.setText(globhashvalu);
                             break;
                         case 2:
                             globtype = "SHA-224";
-                            globhashvalu = encryptHash.encrypt2Hash(temp, globtype);
-                            globhashtxt = temp;
+                            try {
+                                if (compressionSw.isChecked()){
+                                    String tempByte = SecureCompression.compressb4encryption(temp);
+                                    globhashvalu = encryptHash.encrypt2Hash(tempByte, globtype);
+                                    globhashtxt = temp;
+                                }
+                                else {
+                                    globhashvalu = encryptHash.encrypt2Hash(temp, globtype);
+                                    globhashtxt = temp;
+                                }
+                            } catch (IOException | IllegalBlockSizeException | BadPaddingException |
+                                     InvalidKeyException | NoSuchPaddingException |
+                                     NoSuchAlgorithmException e) {
+                                throw new RuntimeException(e);
+                            }
                             enctv.setText(globhashvalu);
                             break;
                         case 3:
                             globtype = "SHA-256";
-                            globhashvalu = encryptHash.encrypt2Hash(temp, globtype);
-                            globhashtxt = temp;
+                            try {
+                                if (compressionSw.isChecked()){
+                                    String tempByte = SecureCompression.compressb4encryption(temp);
+                                    globhashvalu = encryptHash.encrypt2Hash(tempByte, globtype);
+                                    globhashtxt = temp;
+                                }
+                                else {
+                                    globhashvalu = encryptHash.encrypt2Hash(temp, globtype);
+                                    globhashtxt = temp;
+                                }
+                            } catch (IOException | IllegalBlockSizeException | BadPaddingException |
+                                     InvalidKeyException | NoSuchPaddingException |
+                                     NoSuchAlgorithmException e) {
+                                throw new RuntimeException(e);
+                            }
                             enctv.setText(globhashvalu);
                             break;
                         case 4:
                             globtype = "SHA-384";
-                            globhashvalu = encryptHash.encrypt2Hash(temp, globtype);
-                            globhashtxt = temp;
+                            try {
+                                if (compressionSw.isChecked()){
+                                    String tempByte = SecureCompression.compressb4encryption(temp);
+                                    globhashvalu = encryptHash.encrypt2Hash(tempByte, globtype);
+                                    globhashtxt = temp;
+                                }
+                                else {
+                                    globhashvalu = encryptHash.encrypt2Hash(temp, globtype);
+                                    globhashtxt = temp;
+                                }
+                            } catch (IOException | IllegalBlockSizeException | BadPaddingException |
+                                     InvalidKeyException | NoSuchPaddingException |
+                                     NoSuchAlgorithmException e) {
+                                throw new RuntimeException(e);
+                            }
                             enctv.setText(globhashvalu);
                             break;
                         case 5:
                             globtype = "SHA-512";
-                            globhashvalu = encryptHash.encrypt2Hash(temp, globtype);
-                            globhashtxt = temp;
+                            try {
+                                if (compressionSw.isChecked()){
+                                    String tempByte = SecureCompression.compressb4encryption(temp);
+                                    globhashvalu = encryptHash.encrypt2Hash(tempByte, globtype);
+                                    globhashtxt = temp;
+                                }
+                                else {
+                                    globhashvalu = encryptHash.encrypt2Hash(temp, globtype);
+                                    globhashtxt = temp;
+                                }
+                            } catch (IOException | IllegalBlockSizeException | BadPaddingException |
+                                     InvalidKeyException | NoSuchPaddingException |
+                                     NoSuchAlgorithmException e) {
+                                throw new RuntimeException(e);
+                            }
                             enctv.setText(globhashvalu);
                             break;
                     }
@@ -183,24 +275,49 @@ public class EncryptText extends AppCompatActivity implements AdapterView.OnItem
 
                     try {
                         // Assigning user's hash type and value insert to Hash object
-                        hash.hashType = globtype;
-                        hash.hashTxt = globhashtxt;
-                        hash.hashValue = globhashvalu;
+                        if (compressionSw.isChecked()) {
+                            hash.hashType = globtype + " + Compression";
+                            hash.hashTxt = globhashtxt;
+                            hash.hashValue = globhashvalu;
+                        }
+                        else {
+                            hash.hashType = globtype;
+                            hash.hashTxt = globhashtxt;
+                            hash.hashValue = globhashvalu;
+                        }
 
-                        // Calling Dao Commands for Hash INSERT
-                        db.hashDao().insertHash(hash);
+                        // Creating checkpoint for Hash store progression
+                        boolean duplicate = false;
 
-                        // Setting Result OK
-                        setResult(RESULT_OK);
+                        // Loop that iterates through the entire hash database
+                        for (int i = 0; hashListItems.size() > i; i++) {
 
-                        // Message displayed for successful hash storing
-                        // display message that the text has been copied
-                        Toast.makeText(EncryptText.this, "Hash Stored Successfully", Toast.LENGTH_SHORT).show();
+                            // Checks for any duplicates
+                            if (Objects.equals(hashListItems.get(i).hashValue, hash.hashValue))
+                            {
+                                duplicate = true;
+                                Toast.makeText(EncryptText.this, "Hash already been stored", Toast.LENGTH_SHORT).show();
+                                break;
+                            }
+                        }
 
-                        // Returning to previous activity as a refresh
-                        finish();
-                        Intent intent = new Intent(EncryptText.this, MainActivity.class);
-                        startActivity(intent);
+                        // If there are no duplicates
+                        if (!duplicate) {
+                            // Calling Dao Commands for Hash INSERT
+                            db.hashDao().insertHash(hash);
+
+                            // Message displayed for successful hash storing
+                            // display message that the text has been copied
+                            Toast.makeText(EncryptText.this, "Hash Stored Successfully", Toast.LENGTH_SHORT).show();
+
+                            // Setting Result OK
+                            setResult(RESULT_OK);
+
+                            // Returning to previous activity as a refresh
+                            finish();
+                            Intent intent = new Intent(EncryptText.this, MainActivity.class);
+                            startActivity(intent);
+                        }
 
                     } catch (SQLiteConstraintException e) {
                         // Message displayed for catching error of hash store creation

@@ -104,6 +104,7 @@ class HashLT extends RecyclerView.ViewHolder{
             Toast.makeText(v.getContext(), "Your hash has been deleted", Toast.LENGTH_SHORT).show();
         });
 
+        // Sharing Button option
         Button share_to = itemView.findViewById(R.id.shareto_item_btn);
 
         share_to.setOnClickListener(new View.OnClickListener() {
@@ -124,6 +125,7 @@ class HashLT extends RecyclerView.ViewHolder{
             }
         });
 
+        // Button for QRCode
         Button qr_code = itemView.findViewById(R.id.qrcode_btn);
 
         qr_code.setOnClickListener(new View.OnClickListener() {
@@ -131,17 +133,11 @@ class HashLT extends RecyclerView.ViewHolder{
             @Override
             public void onClick(View view){
 
-                // Passing hash value to QR Code Generator
-//                String hash_to_qr = myhashValue.getText().toString();
-
                 // Passing hash value to new share to intent
                 Intent shareIntent = new Intent(itemView.getContext(), QRCode_Gen.class);
                 shareIntent.setType("text/plain");
                 shareIntent.putExtra("hashvalue", myhashValue.getText().toString());
                 itemView.getContext().startActivity(shareIntent);
-//                Intent intent = new Intent(itemView.getContext(), EncryptPage.class);
-//                intent.putExtra("selectedItem", hash_to_qr);
-//                context.startActivity(intent);
             }
         });
     }
@@ -153,21 +149,6 @@ class HashLT extends RecyclerView.ViewHolder{
 
         // Calling Database Access Object command for delete
         db.hashDao().delete(adapter.hashesListItems.get(position));
-    }
-
-    private void shareData(String data) {
-//        Intent shareIntent = new Intent(Intent.ACTION_SEND);
-//        shareIntent.setType("text/plain");
-//        shareIntent.putExtra(Intent.EXTRA_TEXT, data);
-//        context.startActivity(Intent.createChooser(shareIntent, "Share via"));
-
-//        Intent shareIntent = new Intent(Intent.ACTION_SEND);
-//        shareIntent.setType("text/plain");
-//        shareIntent.putExtra(Intent.EXTRA_TEXT, data);
-//        getActivity().startActivity(Intent.createChooser(shareIntent, "Share via"));
-
-//        AppCompatActivity activity = (AppCompatActivity) context;
-//        activity.startActivity(Intent.createChooser(shareIntent, "Share via"));
     }
 
     // Adapter initialization
