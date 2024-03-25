@@ -49,7 +49,7 @@ public class FileEncrypter {
         try {
             OutputStream outputStream = activity.getContentResolver().openOutputStream(uri);
             if (outputStream != null) {
-                encryptAndWrite(outputStream, inputStream);
+//                encryptAndWrite(outputStream, inputStream);
                 outputStream.close();
                 Toast.makeText(activity, "File saved successfully", Toast.LENGTH_SHORT).show();
             } else {
@@ -63,6 +63,7 @@ public class FileEncrypter {
 
     private static void encryptAndWrite(OutputStream outputStream, InputStream inputStream) throws IOException {
         try {
+
             SecureRandom random = new SecureRandom();
             byte[] iv = new byte[IV_LENGTH];
             random.nextBytes(iv);
@@ -90,7 +91,7 @@ public class FileEncrypter {
                 throw new IOException("Encryption failed", e);
             }
         }
-
+    }
 
 //            SecureRandom random = new SecureRandom();
 //            byte[] iv = new byte[IV_LENGTH];
@@ -112,5 +113,5 @@ public class FileEncrypter {
 //            }
 //            cipherOutputStream.close();
 //            inputStream.close();
-    }
+//    }
 }
