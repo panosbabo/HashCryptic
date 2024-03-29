@@ -15,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import java.io.FileOutputStream;
@@ -45,6 +46,7 @@ public class FileEncrypt extends AppCompatActivity implements AdapterView.OnItem
     private static int KEY_SIZE = 128;
     private static String USERNAME;
     private static SecretKey secretKey = null;
+    private static Switch USERNAMESWITCH;
 
     private int pos;
 
@@ -58,6 +60,7 @@ public class FileEncrypt extends AppCompatActivity implements AdapterView.OnItem
         USERNAME = db.profileDao().getprofile().get(0).personUsername;
 
         Button choose_file = findViewById(R.id.button_choose_file);
+        USERNAMESWITCH = findViewById(R.id.personalKeySwitch);
 
         Spinner spinner = (Spinner) findViewById(R.id.spinner);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(FileEncrypt.this,
@@ -215,30 +218,38 @@ public class FileEncrypt extends AppCompatActivity implements AdapterView.OnItem
 //
 //            // Initialize encryption cipher
 //            Key secretKey = new SecretKeySpec(key.getBytes(), ALGORITHM);
-            Cipher cipher = Cipher.getInstance(TRANSFORMATION);
-            cipher.init(Cipher.ENCRYPT_MODE, secretKey);
 
-            // Initialize output stream
-            outputStream = new FileOutputStream(outputFileObject);
+            if (!USERNAMESWITCH.isChecked()) {
 
-            byte[] buffer = new byte[BUFFER_SIZE];
-            int bytesRead;
+                Cipher cipher = Cipher.getInstance(TRANSFORMATION);
+                cipher.init(Cipher.ENCRYPT_MODE, secretKey);
 
-            // Encrypt file
-            while ((bytesRead = inputStream.read(buffer)) != -1) {
-                byte[] outputBytes = cipher.update(buffer, 0, bytesRead);
+                // Initialize output stream
+                outputStream = new FileOutputStream(outputFileObject);
+
+                byte[] buffer = new byte[BUFFER_SIZE];
+                int bytesRead;
+
+                // Encrypt file
+                while ((bytesRead = inputStream.read(buffer)) != -1) {
+                    byte[] outputBytes = cipher.update(buffer, 0, bytesRead);
+                    if (outputBytes != null) {
+                        outputStream.write(outputBytes);
+                    }
+                }
+
+                byte[] outputBytes = cipher.doFinal();
                 if (outputBytes != null) {
                     outputStream.write(outputBytes);
                 }
-            }
 
-            byte[] outputBytes = cipher.doFinal();
-            if (outputBytes != null) {
-                outputStream.write(outputBytes);
+                Log.d(TAG, "File encrypted successfully. Output file path: " + outputFileObject.getAbsolutePath());
+                Toast.makeText(FileEncrypt.this, "Successfully encrypted: " + outputFileObject.getName(), Toast.LENGTH_SHORT).show();
             }
-
-            Log.d(TAG, "File encrypted successfully. Output file path: " + outputFileObject.getAbsolutePath());
-            Toast.makeText(FileEncrypt.this, "Successfully encrypted: " + outputFileObject.getName(), Toast.LENGTH_SHORT).show();
+            else if (USERNAMESWITCH.isChecked()) {
+                Toast.makeText(FileEncrypt.this, "Locked", Toast.LENGTH_SHORT).show();
+                return;
+            }
         } catch (Exception e) {
             e.printStackTrace();
             Log.e(TAG, "Failed to encrypt file: " + e.getMessage());
