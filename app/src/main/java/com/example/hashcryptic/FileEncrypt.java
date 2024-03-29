@@ -1,10 +1,13 @@
 package com.example.hashcryptic;
 
-import android.app.Activity;
+import android.annotation.SuppressLint;
+import android.content.ContentResolver;
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.OpenableColumns;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -14,146 +17,64 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
-import android.content.Context;
-import java.io.ByteArrayOutputStream;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.InputStream;
-import java.io.OutputStream;
-import java.security.InvalidAlgorithmParameterException;
-import java.security.InvalidKeyException;
 import java.security.Key;
-import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import javax.crypto.*;
+import java.security.SecureRandom;
+
+import javax.crypto.KeyGenerator;
+import javax.crypto.SecretKey;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
+import javax.crypto.Cipher;
+import android.os.Build;
+import android.os.Environment;
+
+import com.example.hashcryptic.db.ProfileDatabase;
 
 public class FileEncrypt extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     private static final int PICK_FILE_REQUEST = 1;
-    private String DESTINATION;
     private static final String ALGORITHM = "AES";
     private static final String[] paths = {"AES 128", "AES 192", "AES 256"};
+    private static final String TRANSFORMATION = "AES";
+    private static final int BUFFER_SIZE = 8192;
+    private static final String TAG = "EncryptionActivity";
+    private static int KEY_SIZE = 128;
+    private static String USERNAME;
+    private static SecretKey secretKey = null;
+
     private int pos;
-    private EditText keyText_view;
 
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_filenecrypt);
 
+        // Calling database from Profile
+        ProfileDatabase db  = ProfileDatabase.getDbInstance(this.getApplicationContext());
+        USERNAME = db.profileDao().getprofile().get(0).personUsername;
+
         Button choose_file = findViewById(R.id.button_choose_file);
-        keyText_view = findViewById(R.id.key_editText);
 
         Spinner spinner = (Spinner) findViewById(R.id.spinner);
-        ArrayAdapter<String>adapter = new ArrayAdapter<String>(FileEncrypt.this,
-                android.R.layout.simple_spinner_item,paths);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(FileEncrypt.this,
+                android.R.layout.simple_spinner_item, paths);
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(this);
 
-
         choose_file.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                pickFile();
+                // Checking permission to be granted
+                checkPermissionsAndPickFile();
+//                pickfile();
             }
         });
-    }
-
-    private void pickFile() {
-//        if (keyText_view.getText().toString().isEmpty()) {
-//            Toast.makeText(this, "Must enter a key first", Toast.LENGTH_SHORT).show();
-//            return;
-//        }
-        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-        intent.setType("*/*"); // Select all file types
-        startActivityForResult(intent, PICK_FILE_REQUEST);
-
-    }
-
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        Uri selectedFileUri = data.getData();
-        assert selectedFileUri != null;
-        String filePath = selectedFileUri.getPath(); // Get the file path from URI
-        File selectedFile = new File(selectedFileUri.toString());
-        Handler handler = new Handler();
-        if (requestCode == PICK_FILE_REQUEST && resultCode == RESULT_OK) {
-            String password = keyText_view.getText().toString();
-//                Toast.makeText(this, "Your key is: \""+ password +"\"" , Toast.LENGTH_SHORT).show();
-            switch (pos) {
-                case 0:
-                    Runnable runnable = new Runnable() {
-                        @Override
-                        public void run() {
-                            // Code to be executed
-                            try {
-                                String key = "8Vl4e7JLLuUO3It+01s89w==";
-//                                    Key secretKey = new SecretKeySpec(key.getBytes(), ALGORITHM);
-                                String fileName = "encrypted.txt";
-                                InputStream inputStream = getContentResolver().openInputStream(selectedFileUri);
-//                                    OutputStream outputStream = getContentResolver().openOutputStream(selectedFileUri);
-                                assert inputStream != null;
-                                FileEncrypter.createTextFile(FileEncrypt.this, fileName, inputStream);
-
-                                File f_inputStream = new File(inputStream.toString());
-                                File f_outputStream = new File(fileName.toString());
-
-
-//                                    fileEncryption.encrypt(key, new File(inputStream.toString()), new File(outputStream.toString()));
-//                                    File encryptedFile = new File(selectedFileUri.toString());
-//                                    Toast.makeText(FileEncrypt.this, "File is: " + selectedFileUri.getPath(), Toast.LENGTH_SHORT).show();
-//                                    Toast.makeText(FileEncrypt.this, "The output file is: " + encryptedFile, Toast.LENGTH_LONG).show();
-
-//                                    encrypt(key, selectedFile, new File(selectedFileUri.toString()));
-//                                    SecretKey my_key = fileEncryption.generateSecretKey(128);
-//                                    byte[] readData = fileEncryption.readFile(filePath);
-//                                    byte[] encryptedData = fileEncryption.encrypt(my_key, readData);
-//                                    saveFile(encryptedData, filePath + ".encrypted");
-//                                    System.out.println("File encrypted successfully");
-                                runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        // UI-related code
-//                                            Toast.makeText(FileEncrypt.this, "File is: " + selectedFileUri.getPath(), Toast.LENGTH_SHORT).show();
-//                                            Toast.makeText(FileEncrypt.this, "File Encrypted Successfully", Toast.LENGTH_SHORT).show();
-                                    }
-                                });
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                                System.out.println("Error while encrypting the file");
-                                runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        // UI-related code
-//                                            Toast.makeText(FileEncrypt.this, "Failed to encrypt file", Toast.LENGTH_SHORT).show();
-                                        Toast.makeText(FileEncrypt.this, "Exception: " + e, Toast.LENGTH_LONG).show();
-                                    }
-                                });
-                            }
-                        }
-                    };
-                    handler.post(runnable);
-                    break;
-                case 1:
-                    break;
-                case 2:
-                    break;
-            }
-        }
-        if (requestCode == FileEncrypter.PICK_DIRECTORY_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
-            FileEncrypter.saveTextFile(FileEncrypt.this, data);
-//            FileEncrypter.encryptAndWrite(outputStream, inputStream);
-//            Toast.makeText(FileEncrypt.this, "File is: " + DESTINATION + " ! ! !", Toast.LENGTH_SHORT).show();
-        }
-
     }
 
     public void onItemSelected(AdapterView<?> parent, View v, int position, long id) {
@@ -178,5 +99,201 @@ public class FileEncrypt extends AppCompatActivity implements AdapterView.OnItem
     @Override
     public void onPointerCaptureChanged(boolean hasCapture) {
         super.onPointerCaptureChanged(hasCapture);
+    }
+
+    @SuppressLint("NewApi")
+    private void checkPermissionsAndPickFile() {
+        if (hasWriteExternalStoragePermission()) {
+            pickfile();
+        } else {
+            requestPermissions(new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, PICK_FILE_REQUEST);
+        }
+    }
+
+    private void pickfile() {
+        Intent intent = new Intent();
+        intent.setType("*/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Select file"), PICK_FILE_REQUEST);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Handler handler = new Handler();
+
+        if (requestCode == PICK_FILE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            Uri uri = data.getData();
+            String selectedFilePath = uri.getPath();
+            try {
+                switch (pos) {
+                    case 0:
+                        Runnable runnable = new Runnable() {
+                            @Override
+                            public void run() {
+
+                                try {
+                                    secretKey = generateRandomKey(128);
+                                } catch (NoSuchAlgorithmException e) {
+                                    throw new RuntimeException(e);
+                                }
+                                encryptFile(uri, selectedFilePath, secretKey);
+                            }
+                        };
+                        handler.post(runnable);
+                        break;
+                    case 1:
+                        try {
+                            secretKey = generateRandomKey(192);
+                        } catch (NoSuchAlgorithmException e) {
+                            throw new RuntimeException(e);
+                        }
+                        encryptFile(uri, selectedFilePath, secretKey);
+                        break;
+                    case 2:
+                        try {
+                            secretKey = generateRandomKey(256);
+                        } catch (NoSuchAlgorithmException e) {
+                            throw new RuntimeException(e);
+                        }
+                        encryptFile(uri, selectedFilePath, secretKey);
+                        break;
+                }
+            }catch(Exception e){
+                e.printStackTrace();
+                Log.e(TAG, "Failed to encrypt file: " + e.getMessage());
+                Toast.makeText(this, "Failed to encrypt file.", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    public static SecretKey generateRandomKey(int KEY_SIZE) throws NoSuchAlgorithmException {
+        KeyGenerator keyGenerator = KeyGenerator.getInstance(ALGORITHM);
+        keyGenerator.init(KEY_SIZE);
+        return keyGenerator.generateKey();
+    }
+
+    private void encryptFile(Uri uri, String outputFile, SecretKey secretKey) {
+        InputStream inputStream = null;
+        FileOutputStream outputStream = null;
+
+        try {
+            ContentResolver resolver = getContentResolver();
+            inputStream = resolver.openInputStream(uri);
+
+            // Retrieve the display name of the file
+            String displayName = getDisplayName(resolver, uri);
+
+            File outputDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+            // Get the directory path of the input file
+//            String inputFilePath = uri.getPath();
+//            String outputFileName = "encrypted_" + new File(inputFilePath).getName();
+//            String outputDir = new File(inputFilePath).getParentFile().getAbsolutePath() + File.separator + outputFileName;
+
+//            if (!outputDir.exists()) {
+//                if (!outputDir.mkdirs()) {
+//                    throw new IOException("Failed to create output directory");
+//                }
+//            }
+
+            // Construct output file path
+            File outputFileObject = new File(outputDir,"encrypted_" + displayName);
+
+//            byte[] keyBytes = new byte[KEY_SIZE / 8];
+//            SecureRandom secureRandom = new SecureRandom();
+//            secureRandom.nextBytes(keyBytes);
+//            SecretKeySpec secretKeySpec = new SecretKeySpec(keyBytes, ALGORITHM);
+//
+//            // Generate a random IV
+//            byte[] ivBytes = new byte[16];
+//            secureRandom.nextBytes(ivBytes);
+//            IvParameterSpec ivSpec = new IvParameterSpec(ivBytes);
+//
+//            // Initialize the cipher with encryption mode
+//            Cipher cipher = Cipher.getInstance(TRANSFORMATION);
+//            cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec, ivSpec);
+//
+//            // Initialize encryption cipher
+//            Key secretKey = new SecretKeySpec(key.getBytes(), ALGORITHM);
+            Cipher cipher = Cipher.getInstance(TRANSFORMATION);
+            cipher.init(Cipher.ENCRYPT_MODE, secretKey);
+
+            // Initialize output stream
+            outputStream = new FileOutputStream(outputFileObject);
+
+            byte[] buffer = new byte[BUFFER_SIZE];
+            int bytesRead;
+
+            // Encrypt file
+            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                byte[] outputBytes = cipher.update(buffer, 0, bytesRead);
+                if (outputBytes != null) {
+                    outputStream.write(outputBytes);
+                }
+            }
+
+            byte[] outputBytes = cipher.doFinal();
+            if (outputBytes != null) {
+                outputStream.write(outputBytes);
+            }
+
+            Log.d(TAG, "File encrypted successfully. Output file path: " + outputFileObject.getAbsolutePath());
+            Toast.makeText(FileEncrypt.this, "Successfully encrypted: " + outputFileObject.getName(), Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.e(TAG, "Failed to encrypt file: " + e.getMessage());
+            Toast.makeText(FileEncrypt.this, "Failed to encrypt file.", Toast.LENGTH_SHORT).show();
+        } finally {
+            // Close streams
+            try {
+                if (inputStream != null) {
+                    inputStream.close();
+                }
+                if (outputStream != null) {
+                    outputStream.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    // Helper method to retrieve the display name of a content URI
+    private String getDisplayName(ContentResolver resolver, Uri uri) {
+        String displayName = null;
+        Cursor cursor = resolver.query(uri, null, null, null, null);
+        try {
+            if (cursor != null && cursor.moveToFirst()) {
+                int displayNameIndex = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
+                if (displayNameIndex != -1) {
+                    displayName = cursor.getString(displayNameIndex);
+                }
+            }
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+        return displayName;
+    }
+
+    // Add permission check if targeting API level 23 or higher
+    private boolean hasWriteExternalStoragePermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            return checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == android.content.pm.PackageManager.PERMISSION_GRANTED;
+        }
+        return true;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == PICK_FILE_REQUEST) {
+            if (grantResults.length > 0 && grantResults[0] == android.content.pm.PackageManager.PERMISSION_GRANTED) {
+                pickfile();
+            } else {
+                Toast.makeText(this, "Permission denied. Cannot proceed.", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 }

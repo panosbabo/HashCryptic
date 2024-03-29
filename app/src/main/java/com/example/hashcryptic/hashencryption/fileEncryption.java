@@ -29,9 +29,9 @@ public class fileEncryption {
         doCrypto(Cipher.ENCRYPT_MODE, key, inputFile, outputFile);
     }
 
-//    public static void decrypt(String key, File inputFile, File outputFile) throws Exception {
-//        doCrypto(Cipher.DECRYPT_MODE, key, inputFile, outputFile);
-//    }
+    public static void decrypt(String key, File inputFile, File outputFile) throws Exception {
+        doCrypto(Cipher.DECRYPT_MODE, key, inputFile, outputFile);
+    }
 
     private static void doCrypto(int cipherMode, String key, File inputFile, File outputFile) throws Exception {
         Key secretKey = new SecretKeySpec(key.getBytes(), ALGORITHM);
