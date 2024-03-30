@@ -50,11 +50,7 @@ public class EncryptPage extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        Button encryptButton;
-        Button decryptButton;
-        Button checksumButton;
-        Button encrFileButton;
-        Button ciphersList;
+        Button encryptButton, decryptButton, checksumButton, encrFileButton, ciphersList, decrFileButton;
 
         // Inflate the layout for this fragment
         View encryptView = inflater.inflate(R.layout.fragment_encrypt_decrypt, container, false);
@@ -63,6 +59,7 @@ public class EncryptPage extends Fragment {
         checksumButton = encryptView.findViewById(R.id.chksumBtn);
         encrFileButton = encryptView.findViewById(R.id.encryptFileBtn);
         ciphersList = encryptView.findViewById(R.id.ciphersBtn);
+        decrFileButton = encryptView.findViewById(R.id.decryptFileBtn);
 
         // Button function listener for the ciphers list page
         ciphersList.setOnClickListener(new View.OnClickListener() {
@@ -110,6 +107,15 @@ public class EncryptPage extends Fragment {
             public void onClick(View view) {
                 // Creating an Intent for the next activity of the file encryption page
                 Intent intent = new Intent(EncryptPage.super.getContext(), FileEncrypt.class);
+                startActivity(intent);
+            }
+        });
+
+        decrFileButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Creating an Intent for the next activity of the file encryption page
+                Intent intent = new Intent(EncryptPage.super.getContext(), FileDecrypt.class);
                 startActivity(intent);
             }
         });

@@ -5,7 +5,9 @@ import android.content.ContentResolver;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.provider.OpenableColumns;
 import android.util.Log;
@@ -16,28 +18,28 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.hashcryptic.db.ProfileDatabase;
+
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.File;
 import java.io.InputStream;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
 
+import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.SecretKeySpec;
-import javax.crypto.Cipher;
-import android.os.Build;
-import android.os.Environment;
 
-import com.example.hashcryptic.db.ProfileDatabase;
-
-public class FileEncrypt extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class FileDecrypt extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     private static final int PICK_FILE_REQUEST = 1;
     private static final String ALGORITHM = "AES";
     private static final String[] paths = {"AES 128", "AES 192", "AES 256"};
@@ -53,7 +55,7 @@ public class FileEncrypt extends AppCompatActivity implements AdapterView.OnItem
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_filencrypt);
+        setContentView(R.layout.activity_filedecrypt);
 
         // Calling database from Profile
         ProfileDatabase db  = ProfileDatabase.getDbInstance(this.getApplicationContext());
@@ -63,7 +65,7 @@ public class FileEncrypt extends AppCompatActivity implements AdapterView.OnItem
         USERNAMESWITCH = findViewById(R.id.personalKeySwitch);
 
         Spinner spinner = (Spinner) findViewById(R.id.spinner);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(FileEncrypt.this,
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(FileDecrypt.this,
                 android.R.layout.simple_spinner_item, paths);
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -75,6 +77,7 @@ public class FileEncrypt extends AppCompatActivity implements AdapterView.OnItem
             public void onClick(View view) {
                 // Checking permission to be granted
                 checkPermissionsAndPickFile();
+//                pickfile();
             }
         });
     }
@@ -229,18 +232,18 @@ public class FileEncrypt extends AppCompatActivity implements AdapterView.OnItem
             }
 
             Log.d(TAG, "File encrypted successfully. Output file path: " + outputFileObject.getAbsolutePath());
-            Toast.makeText(FileEncrypt.this, "Successfully encrypted: " + outputFileObject.getName(), Toast.LENGTH_LONG).show();
+            Toast.makeText(FileDecrypt.this, "Successfully encrypted: " + outputFileObject.getName(), Toast.LENGTH_LONG).show();
             Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    Toast.makeText(FileEncrypt.this, "File saved in Downloads", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(FileDecrypt.this, "File saved in Downloads", Toast.LENGTH_SHORT).show();
                 }
             }, 2000);
         } catch (Exception e) {
             e.printStackTrace();
             Log.e(TAG, "Failed to encrypt file: " + e.getMessage());
-            Toast.makeText(FileEncrypt.this, "Failed to encrypt file.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(FileDecrypt.this, "Failed to encrypt file.", Toast.LENGTH_SHORT).show();
         } finally {
             // Close streams
             try {

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".FileDecrypt">
+
+
+    <TextView
+        android:id="@+id/filencryptTitle"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="Decrypt File"
+        android:textAlignment="center"
+        android:textColor="@color/darker_blue"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginTop="40dp"
+        tools:layout_editor_absoluteX="28dp"
+        tools:layout_editor_absoluteY="-80dp" />
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="182dp"
+        android:layout_height="136dp"
+        android:layout_marginTop="152dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/filencryptTitle" />
+
+    <Switch
+        android:id="@+id/personalKeySwitch"
+        android:layout_width="178dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="20dp"
+        android:text="Use Username key"
+        app:layout_constraintBottom_toTopOf="@+id/spinner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.506"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinner"
+        app:layout_constraintVertical_bias="0.0"
+        tools:ignore="UseSwitchCompatOrMaterialXml" />
+
+    <Button
+        android:id="@+id/button_choose_file"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Choose file"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/personalKeySwitch" />
+
+    <TextView
+        android:id="@+id/encryptOption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="300dp"
+        android:text="Choose AES Keysize"
+        app:layout_constraintBottom_toTopOf="@+id/spinner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/filencryptTitle"
+        app:layout_constraintVertical_bias="0.79" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

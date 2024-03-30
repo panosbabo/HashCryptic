@@ -22,6 +22,17 @@
         android:layout_height="match_parent">
 
         <Button
+            android:id="@+id/ciphersBtn"
+            android:layout_width="155dp"
+            android:layout_height="wrap_content"
+            android:text="Ciphers"
+            app:layout_constraintBottom_toTopOf="@+id/encryptBtn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.876" />
+
+        <Button
             android:id="@+id/encryptBtn"
             android:layout_width="155dp"
             android:layout_height="wrap_content"
@@ -31,30 +42,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.406" />
-
-        <Button
-            android:id="@+id/ciphersBtn"
-            android:layout_width="155dp"
-            android:layout_height="wrap_content"
-            android:text="Ciphers"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/encryptBtn"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.87" />
-
-        <Button
-            android:id="@+id/chksumBtn"
-            android:layout_width="155dp"
-            android:layout_height="wrap_content"
-            android:text="Checksum"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/decryptBtn"
-            app:layout_constraintVertical_bias="0.123" />
+            app:layout_constraintVertical_bias="0.355" />
 
         <Button
             android:id="@+id/decryptBtn"
@@ -66,7 +54,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/encryptBtn"
-            app:layout_constraintVertical_bias="0.082" />
+            app:layout_constraintVertical_bias="0.072" />
 
         <Button
             android:id="@+id/encryptFileBtn"
@@ -77,7 +65,29 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/chksumBtn"
-            app:layout_constraintVertical_bias="0.159" />
+            app:layout_constraintVertical_bias="0.127" />
+
+        <Button
+            android:id="@+id/decryptFileBtn"
+            android:layout_width="155dp"
+            android:layout_height="wrap_content"
+            android:text="Decrypt File"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/encryptFileBtn"
+            app:layout_constraintVertical_bias="0.19" />
+
+        <Button
+            android:id="@+id/chksumBtn"
+            android:layout_width="155dp"
+            android:layout_height="wrap_content"
+            android:text="Checksum"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/decryptBtn"
+            app:layout_constraintVertical_bias="0.102" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
