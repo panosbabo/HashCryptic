@@ -212,7 +212,14 @@ public class FileEncrypt extends AppCompatActivity implements AdapterView.OnItem
                 }
 
                 Log.d(TAG, "File encrypted successfully. Output file path: " + outputFileObject.getAbsolutePath());
-                Toast.makeText(FileEncrypt.this, "Successfully encrypted: " + outputFileObject.getName(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(FileEncrypt.this, "Successfully encrypted: " + outputFileObject.getName(), Toast.LENGTH_LONG).show();
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(FileEncrypt.this, "File saved in Downloads", Toast.LENGTH_SHORT).show();
+                    }
+                }, 2000);
             }
             else if (USERNAMESWITCH.isChecked()) {
                 Toast.makeText(FileEncrypt.this, "Locked", Toast.LENGTH_SHORT).show();
