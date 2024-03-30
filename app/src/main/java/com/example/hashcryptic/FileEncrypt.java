@@ -123,7 +123,6 @@ public class FileEncrypt extends AppCompatActivity implements AdapterView.OnItem
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Handler handler = new Handler();
 
         if (requestCode == PICK_FILE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
             Uri uri = data.getData();
@@ -131,19 +130,12 @@ public class FileEncrypt extends AppCompatActivity implements AdapterView.OnItem
             try {
                 switch (pos) {
                     case 0:
-                        Runnable runnable = new Runnable() {
-                            @Override
-                            public void run() {
-
-                                try {
-                                    secretKey = generateRandomKey(128);
-                                } catch (NoSuchAlgorithmException e) {
-                                    throw new RuntimeException(e);
-                                }
-                                encryptFile(uri, selectedFilePath, secretKey);
-                            }
-                        };
-                        handler.post(runnable);
+                        try {
+                            secretKey = generateRandomKey(128);
+                        } catch (NoSuchAlgorithmException e) {
+                            throw new RuntimeException(e);
+                        }
+                        encryptFile(uri, secretKey);
                         break;
                     case 1:
                         try {
@@ -151,7 +143,7 @@ public class FileEncrypt extends AppCompatActivity implements AdapterView.OnItem
                         } catch (NoSuchAlgorithmException e) {
                             throw new RuntimeException(e);
                         }
-                        encryptFile(uri, selectedFilePath, secretKey);
+                        encryptFile(uri, secretKey);
                         break;
                     case 2:
                         try {
@@ -159,7 +151,7 @@ public class FileEncrypt extends AppCompatActivity implements AdapterView.OnItem
                         } catch (NoSuchAlgorithmException e) {
                             throw new RuntimeException(e);
                         }
-                        encryptFile(uri, selectedFilePath, secretKey);
+                        encryptFile(uri, secretKey);
                         break;
                 }
             }catch(Exception e){
@@ -176,7 +168,7 @@ public class FileEncrypt extends AppCompatActivity implements AdapterView.OnItem
         return keyGenerator.generateKey();
     }
 
-    private void encryptFile(Uri uri, String outputFile, SecretKey secretKey) {
+    private void encryptFile(Uri uri, SecretKey secretKey) {
         InputStream inputStream = null;
         FileOutputStream outputStream = null;
 
@@ -188,33 +180,9 @@ public class FileEncrypt extends AppCompatActivity implements AdapterView.OnItem
             String displayName = getDisplayName(resolver, uri);
 
             File outputDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
-            // Get the directory path of the input file
-//            String inputFilePath = uri.getPath();
-//            String outputFileName = "encrypted_" + new File(inputFilePath).getName();
-//            String outputDir = new File(inputFilePath).getParentFile().getAbsolutePath() + File.separator + outputFileName;
-
-//            if (!outputDir.exists()) {
-//                if (!outputDir.mkdirs()) {
-//                    throw new IOException("Failed to create output directory");
-//                }
-//            }
 
             // Construct output file path
             File outputFileObject = new File(outputDir,"encrypted_" + displayName);
-
-//            byte[] keyBytes = new byte[KEY_SIZE / 8];
-//            SecureRandom secureRandom = new SecureRandom();
-//            secureRandom.nextBytes(keyBytes);
-//            SecretKeySpec secretKeySpec = new SecretKeySpec(keyBytes, ALGORITHM);
-//
-//            // Generate a random IV
-//            byte[] ivBytes = new byte[16];
-//            secureRandom.nextBytes(ivBytes);
-//            IvParameterSpec ivSpec = new IvParameterSpec(ivBytes);
-//
-//            // Initialize the cipher with encryption mode
-//            Cipher cipher = Cipher.getInstance(TRANSFORMATION);
-//            cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec, ivSpec);
 //
 //            // Initialize encryption cipher
 //            Key secretKey = new SecretKeySpec(key.getBytes(), ALGORITHM);
