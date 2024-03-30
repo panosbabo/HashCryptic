@@ -13,7 +13,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.Toast;
@@ -22,13 +21,15 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.File;
 import java.io.InputStream;
-import java.security.Key;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import java.security.spec.InvalidKeySpecException;
+import java.security.spec.KeySpec;
 
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
-import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.SecretKeySpec;
 import javax.crypto.Cipher;
 import android.os.Build;
@@ -43,7 +44,6 @@ public class FileEncrypt extends AppCompatActivity implements AdapterView.OnItem
     private static final String TRANSFORMATION = "AES";
     private static final int BUFFER_SIZE = 8192;
     private static final String TAG = "EncryptionActivity";
-    private static int KEY_SIZE = 128;
     private static String USERNAME;
     private static SecretKey secretKey = null;
     private static Switch USERNAMESWITCH;
@@ -126,35 +126,24 @@ public class FileEncrypt extends AppCompatActivity implements AdapterView.OnItem
 
         if (requestCode == PICK_FILE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
             Uri uri = data.getData();
-            String selectedFilePath = uri.getPath();
+//            String selectedFilePath = uri.getPath();
             try {
+                // Checking if user decides whether to encrypt using username as key or randomly generated 128, 192 or 256 AES
                 switch (pos) {
                     case 0:
-                        try {
-                            secretKey = generateRandomKey(128);
-                        } catch (NoSuchAlgorithmException e) {
-                            throw new RuntimeException(e);
-                        }
-                        encryptFile(uri, secretKey);
+                        secretKey = generateRandomKey(128);
+                        encryptFile(uri, secretKey, 128);
                         break;
                     case 1:
-                        try {
-                            secretKey = generateRandomKey(192);
-                        } catch (NoSuchAlgorithmException e) {
-                            throw new RuntimeException(e);
-                        }
-                        encryptFile(uri, secretKey);
+                        secretKey = generateRandomKey(192);
+                        encryptFile(uri, secretKey, 192);
                         break;
                     case 2:
-                        try {
-                            secretKey = generateRandomKey(256);
-                        } catch (NoSuchAlgorithmException e) {
-                            throw new RuntimeException(e);
-                        }
-                        encryptFile(uri, secretKey);
+                        secretKey = generateRandomKey(256);
+                        encryptFile(uri, secretKey, 256);
                         break;
                 }
-            }catch(Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
                 Log.e(TAG, "Failed to encrypt file: " + e.getMessage());
                 Toast.makeText(this, "Failed to encrypt file.", Toast.LENGTH_SHORT).show();
@@ -162,19 +151,42 @@ public class FileEncrypt extends AppCompatActivity implements AdapterView.OnItem
         }
     }
 
-    public static SecretKey generateRandomKey(int KEY_SIZE) throws NoSuchAlgorithmException {
+    public static SecretKey generateRandomKey(int keySize) throws NoSuchAlgorithmException {
         KeyGenerator keyGenerator = KeyGenerator.getInstance(ALGORITHM);
-        keyGenerator.init(KEY_SIZE);
+        keyGenerator.init(keySize);
         return keyGenerator.generateKey();
     }
 
-    private void encryptFile(Uri uri, SecretKey secretKey) {
+    public static SecretKey generateAESKey(String password, int keySize) {
+        try {
+            byte[] salt = new byte[16];
+
+            // Personal number of iterations for extra security -- 1776 doesn't sound familiar?
+            int iterations = 1776;
+
+            KeySpec keySpec = new PBEKeySpec(password.toCharArray(), salt, iterations, keySize);
+            SecretKeyFactory keyFactory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256");
+            byte[] keyBytes = keyFactory.generateSecret(keySpec).getEncoded();
+
+            return new SecretKeySpec(keyBytes, "AES");
+        } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private void encryptFile(Uri uri, SecretKey secretKey, int keySize) {
         InputStream inputStream = null;
         FileOutputStream outputStream = null;
 
         try {
             ContentResolver resolver = getContentResolver();
             inputStream = resolver.openInputStream(uri);
+
+            // Create a SecretKeySpec object from the key bytes
+            byte[] keyBytes = new byte[keySize / 8];
+            SecureRandom secureRandom = new SecureRandom();
+            secureRandom.nextBytes(keyBytes);
 
             // Retrieve the display name of the file
             String displayName = getDisplayName(resolver, uri);
@@ -183,48 +195,49 @@ public class FileEncrypt extends AppCompatActivity implements AdapterView.OnItem
 
             // Construct output file path
             File outputFileObject = new File(outputDir,"encrypted_" + displayName);
-//
-//            // Initialize encryption cipher
-//            Key secretKey = new SecretKeySpec(key.getBytes(), ALGORITHM);
 
-            if (!USERNAMESWITCH.isChecked()) {
+            // Cipher instantiation
+            Cipher cipher = Cipher.getInstance(TRANSFORMATION);
 
-                Cipher cipher = Cipher.getInstance(TRANSFORMATION);
+            if (USERNAMESWITCH.isChecked()) {
+                // Initializing key from Username with chosen key size
+                SecretKey mykey = generateAESKey(USERNAME, keySize);
+                // Cipher initialization for personal key
+                cipher.init(Cipher.ENCRYPT_MODE, mykey);
+            }
+            else {
+                // Cipher initialization
                 cipher.init(Cipher.ENCRYPT_MODE, secretKey);
+            }
 
-                // Initialize output stream
-                outputStream = new FileOutputStream(outputFileObject);
+            // Initialize output stream
+            outputStream = new FileOutputStream(outputFileObject);
 
-                byte[] buffer = new byte[BUFFER_SIZE];
-                int bytesRead;
+            byte[] buffer = new byte[BUFFER_SIZE];
+            int bytesRead;
 
-                // Encrypt file
-                while ((bytesRead = inputStream.read(buffer)) != -1) {
-                    byte[] outputBytes = cipher.update(buffer, 0, bytesRead);
-                    if (outputBytes != null) {
-                        outputStream.write(outputBytes);
-                    }
-                }
-
-                byte[] outputBytes = cipher.doFinal();
+            // Encrypt file
+            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                byte[] outputBytes = cipher.update(buffer, 0, bytesRead);
                 if (outputBytes != null) {
                     outputStream.write(outputBytes);
                 }
+            }
 
-                Log.d(TAG, "File encrypted successfully. Output file path: " + outputFileObject.getAbsolutePath());
-                Toast.makeText(FileEncrypt.this, "Successfully encrypted: " + outputFileObject.getName(), Toast.LENGTH_LONG).show();
-                Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(FileEncrypt.this, "File saved in Downloads", Toast.LENGTH_SHORT).show();
-                    }
-                }, 2000);
+            byte[] outputBytes = cipher.doFinal();
+            if (outputBytes != null) {
+                outputStream.write(outputBytes);
             }
-            else if (USERNAMESWITCH.isChecked()) {
-                Toast.makeText(FileEncrypt.this, "Locked", Toast.LENGTH_SHORT).show();
-                return;
-            }
+
+            Log.d(TAG, "File encrypted successfully. Output file path: " + outputFileObject.getAbsolutePath());
+            Toast.makeText(FileEncrypt.this, "Successfully encrypted: " + outputFileObject.getName(), Toast.LENGTH_LONG).show();
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(FileEncrypt.this, "File saved in Downloads", Toast.LENGTH_SHORT).show();
+                }
+            }, 2000);
         } catch (Exception e) {
             e.printStackTrace();
             Log.e(TAG, "Failed to encrypt file: " + e.getMessage());
