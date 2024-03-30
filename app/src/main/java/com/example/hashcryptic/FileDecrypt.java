@@ -16,22 +16,16 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
-import android.widget.Switch;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.hashcryptic.db.ProfileDatabase;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
-
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
@@ -48,7 +42,6 @@ public class FileDecrypt extends AppCompatActivity implements AdapterView.OnItem
     private static final String TAG = "EncryptionActivity";
     private static String USERNAME;
     private static SecretKey secretKey = null;
-    private static Switch USERNAMESWITCH;
 
     private int pos;
 
@@ -62,7 +55,6 @@ public class FileDecrypt extends AppCompatActivity implements AdapterView.OnItem
         USERNAME = db.profileDao().getprofile().get(0).personUsername;
 
         Button choose_file = findViewById(R.id.button_choose_file);
-        USERNAMESWITCH = findViewById(R.id.personalKeySwitch);
 
         Spinner spinner = (Spinner) findViewById(R.id.spinner);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(FileDecrypt.this,
@@ -77,7 +69,6 @@ public class FileDecrypt extends AppCompatActivity implements AdapterView.OnItem
             public void onClick(View view) {
                 // Checking permission to be granted
                 checkPermissionsAndPickFile();
-//                pickfile();
             }
         });
     }
@@ -133,22 +124,19 @@ public class FileDecrypt extends AppCompatActivity implements AdapterView.OnItem
                 // Checking if user decides whether to encrypt using username as key or randomly generated 128, 192 or 256 AES
                 switch (pos) {
                     case 0:
-                        secretKey = generateRandomKey(128);
-                        encryptFile(uri, secretKey, 128);
+                        decryptFile(uri, secretKey, 128);
                         break;
                     case 1:
-                        secretKey = generateRandomKey(192);
-                        encryptFile(uri, secretKey, 192);
+                        decryptFile(uri, secretKey, 192);
                         break;
                     case 2:
-                        secretKey = generateRandomKey(256);
-                        encryptFile(uri, secretKey, 256);
+                        decryptFile(uri, secretKey, 256);
                         break;
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-                Log.e(TAG, "Failed to encrypt file: " + e.getMessage());
-                Toast.makeText(this, "Failed to encrypt file.", Toast.LENGTH_SHORT).show();
+                Log.e(TAG, "Failed to decrypt file: " + e.getMessage());
+                Toast.makeText(this, "Failed to decrypt file.", Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -177,7 +165,7 @@ public class FileDecrypt extends AppCompatActivity implements AdapterView.OnItem
         return null;
     }
 
-    private void encryptFile(Uri uri, SecretKey secretKey, int keySize) {
+    private void decryptFile(Uri uri, SecretKey secretKey, int keySize) {
         InputStream inputStream = null;
         FileOutputStream outputStream = null;
 
@@ -185,32 +173,24 @@ public class FileDecrypt extends AppCompatActivity implements AdapterView.OnItem
             ContentResolver resolver = getContentResolver();
             inputStream = resolver.openInputStream(uri);
 
-            // Create a SecretKeySpec object from the key bytes
-            byte[] keyBytes = new byte[keySize / 8];
-            SecureRandom secureRandom = new SecureRandom();
-            secureRandom.nextBytes(keyBytes);
-
             // Retrieve the display name of the file
             String displayName = getDisplayName(resolver, uri);
+
+            // Renaming decrypted file properly
+            String decryptedName = displayName.substring(10);
 
             File outputDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
 
             // Construct output file path
-            File outputFileObject = new File(outputDir,"encrypted_" + displayName);
+            File outputFileObject = new File(outputDir,"decrypted_" + decryptedName);
 
             // Cipher instantiation
             Cipher cipher = Cipher.getInstance(TRANSFORMATION);
 
-            if (USERNAMESWITCH.isChecked()) {
-                // Initializing key from Username with chosen key size
-                SecretKey mykey = generateAESKey(USERNAME, keySize);
-                // Cipher initialization for personal key
-                cipher.init(Cipher.ENCRYPT_MODE, mykey);
-            }
-            else {
-                // Cipher initialization
-                cipher.init(Cipher.ENCRYPT_MODE, secretKey);
-            }
+            // Initializing key from Username with chosen key size
+            SecretKey myKey = generateAESKey(USERNAME, keySize);
+            // Cipher initialization for personal key
+            cipher.init(Cipher.DECRYPT_MODE, myKey);
 
             // Initialize output stream
             outputStream = new FileOutputStream(outputFileObject);
@@ -231,8 +211,8 @@ public class FileDecrypt extends AppCompatActivity implements AdapterView.OnItem
                 outputStream.write(outputBytes);
             }
 
-            Log.d(TAG, "File encrypted successfully. Output file path: " + outputFileObject.getAbsolutePath());
-            Toast.makeText(FileDecrypt.this, "Successfully encrypted: " + outputFileObject.getName(), Toast.LENGTH_LONG).show();
+            Log.d(TAG, "File decrypted successfully. Output file path: " + outputFileObject.getAbsolutePath());
+            Toast.makeText(FileDecrypt.this, "Successfully decrypted: " + outputFileObject.getName(), Toast.LENGTH_LONG).show();
             Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
                 @Override
@@ -242,8 +222,8 @@ public class FileDecrypt extends AppCompatActivity implements AdapterView.OnItem
             }, 2000);
         } catch (Exception e) {
             e.printStackTrace();
-            Log.e(TAG, "Failed to encrypt file: " + e.getMessage());
-            Toast.makeText(FileDecrypt.this, "Failed to encrypt file.", Toast.LENGTH_SHORT).show();
+            Log.e(TAG, "Failed to decrypt file: " + e.getMessage());
+            Toast.makeText(FileDecrypt.this, "Failed to decrypt file", Toast.LENGTH_SHORT).show();
         } finally {
             // Close streams
             try {

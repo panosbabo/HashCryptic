@@ -25,7 +25,6 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
-
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
@@ -34,7 +33,6 @@ import javax.crypto.spec.SecretKeySpec;
 import javax.crypto.Cipher;
 import android.os.Build;
 import android.os.Environment;
-
 import com.example.hashcryptic.db.ProfileDatabase;
 
 public class FileEncrypt extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
@@ -200,9 +198,9 @@ public class FileEncrypt extends AppCompatActivity implements AdapterView.OnItem
 
             if (USERNAMESWITCH.isChecked()) {
                 // Initializing key from Username with chosen key size
-                SecretKey mykey = generateAESKey(USERNAME, keySize);
+                SecretKey myKey = generateAESKey(USERNAME, keySize);
                 // Cipher initialization for personal key
-                cipher.init(Cipher.ENCRYPT_MODE, mykey);
+                cipher.init(Cipher.ENCRYPT_MODE, myKey);
             }
             else {
                 // Cipher initialization
