@@ -17,6 +17,8 @@ import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.File;
@@ -25,6 +27,8 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
+import java.util.zip.GZIPOutputStream;
+
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
@@ -45,6 +49,7 @@ public class FileEncrypt extends AppCompatActivity implements AdapterView.OnItem
     private static String USERNAME;
     private static SecretKey secretKey = null;
     private static Switch USERNAMESWITCH;
+    private static Switch COMPRESSIONSWITCH;
 
     private int pos;
 
@@ -59,6 +64,7 @@ public class FileEncrypt extends AppCompatActivity implements AdapterView.OnItem
 
         Button choose_file = findViewById(R.id.button_choose_file);
         USERNAMESWITCH = findViewById(R.id.personalKeySwitch);
+        COMPRESSIONSWITCH = findViewById(R.id.compressionKeySwitch);
 
         Spinner spinner = (Spinner) findViewById(R.id.spinner);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(FileEncrypt.this,
@@ -213,17 +219,37 @@ public class FileEncrypt extends AppCompatActivity implements AdapterView.OnItem
             byte[] buffer = new byte[BUFFER_SIZE];
             int bytesRead;
 
-            // Encrypt file
-            while ((bytesRead = inputStream.read(buffer)) != -1) {
-                byte[] outputBytes = cipher.update(buffer, 0, bytesRead);
+            // Using compression before encryption for extra security
+            if (COMPRESSIONSWITCH.isChecked()) {
+                // File encryption while reading file input bytes
+                while ((bytesRead = inputStream.read(buffer)) != -1) {
+                    byte[] outputBytes = cipher.update(buffer, 0, bytesRead);
+                    if (outputBytes != null) {
+                        outputStream.write(outputBytes);
+                    }
+                }
+                // Applying Byte Array Compression
+                ByteArrayOutputStream compressedStream = new ByteArrayOutputStream();
+                try (GZIPOutputStream gzipOutputStream = new GZIPOutputStream(compressedStream)) {
+                    gzipOutputStream.write(bytesRead);
+                }
+                byte[] encryptedBytes = cipher.doFinal(compressedStream.toByteArray());
+                if (encryptedBytes != null) {
+                    outputStream.write(encryptedBytes);
+                }
+            }
+            else if (!COMPRESSIONSWITCH.isChecked()){
+                // File encryption without compression
+                while ((bytesRead = inputStream.read(buffer)) != -1) {
+                    byte[] outputBytes = cipher.update(buffer, 0, bytesRead);
+                    if (outputBytes != null) {
+                        outputStream.write(outputBytes);
+                    }
+                }
+                byte[] outputBytes = cipher.doFinal();
                 if (outputBytes != null) {
                     outputStream.write(outputBytes);
                 }
-            }
-
-            byte[] outputBytes = cipher.doFinal();
-            if (outputBytes != null) {
-                outputStream.write(outputBytes);
             }
 
             Log.d(TAG, "File encrypted successfully. Output file path: " + outputFileObject.getAbsolutePath());

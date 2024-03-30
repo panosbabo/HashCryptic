@@ -124,13 +124,13 @@ public class FileDecrypt extends AppCompatActivity implements AdapterView.OnItem
                 // Checking if user decides whether to encrypt using username as key or randomly generated 128, 192 or 256 AES
                 switch (pos) {
                     case 0:
-                        decryptFile(uri, secretKey, 128);
+                        decryptFile(uri, 128);
                         break;
                     case 1:
-                        decryptFile(uri, secretKey, 192);
+                        decryptFile(uri, 192);
                         break;
                     case 2:
-                        decryptFile(uri, secretKey, 256);
+                        decryptFile(uri, 256);
                         break;
                 }
             } catch (Exception e) {
@@ -165,7 +165,7 @@ public class FileDecrypt extends AppCompatActivity implements AdapterView.OnItem
         return null;
     }
 
-    private void decryptFile(Uri uri, SecretKey secretKey, int keySize) {
+    private void decryptFile(Uri uri, int keySize) {
         InputStream inputStream = null;
         FileOutputStream outputStream = null;
 
@@ -175,14 +175,20 @@ public class FileDecrypt extends AppCompatActivity implements AdapterView.OnItem
 
             // Retrieve the display name of the file
             String displayName = getDisplayName(resolver, uri);
+            String wordToMatch = "encrypted_";
 
-            // Renaming decrypted file properly
-            String decryptedName = displayName.substring(10);
+            // Check for encrypted file rename
+            String decryptedName = displayName;
+            if (displayName.startsWith(wordToMatch)) {
+                // Renaming decrypted file properly
+                decryptedName = displayName.substring(wordToMatch.length());
+            }
 
+            // Output file initialization
             File outputDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
 
             // Construct output file path
-            File outputFileObject = new File(outputDir,"decrypted_" + decryptedName);
+            File outputFileObject = new File(outputDir, "decrypted_" + decryptedName);
 
             // Cipher instantiation
             Cipher cipher = Cipher.getInstance(TRANSFORMATION);
@@ -198,7 +204,7 @@ public class FileDecrypt extends AppCompatActivity implements AdapterView.OnItem
             byte[] buffer = new byte[BUFFER_SIZE];
             int bytesRead;
 
-            // Encrypt file
+            // File Decryption
             while ((bytesRead = inputStream.read(buffer)) != -1) {
                 byte[] outputBytes = cipher.update(buffer, 0, bytesRead);
                 if (outputBytes != null) {
