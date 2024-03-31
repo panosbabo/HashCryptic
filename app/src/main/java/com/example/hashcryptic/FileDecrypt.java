@@ -52,7 +52,9 @@ public class FileDecrypt extends AppCompatActivity implements AdapterView.OnItem
 
         // Calling database from Profile
         ProfileDatabase db  = ProfileDatabase.getDbInstance(this.getApplicationContext());
-        USERNAME = db.profileDao().getprofile().get(0).personUsername;
+        if (!db.profileDao().getprofile().isEmpty()) {
+            USERNAME = db.profileDao().getprofile().get(0).personUsername;
+        }
 
         Button choose_file = findViewById(R.id.button_choose_file);
 

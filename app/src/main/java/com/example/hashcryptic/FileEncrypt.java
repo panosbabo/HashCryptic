@@ -60,7 +60,9 @@ public class FileEncrypt extends AppCompatActivity implements AdapterView.OnItem
 
         // Calling database from Profile
         ProfileDatabase db  = ProfileDatabase.getDbInstance(this.getApplicationContext());
-        USERNAME = db.profileDao().getprofile().get(0).personUsername;
+        if (!db.profileDao().getprofile().isEmpty()) {
+            USERNAME = db.profileDao().getprofile().get(0).personUsername;
+        }
 
         Button choose_file = findViewById(R.id.button_choose_file);
         USERNAMESWITCH = findViewById(R.id.personalKeySwitch);
@@ -77,8 +79,19 @@ public class FileEncrypt extends AppCompatActivity implements AdapterView.OnItem
         choose_file.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Checking permission to be granted
-                checkPermissionsAndPickFile();
+                if (USERNAMESWITCH.isChecked()) {
+                    if (db.profileDao().getprofile().isEmpty()) {
+                        Toast.makeText(FileEncrypt.this, "        Username is empty\nProfile page must be updated", Toast.LENGTH_LONG).show();
+                    }
+                    else if (!db.profileDao().getprofile().isEmpty()) {
+                        // Checking permission to be granted
+                        checkPermissionsAndPickFile();
+                    }
+                }
+                else {
+                    // Checking permission to be granted
+                    checkPermissionsAndPickFile();
+                }
             }
         });
     }
@@ -181,6 +194,8 @@ public class FileEncrypt extends AppCompatActivity implements AdapterView.OnItem
     private void encryptFile(Uri uri, SecretKey secretKey, int keySize) {
         InputStream inputStream = null;
         FileOutputStream outputStream = null;
+
+        ProfileDatabase db  = ProfileDatabase.getDbInstance(this.getApplicationContext());
 
         try {
             ContentResolver resolver = getContentResolver();
