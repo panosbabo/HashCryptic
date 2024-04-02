@@ -33,25 +33,51 @@ Setup your profile to give a personal touch
   <img src="Screenshots/5.png" width=250></img>
 </p>
 <br>
-Encrypt and decrypt any text in different encryption algorithms
+Encrypt and decrypt by exploring sophisticated ciphers
 <br><br>
 <p align="center">
   <img src="Screenshots/6.png" width=250></img>
   <img src="Screenshots/7.png" width=250></img>
-  <img src="Screenshots/12.png" width=250></img>
-</p>
-<br>
-View and manage all stored hash values
-<br><br>
-<p align="center">
   <img src="Screenshots/8.png" width=250></img>
-  <img src="Screenshots/9.png" width=250></img>
 </p>
 <br>
-Generate Checksum values for files and encrypt files with your private key
+Explore more ciphers
 <br><br>
 <p align="center">
-    <img src="Screenshots/10.png" width=250></img>
-    <img src="Screenshots/11.png" width=250></img>
+  <img src="Screenshots/9.png" width=250></img>
+  <img src="Screenshots/10.png" width=250></img>
+  <img src="Screenshots/11.png" width=250></img>
+</p>
+<p align="center">
+  <img src="Screenshots/12.png" width=250></img>
+  <img src="Screenshots/13.png" width=250></img>
+</p>
+<br>
+Encrypt and decrypt any text in different hash algorithms
+<br><br>
+<p align="center">
+  <img src="Screenshots/14.png" width=250></img>
+  <img src="Screenshots/15.png" width=250></img>
+  <img src="Screenshots/21.png" width=250></img>
+</p>
+<br>
+View and manage all stored hash values, share with QR Code
+<br><br>
+<p align="center">
+  <img src="Screenshots/16.png" width=250></img>
+  <img src="Screenshots/17.png" width=250></img>
+</p>
+<br>
+Generate Checksum values for files
+<br><br>
+<p align="center">
+    <img src="Screenshots/18.png" width=250></img>
+</p>
+<br>
+Encrypt and decrypt files using your personalized username key
+<br><br>
+<p align="center">
+    <img src="Screenshots/20.png" width=250></img>
+    <img src="Screenshots/23.png" width=250></img>
 </p>
 <br>
