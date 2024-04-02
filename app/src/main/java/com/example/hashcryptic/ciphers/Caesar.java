@@ -55,6 +55,7 @@ public class Caesar extends AppCompatActivity {
                     // get the string from the textview and trim all spaces
                     String enryptTextToCaesar = encryptCaesar(encryText.getText().toString().trim(), Integer.parseInt(keySize.getText().toString().trim()));
                     message.setText(enryptTextToCaesar.toUpperCase());
+                    Toast.makeText(Caesar.this, "Message Encrypted Successfully", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -73,6 +74,7 @@ public class Caesar extends AppCompatActivity {
                     // get the string from the textview and trim all spaces
                     String enryptTextToCaesar = decryptCaesar(encryText.getText().toString().trim(), Integer.parseInt(keySize.getText().toString().trim()));
                     message.setText(enryptTextToCaesar.toUpperCase());
+                    Toast.makeText(Caesar.this, "Message Decrypted Successfully", Toast.LENGTH_SHORT).show();
                 }
             }
         });

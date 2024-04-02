@@ -51,6 +51,7 @@ public class RailFence extends AppCompatActivity {
                     // get the string from the textview and trim all spaces
                     String enryptTextToRailFence = railencrypt(encryText.getText().toString().trim(), Integer.parseInt(rowSize.getText().toString().trim()));
                     message.setText(enryptTextToRailFence.toUpperCase());
+                    Toast.makeText(RailFence.this, "Message Encrypted Successfully", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -65,6 +66,7 @@ public class RailFence extends AppCompatActivity {
                     // get the string from the textview and trim all spaces
                     String enryptTextToCaesar = raildecrypt(encryText.getText().toString().trim(), Integer.parseInt(rowSize.getText().toString().trim()));
                     message.setText(enryptTextToCaesar.toUpperCase());
+                    Toast.makeText(RailFence.this, "Message Decrypted Successfully", Toast.LENGTH_SHORT).show();
                 }
             }
         });

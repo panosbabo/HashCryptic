@@ -58,6 +58,7 @@ public class Vigenere extends AppCompatActivity {
                     String key = keySize.getText().toString().trim();
                     String encryptedText = vignrEncrypt(encryText.getText().toString().trim(), key);
                     message.setText(encryptedText.toUpperCase());
+                    Toast.makeText(Vigenere.this, "Message Encrypted Successfully", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -78,6 +79,7 @@ public class Vigenere extends AppCompatActivity {
                     String key = keySize.getText().toString().trim();
                     String decryptText = vignrDecrypt(encryText.getText().toString().trim(), key);
                     message.setText(decryptText.toUpperCase());
+                    Toast.makeText(Vigenere.this, "Message Decrypted Successfully", Toast.LENGTH_SHORT).show();
                 }
             }
         });

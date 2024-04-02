@@ -72,6 +72,7 @@ public class HillCipher extends AppCompatActivity {
                     }
                     String encryptedText = hillEncrypt((encryText.getText().toString().trim().toUpperCase()), keyMatrix);
                     message.setText(encryptedText.toUpperCase());
+                    Toast.makeText(HillCipher.this, "Message Encrypted Successfully", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -107,6 +108,7 @@ public class HillCipher extends AppCompatActivity {
                     }
                     String encryptedText = hillDecrypt((encryText.getText().toString().trim().toUpperCase()), keyMatrix);
                     message.setText(encryptedText.toUpperCase());
+                    Toast.makeText(HillCipher.this, "Message Decrypted Successfully", Toast.LENGTH_SHORT).show();
                 }
             }
         });
