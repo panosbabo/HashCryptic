@@ -12,13 +12,9 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.hashcryptic.db.Hash;
 import com.example.hashcryptic.db.HashDatabase;
-import com.example.hashcryptic.hashencryption.encryptHash;
-
-import java.util.Enumeration;
 import java.util.List;
 
 public class StoredValuesAdapter extends RecyclerView.Adapter<HashLT> {

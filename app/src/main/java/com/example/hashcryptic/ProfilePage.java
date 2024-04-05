@@ -69,9 +69,9 @@ public class ProfilePage extends Fragment {
         ProfileDatabase db  = ProfileDatabase.getDbInstance(this.getContext());
 
         // Initializing Views to related Resource id's
-        mUsernameText = profView.findViewById(R.id.usernameinsert);
-        mEmailText = profView.findViewById(R.id.emailinsert);
-        mAddressText = profView.findViewById(R.id.ageinsert);
+        mUsernameText = profView.findViewById(R.id.usernameview);
+        mEmailText = profView.findViewById(R.id.emailview);
+        mAddressText = profView.findViewById(R.id.ageview);
         mavatarusernameText = profView.findViewById(R.id.username);
         mavataremailText = profView.findViewById(R.id.emailuser);
         editprofbtn = profView.findViewById(R.id.editprofile_btn);

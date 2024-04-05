@@ -128,7 +128,7 @@
                                 android:textStyle="bold" />
 
                             <TextView
-                                android:id="@+id/usernameinsert"
+                                android:id="@+id/usernameview"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="10dp"
@@ -166,7 +166,7 @@
                                 android:textStyle="bold" />
 
                             <TextView
-                                android:id="@+id/emailinsert"
+                                android:id="@+id/emailview"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginRight="10dp"
@@ -204,7 +204,7 @@
                                 android:textStyle="bold" />
 
                             <TextView
-                                android:id="@+id/ageinsert"
+                                android:id="@+id/ageview"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginRight="10dp"
