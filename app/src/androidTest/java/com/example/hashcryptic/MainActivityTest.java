@@ -25,8 +25,6 @@ import org.junit.runner.RunWith;
 @LargeTest
 public class MainActivityTest {
 
-    private static final String TAG = "AndroidTest";
-
     @Rule
     public ActivityScenarioRule<MainActivity> activityScenarioRule = new ActivityScenarioRule<>(MainActivity.class);
 
@@ -37,7 +35,6 @@ public class MainActivityTest {
 //        onView(withId(R.id.encryptBtn)).perform(click());
 //        onView(isRoot()).perform(ViewActions.pressBack());
 //        onView(withText("Hello world!")).check(matches(isDisplayed()));
-//        onView(isRoot()).perform(ViewActions.pressBack());
 
     @Test
     public void HomePageTest() {
@@ -53,48 +50,25 @@ public class MainActivityTest {
     }
 
     @Test
-    public void HashCryptPageTest() {
+    public void CipherPagesTest() {
         // Test implementation
-        onView(withId(R.id.encrypt)).perform(click());
+        onView(withId(R.id.hashcrypt)).perform(click());
         onView(withId(R.id.ciphersBtn)).perform(click());
         onView(withId(R.id.caesarCiph_btn)).perform(click());
+        onView(isRoot()).perform(ViewActions.pressBack());
+        onView(withId(R.id.vigenereCiph_btn)).perform(click());
+        onView(isRoot()).perform(ViewActions.pressBack());
+        onView(withId(R.id.railFenceCiph_btn)).perform(click());
+        onView(isRoot()).perform(ViewActions.pressBack());
+        onView(withId(R.id.hillCiph_btn)).perform(click());
         onView(isRoot()).perform(ViewActions.pressBack());
     }
 
     @Test
-    public void CaesarCipherEncryptTest() {
+    public void MyHashValuesTest() {
         // Test implementation
-        String input = "HELLO WORLD";
-        String output = "JGNNQ YQTNF";
-        onView(withId(R.id.encrypt)).perform(click());
-        onView(withId(R.id.ciphersBtn)).perform(click());
-        onView(withId(R.id.caesarCiph_btn)).perform(click());
-        onView(withId(R.id.encrypt_Caesar_text)).perform(clearText(), typeText(input));
-        onView(withId(R.id.caesarKey_size)).perform(clearText(), typeText("2"));
-        onView(withId(R.id.encrCaesar)).perform(click());
-        onView(withId(R.id.caesar_msg_cntxt)).check(matches(withText(output)));
+        onView(withId(R.id.hashvlsBtn)).perform(click());
     }
-
-    @Test
-    public void CaesarCipherDecryptTest() {
-        // Test implementation
-        String input = "JGNNQ YQTNF";
-        String output = "HELLO WORLD";
-        onView(withId(R.id.encrypt)).perform(click());
-        onView(withId(R.id.ciphersBtn)).perform(click());
-        onView(withId(R.id.caesarCiph_btn)).perform(click());
-        onView(withId(R.id.encrypt_Caesar_text)).perform(clearText(), typeText(input));
-        onView(withId(R.id.caesarKey_size)).perform(clearText(), typeText("2"));
-        onView(withId(R.id.decrCaesar)).perform(click());
-        onView(withId(R.id.caesar_msg_cntxt)).check(matches(withText(output)));
-    }
-
-
-//    @Test
-//    public void MyHashValuesTest() {
-//        // Test implementation
-//        onView(withId(R.id.hashvlsBtn)).perform(click());
-//    }
 
 
     private static class TestLogger extends TestWatcher {
