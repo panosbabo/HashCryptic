@@ -16,7 +16,7 @@ import com.example.hashcryptic.ciphers.Vigenere;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link EncryptPage#newInstance} factory method to
+ * Use the {@link HashCrypticPage#newInstance} factory method to
  * create an instance of this fragment.
  */
 public class Ciphers extends Fragment {

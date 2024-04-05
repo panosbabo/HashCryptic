@@ -33,11 +33,11 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.home:
                     changeScreen(new HomePage());
                     break;
+                case R.id.hashcrypt:
+                    changeScreen(new HashCrypticPage());
+                    break;
                 case R.id.profile:
                     changeScreen(new ProfilePage());
-                    break;
-                case R.id.encrypt:
-                    changeScreen(new EncryptPage());
                     break;
             }
             return true;

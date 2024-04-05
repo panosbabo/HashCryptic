@@ -5,7 +5,7 @@
         android:icon="@drawable/ic_baseline_home_24"
         android:id="@+id/home"/>
     <item
-        android:id="@+id/encrypt"
+        android:id="@+id/hashcrypt"
         android:icon="@android:drawable/ic_lock_idle_lock"
         android:title="Hashcrypt" />
     <item

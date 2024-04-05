@@ -220,7 +220,7 @@ public class FileDecrypt extends AppCompatActivity implements AdapterView.OnItem
             }
 
             Log.d(TAG, "File decrypted successfully. Output file path: " + outputFileObject.getAbsolutePath());
-            Toast.makeText(FileDecrypt.this, "Successfully decrypted: " + outputFileObject.getName(), Toast.LENGTH_LONG).show();
+            Toast.makeText(FileDecrypt.this, "Successfully decrypted:\n" + outputFileObject.getName(), Toast.LENGTH_LONG).show();
             Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
                 @Override

@@ -268,7 +268,7 @@ public class FileEncrypt extends AppCompatActivity implements AdapterView.OnItem
             }
 
             Log.d(TAG, "File encrypted successfully. Output file path: " + outputFileObject.getAbsolutePath());
-            Toast.makeText(FileEncrypt.this, "Successfully encrypted: " + outputFileObject.getName(), Toast.LENGTH_LONG).show();
+            Toast.makeText(FileEncrypt.this, "Successfully encrypted:\n" + outputFileObject.getName(), Toast.LENGTH_LONG).show();
             Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
                 @Override

@@ -10,12 +10,12 @@ import android.widget.Button;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link EncryptPage#newInstance} factory method to
+ * Use the {@link HashCrypticPage#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class EncryptPage extends Fragment {
+public class HashCrypticPage extends Fragment {
 
-    public EncryptPage() {
+    public HashCrypticPage() {
         // Required empty public constructor
     }
 
@@ -28,8 +28,8 @@ public class EncryptPage extends Fragment {
      * @return A new instance of fragment EncryptDecryptFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static EncryptPage newInstance(String param1, String param2) {
-        EncryptPage fragment = new EncryptPage();
+    public static HashCrypticPage newInstance(String param1, String param2) {
+        HashCrypticPage fragment = new HashCrypticPage();
         Bundle args = new Bundle();
 //        args.putString(ARG_PARAM1, param1);
 //        args.putString(ARG_PARAM2, param2);
@@ -53,7 +53,7 @@ public class EncryptPage extends Fragment {
         Button encryptButton, decryptButton, checksumButton, encrFileButton, ciphersList, decrFileButton;
 
         // Inflate the layout for this fragment
-        View encryptView = inflater.inflate(R.layout.fragment_encrypt_decrypt, container, false);
+        View encryptView = inflater.inflate(R.layout.fragment_hashcrypticpage, container, false);
         encryptButton = encryptView.findViewById(R.id.encryptBtn);
         decryptButton = encryptView.findViewById(R.id.decryptBtn);
         checksumButton = encryptView.findViewById(R.id.chksumBtn);
@@ -79,7 +79,7 @@ public class EncryptPage extends Fragment {
             @Override
             public void onClick(View view) {
                 // Creating an Intent for the next activity of the encrypt text page
-                Intent intent = new Intent(EncryptPage.super.getContext(), EncryptText.class);
+                Intent intent = new Intent(HashCrypticPage.super.getContext(), EncryptText.class);
                 startActivity(intent);
             }
         });
@@ -88,7 +88,7 @@ public class EncryptPage extends Fragment {
             @Override
             public void onClick(View view) {
                 // Creating an Intent for the next activity of the decrypt text page
-                Intent intent = new Intent(EncryptPage.super.getContext(), DecryptText.class);
+                Intent intent = new Intent(HashCrypticPage.super.getContext(), DecryptText.class);
                 startActivity(intent);
             }
         });
@@ -97,7 +97,7 @@ public class EncryptPage extends Fragment {
             @Override
             public void onClick(View view) {
                 // Creating an Intent for the next activity of the checksum files page
-                Intent intent = new Intent(EncryptPage.super.getContext(), Checksum.class);
+                Intent intent = new Intent(HashCrypticPage.super.getContext(), Checksum.class);
                 startActivity(intent);
             }
         });
@@ -106,7 +106,7 @@ public class EncryptPage extends Fragment {
             @Override
             public void onClick(View view) {
                 // Creating an Intent for the next activity of the file encryption page
-                Intent intent = new Intent(EncryptPage.super.getContext(), FileEncrypt.class);
+                Intent intent = new Intent(HashCrypticPage.super.getContext(), FileEncrypt.class);
                 startActivity(intent);
             }
         });
@@ -115,7 +115,7 @@ public class EncryptPage extends Fragment {
             @Override
             public void onClick(View view) {
                 // Creating an Intent for the next activity of the file encryption page
-                Intent intent = new Intent(EncryptPage.super.getContext(), FileDecrypt.class);
+                Intent intent = new Intent(HashCrypticPage.super.getContext(), FileDecrypt.class);
                 startActivity(intent);
             }
         });
