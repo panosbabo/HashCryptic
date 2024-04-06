@@ -46,8 +46,6 @@ public class HashEncryptionTest {
         onView(withId(R.id.buttonEncrypt)).perform(click());
         onView(withId(R.id.encr_msg_cntxt)).check(matches(withText(output)));
         onView(withId(R.id.copyencr_txt)).perform(click());
-//        onView(withId(R.id.share_hash)).perform(click());
-//        onView(isRoot()).perform(ViewActions.pressBack());
         onView(withId(R.id.store_hash)).perform(click());
 
     }

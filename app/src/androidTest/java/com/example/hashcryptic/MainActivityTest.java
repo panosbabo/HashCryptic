@@ -1,36 +1,13 @@
 package com.example.hashcryptic;
 
-import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
-import static androidx.test.espresso.action.ViewActions.clearText;
 import static androidx.test.espresso.action.ViewActions.click;
-import static androidx.test.espresso.action.ViewActions.pressBack;
-import static androidx.test.espresso.action.ViewActions.typeText;
-import static androidx.test.espresso.assertion.ViewAssertions.matches;
-import static androidx.test.espresso.matcher.ViewMatchers.isAssignableFrom;
-import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
-import static androidx.test.espresso.matcher.ViewMatchers.withText;
-
-import static org.hamcrest.core.IsInstanceOf.instanceOf;
-import static java.util.EnumSet.allOf;
-
-import android.widget.AdapterView;
-
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.test.espresso.Espresso;
 import androidx.test.espresso.action.ViewActions;
-import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.filters.LargeTest;
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner;
-
-import com.example.hashcryptic.db.Hash;
-import com.example.hashcryptic.db.HashDAO;
-import com.example.hashcryptic.db.HashDatabase;
-
-import org.hamcrest.Matchers;
 import org.junit.FixMethodOrder;
 import org.junit.Rule;
 import org.junit.Test;
