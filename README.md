@@ -17,6 +17,11 @@ Author: Panagiotis Bampilis
 |        Java        | Java Programming Language |               https://www.java.com/en/         |
 |        ROOM        |    Room Android Database  | https://developer.android.com/jetpack/androidx/releases/room |
 
+### Software Testing
+|    Technology    |        Description        |                Official website                |
+|:----------------:|:-------------------------:| :--------------------------------------------: |
+| Android Espresso | Reliable Android UI tests |               https://developer.android.com/training/testing/espresso         |
+
 # Screenshots
 <br>
 Encrypt, Decrypt any text in no time
