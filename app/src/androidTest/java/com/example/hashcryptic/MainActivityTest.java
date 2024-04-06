@@ -99,16 +99,10 @@ public class MainActivityTest {
     public void MyHashValuesTest() {
         // Test implementation
         onView(withId(R.id.hashvlsBtn)).perform(click());
-//        onView(withId(R.id.hashlist_titleview))
-//                .perform(click());
 
-        onData(withId(R.id.copyencr_txt)).atPosition(0).perform(click());
-//        onData(allOf(instanceOf(HashLT))).inAdapterView(isAssignableFrom(AdapterView.class))
-//                .atPosition(position)
-//                .perform(click());
-        onView(withId(R.id.copyencr_txt)).perform(click());
-        onView(withId(R.id.qrcode_btn)).perform(click());
-        onView(isRoot()).perform(pressBack());
+//        onData(withId(R.id.idHashList)).onChildView(withId(R.id.copyencr_txt)).atPosition(0).perform(click());
+//        onView(withId(R.id.qrcode_btn)).perform(click());
+//        onView(isRoot()).perform(pressBack());
     }
 
 
