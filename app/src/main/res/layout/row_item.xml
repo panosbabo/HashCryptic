@@ -139,7 +139,7 @@
             android:id="@+id/qrcode_btn"
             android:layout_width="100dp"
             android:layout_height="45dp"
-            android:text="QRCode"
+            android:text="QR Code"
             android:textSize="10sp"
             android:layout_marginLeft="10dp"
             app:layout_constraintBottom_toBottomOf="parent"

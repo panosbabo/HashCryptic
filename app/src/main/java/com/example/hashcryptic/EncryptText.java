@@ -144,11 +144,11 @@ public class EncryptText extends AppCompatActivity implements AdapterView.OnItem
                             try {
                                 if (compressionSw.isChecked()){
                                     String tempByte = SecureCompression.compressb4encryption(temp);
-                                    globhashvalu = encryptHash.encrypt2Hash(tempByte, globtype);
+                                    globhashvalu = encryptHash.encrypt2Hash(tempByte, globtype, getApplicationContext());
                                     globhashtxt = temp;
                                 }
                                 else {
-                                    globhashvalu = encryptHash.encrypt2Hash(temp, globtype);
+                                    globhashvalu = encryptHash.encrypt2Hash(temp, globtype, getApplicationContext());
                                     globhashtxt = temp;
                                 }
                             } catch (IOException | IllegalBlockSizeException | BadPaddingException |
@@ -163,11 +163,11 @@ public class EncryptText extends AppCompatActivity implements AdapterView.OnItem
                             try {
                                 if (compressionSw.isChecked()){
                                     String tempByte = SecureCompression.compressb4encryption(temp);
-                                    globhashvalu = encryptHash.encrypt2Hash(tempByte, globtype);
+                                    globhashvalu = encryptHash.encrypt2Hash(tempByte, globtype, getApplicationContext());
                                     globhashtxt = temp;
                                 }
                                 else {
-                                    globhashvalu = encryptHash.encrypt2Hash(temp, globtype);
+                                    globhashvalu = encryptHash.encrypt2Hash(temp, globtype, getApplicationContext());
                                     globhashtxt = temp;
                                 }
                             } catch (IOException | IllegalBlockSizeException | BadPaddingException |
@@ -182,11 +182,11 @@ public class EncryptText extends AppCompatActivity implements AdapterView.OnItem
                             try {
                                 if (compressionSw.isChecked()){
                                     String tempByte = SecureCompression.compressb4encryption(temp);
-                                    globhashvalu = encryptHash.encrypt2Hash(tempByte, globtype);
+                                    globhashvalu = encryptHash.encrypt2Hash(tempByte, globtype, getApplicationContext());
                                     globhashtxt = temp;
                                 }
                                 else {
-                                    globhashvalu = encryptHash.encrypt2Hash(temp, globtype);
+                                    globhashvalu = encryptHash.encrypt2Hash(temp, globtype, getApplicationContext());
                                     globhashtxt = temp;
                                 }
                             } catch (IOException | IllegalBlockSizeException | BadPaddingException |
@@ -201,11 +201,11 @@ public class EncryptText extends AppCompatActivity implements AdapterView.OnItem
                             try {
                                 if (compressionSw.isChecked()){
                                     String tempByte = SecureCompression.compressb4encryption(temp);
-                                    globhashvalu = encryptHash.encrypt2Hash(tempByte, globtype);
+                                    globhashvalu = encryptHash.encrypt2Hash(tempByte, globtype, getApplicationContext());
                                     globhashtxt = temp;
                                 }
                                 else {
-                                    globhashvalu = encryptHash.encrypt2Hash(temp, globtype);
+                                    globhashvalu = encryptHash.encrypt2Hash(temp, globtype, getApplicationContext());
                                     globhashtxt = temp;
                                 }
                             } catch (IOException | IllegalBlockSizeException | BadPaddingException |
@@ -220,11 +220,11 @@ public class EncryptText extends AppCompatActivity implements AdapterView.OnItem
                             try {
                                 if (compressionSw.isChecked()){
                                     String tempByte = SecureCompression.compressb4encryption(temp);
-                                    globhashvalu = encryptHash.encrypt2Hash(tempByte, globtype);
+                                    globhashvalu = encryptHash.encrypt2Hash(tempByte, globtype, getApplicationContext());
                                     globhashtxt = temp;
                                 }
                                 else {
-                                    globhashvalu = encryptHash.encrypt2Hash(temp, globtype);
+                                    globhashvalu = encryptHash.encrypt2Hash(temp, globtype, getApplicationContext());
                                     globhashtxt = temp;
                                 }
                             } catch (IOException | IllegalBlockSizeException | BadPaddingException |
@@ -239,11 +239,11 @@ public class EncryptText extends AppCompatActivity implements AdapterView.OnItem
                             try {
                                 if (compressionSw.isChecked()){
                                     String tempByte = SecureCompression.compressb4encryption(temp);
-                                    globhashvalu = encryptHash.encrypt2Hash(tempByte, globtype);
+                                    globhashvalu = encryptHash.encrypt2Hash(tempByte, globtype, getApplicationContext());
                                     globhashtxt = temp;
                                 }
                                 else {
-                                    globhashvalu = encryptHash.encrypt2Hash(temp, globtype);
+                                    globhashvalu = encryptHash.encrypt2Hash(temp, globtype, getApplicationContext());
                                     globhashtxt = temp;
                                 }
                             } catch (IOException | IllegalBlockSizeException | BadPaddingException |

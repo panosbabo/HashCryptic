@@ -84,7 +84,7 @@ public class DecryptText extends AppCompatActivity {
                         if (etdec.getText().toString().matches(db.hashDao().gethash().get(i).hashValue)) {
                             String data = db.hashDao().gethash().get(i).hashTxt;
                             dectv.setText(data);
-//                            Toast.makeText(DecryptText.this, "Plaintext found!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "Message Decrypted Successfully", Toast.LENGTH_SHORT).show();
                             found = true;
                             break;
                         }
