@@ -1,10 +1,12 @@
 package com.example.hashcryptic;
 
+import android.annotation.SuppressLint;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -78,7 +80,7 @@ public class Checksum extends AppCompatActivity implements AdapterView.OnItemSel
             public void onClick(View view) {
 
                 // algorithm and get the checksum code
-                pickFile();
+                checkPermissionsAndPickFile();
                 enctv.setText(globchksum);
             }
         });
@@ -188,5 +190,34 @@ public class Checksum extends AppCompatActivity implements AdapterView.OnItemSel
             e.printStackTrace();
         }
         return null;
+    }
+
+    @SuppressLint("NewApi")
+    private void checkPermissionsAndPickFile() {
+        if (hasWriteExternalStoragePermission()) {
+            pickFile();
+        } else {
+            requestPermissions(new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, PICK_FILE_REQUEST);
+        }
+    }
+
+    // Add permission check if targeting API level 23 or higher
+    private boolean hasWriteExternalStoragePermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            return checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == android.content.pm.PackageManager.PERMISSION_GRANTED;
+        }
+        return true;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == PICK_FILE_REQUEST) {
+            if (grantResults.length > 0 && grantResults[0] == android.content.pm.PackageManager.PERMISSION_GRANTED) {
+                pickFile();
+            } else {
+                Toast.makeText(this, "Permission denied. Cannot proceed.", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 }

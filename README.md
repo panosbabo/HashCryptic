@@ -2,7 +2,7 @@
 Author: Panagiotis Bampilis
 
 ## Description of the project
-"HashCryptic" is a project that aims to let the user encrypt and decrypt any text message and suitable files, easy, efficient and effortless by using any hashing algorithm of their choice provided.
+"HashCryptic" is a project that aims to let the user encrypt and decrypt text messages and files, easy, efficiently and effortless by using any of the provided hashing algorithms.
 
 ## Technology Selection
 
