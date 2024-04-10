@@ -24,6 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
         android:layout_marginEnd="50dp"
+        android:maxLines="6"
         android:text=""
         android:textAlignment="center"
         android:textColor="@color/black"
@@ -40,14 +41,13 @@
         android:id="@+id/shareto_qrcode_item_btn"
         android:layout_width="100dp"
         android:layout_height="45dp"
-        android:layout_marginRight="10dp"
         android:layout_marginTop="50dp"
+        android:layout_marginRight="10dp"
         android:text="Share To"
         android:textSize="10sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/qrcode_image"
-        app:layout_constraintVertical_bias="0.256" />
+        app:layout_constraintTop_toBottomOf="@+id/hash_txt_view" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

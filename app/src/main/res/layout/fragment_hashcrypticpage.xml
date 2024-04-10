@@ -25,69 +25,63 @@
             android:id="@+id/ciphersBtn"
             android:layout_width="155dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="160dp"
             android:text="Ciphers"
-            app:layout_constraintBottom_toTopOf="@+id/encryptBtn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.876" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/encryptBtn"
             android:layout_width="155dp"
             android:layout_height="wrap_content"
             android:text="Hash Encryption"
+            android:layout_marginTop="20dp"
             android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.355" />
+            app:layout_constraintTop_toBottomOf="@+id/ciphersBtn" />
 
         <Button
             android:id="@+id/decryptBtn"
             android:layout_width="155dp"
             android:layout_height="wrap_content"
             android:text="Hash Decryption"
+            android:layout_marginTop="20dp"
             android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/encryptBtn"
-            app:layout_constraintVertical_bias="0.072" />
+            app:layout_constraintTop_toBottomOf="@+id/encryptBtn" />
 
         <Button
             android:id="@+id/encryptFileBtn"
             android:layout_width="155dp"
             android:layout_height="wrap_content"
             android:text="Encrypt File"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/chksumBtn"
-            app:layout_constraintVertical_bias="0.127" />
+            app:layout_constraintTop_toBottomOf="@+id/chksumBtn" />
 
         <Button
             android:id="@+id/decryptFileBtn"
             android:layout_width="155dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:text="Decrypt File"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/encryptFileBtn"
-            app:layout_constraintVertical_bias="0.19" />
+            app:layout_constraintTop_toBottomOf="@+id/encryptFileBtn" />
 
         <Button
             android:id="@+id/chksumBtn"
             android:layout_width="155dp"
             android:layout_height="wrap_content"
             android:text="Checksum"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/decryptBtn"
-            app:layout_constraintVertical_bias="0.102" />
+            app:layout_constraintTop_toBottomOf="@+id/decryptBtn" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
