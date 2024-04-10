@@ -79,7 +79,7 @@ public class FileDecrypt extends AppCompatActivity implements AdapterView.OnItem
             public void onClick(View view) {
                 if (PROFILESWITCH.isChecked()) {
                     if (!decrKey.getText().toString().isEmpty()) {
-                        Toast.makeText(FileDecrypt.this, "Cannot use both Profile key\nand secret key below", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(FileDecrypt.this, "Cannot use both Profile key and secret key", Toast.LENGTH_SHORT).show();
                         return;
                     }
                     if (db.profileDao().getprofile().isEmpty()) {
@@ -91,7 +91,7 @@ public class FileDecrypt extends AppCompatActivity implements AdapterView.OnItem
                     }
                 }
                 if (!PROFILESWITCH.isChecked() && decrKey.getText().toString().isEmpty()) {
-                    Toast.makeText(FileDecrypt.this, "Must enter a key to\nbe used for Decryption", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(FileDecrypt.this, "Must choose a key to\nbe used for Decryption", Toast.LENGTH_SHORT).show();
                 }
                 else if (!decrKey.getText().toString().isEmpty()){
                     // Checking permission to be granted

@@ -100,7 +100,7 @@ public class FileEncrypt extends AppCompatActivity implements AdapterView.OnItem
             public void onClick(View view) {
                 if (PROFILESWITCH.isChecked()) {
                     if (!encrKey.getText().toString().isEmpty()) {
-                        Toast.makeText(FileEncrypt.this, "Cannot use both Profile key\nand secret key below", Toast.LENGTH_LONG).show();
+                        Toast.makeText(FileEncrypt.this, "Cannot use both Profile key and secret key", Toast.LENGTH_LONG).show();
                         return;
                     }
                     if (db.profileDao().getprofile().isEmpty()) {
