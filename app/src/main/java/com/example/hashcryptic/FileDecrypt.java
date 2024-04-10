@@ -15,7 +15,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.hashcryptic.db.ProfileDatabase;
@@ -40,8 +42,10 @@ public class FileDecrypt extends AppCompatActivity implements AdapterView.OnItem
     private static final String TRANSFORMATION = "AES";
     private static final int BUFFER_SIZE = 8192;
     private static final String TAG = "EncryptionActivity";
-    private static String USERNAME;
+    private static String USERNAME, EMAIL, AGE, mySecretKey;
     private static SecretKey secretKey = null;
+    private static Switch PROFILESWITCH;
+    private EditText decrKey;
 
     private int pos;
 
@@ -54,8 +58,12 @@ public class FileDecrypt extends AppCompatActivity implements AdapterView.OnItem
         ProfileDatabase db  = ProfileDatabase.getDbInstance(this.getApplicationContext());
         if (!db.profileDao().getprofile().isEmpty()) {
             USERNAME = db.profileDao().getprofile().get(0).personUsername;
+            EMAIL = db.profileDao().getprofile().get(0).personEmail;
+            AGE = db.profileDao().getprofile().get(0).personAge;
         }
 
+        PROFILESWITCH = findViewById(R.id.personalKeySwitch);
+        decrKey = findViewById(R.id.decrypt_filekey);
         Button choose_file = findViewById(R.id.button_choose_file);
 
         Spinner spinner = (Spinner) findViewById(R.id.spinner);
@@ -69,8 +77,26 @@ public class FileDecrypt extends AppCompatActivity implements AdapterView.OnItem
         choose_file.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Checking permission to be granted
-                checkPermissionsAndPickFile();
+                if (PROFILESWITCH.isChecked()) {
+                    if (!decrKey.getText().toString().isEmpty()) {
+                        Toast.makeText(FileDecrypt.this, "Cannot use both Profile key\nand secret key below", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    if (db.profileDao().getprofile().isEmpty()) {
+                        Toast.makeText(FileDecrypt.this, "Profile details are empty\nProfile page must be updated", Toast.LENGTH_LONG).show();
+                    }
+                    else if (!db.profileDao().getprofile().isEmpty()) {
+                        // Checking permission to be granted
+                        checkPermissionsAndPickFile();
+                    }
+                }
+                if (!PROFILESWITCH.isChecked() && decrKey.getText().toString().isEmpty()) {
+                    Toast.makeText(FileDecrypt.this, "Must enter a key to\nbe used for Decryption", Toast.LENGTH_SHORT).show();
+                }
+                else if (!decrKey.getText().toString().isEmpty()){
+                    // Checking permission to be granted
+                    checkPermissionsAndPickFile();
+                }
             }
         });
     }
@@ -195,8 +221,15 @@ public class FileDecrypt extends AppCompatActivity implements AdapterView.OnItem
             // Cipher instantiation
             Cipher cipher = Cipher.getInstance(TRANSFORMATION);
 
-            // Initializing key from Username with chosen key size
-            SecretKey myKey = generateAESKey(USERNAME, keySize);
+            if (PROFILESWITCH.isChecked()) {
+                // Initializing key from Profile details with chosen key size
+                mySecretKey = USERNAME + EMAIL + AGE;
+            }
+            else {
+                // Initializing key from input text with chosen key size
+                mySecretKey = decrKey.getText().toString();
+            }
+            SecretKey myKey = generateAESKey(mySecretKey, keySize);
             // Cipher initialization for personal key
             cipher.init(Cipher.DECRYPT_MODE, myKey);
 

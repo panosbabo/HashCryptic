@@ -30,18 +30,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/filencryptTitle" />
 
-    <Button
-        android:id="@+id/button_choose_file"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Choose file"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinner"
-        app:layout_constraintVertical_bias="0.092" />
-
     <TextView
         android:id="@+id/encryptOption"
         android:layout_width="wrap_content"
@@ -54,5 +42,43 @@
         app:layout_constraintTop_toTopOf="@+id/filencryptTitle"
         app:layout_constraintVertical_bias="0.79" />
 
+    <Switch
+        android:id="@+id/personalKeySwitch"
+        android:layout_width="178dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="20dp"
+        android:text="Use Profile Key"
+        app:layout_constraintBottom_toTopOf="@+id/encrypt_filekey"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinner"
+        app:layout_constraintVertical_bias="0.288"
+        tools:ignore="OnClick,UseSwitchCompatOrMaterialXml" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/decrypt_filekey"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="28dp"
+        android:hint="enter secret key"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@+id/button_choose_file"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/personalKeySwitch"
+        app:layout_constraintVertical_bias="0.888" />
+
+    <Button
+        android:id="@+id/button_choose_file"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Choose file"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinner"
+        app:layout_constraintVertical_bias="0.461" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

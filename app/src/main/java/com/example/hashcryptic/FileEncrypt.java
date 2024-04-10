@@ -13,6 +13,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.Toast;
@@ -46,10 +48,11 @@ public class FileEncrypt extends AppCompatActivity implements AdapterView.OnItem
     private static final String TRANSFORMATION = "AES";
     private static final int BUFFER_SIZE = 8192;
     private static final String TAG = "EncryptionActivity";
-    private static String USERNAME;
+    private static String USERNAME, EMAIL, AGE;
     private static SecretKey secretKey = null;
-    private static Switch USERNAMESWITCH;
+    private static Switch PROFILESWITCH;
     private static Switch COMPRESSIONSWITCH;
+    private EditText encrKey;
 
     private int pos;
 
@@ -62,10 +65,13 @@ public class FileEncrypt extends AppCompatActivity implements AdapterView.OnItem
         ProfileDatabase db  = ProfileDatabase.getDbInstance(this.getApplicationContext());
         if (!db.profileDao().getprofile().isEmpty()) {
             USERNAME = db.profileDao().getprofile().get(0).personUsername;
+            EMAIL = db.profileDao().getprofile().get(0).personEmail;
+            AGE = db.profileDao().getprofile().get(0).personAge;
         }
 
+        encrKey = findViewById(R.id.encrypt_filekey);
         Button choose_file = findViewById(R.id.button_choose_file);
-        USERNAMESWITCH = findViewById(R.id.personalKeySwitch);
+        PROFILESWITCH = findViewById(R.id.personalKeySwitch);
         COMPRESSIONSWITCH = findViewById(R.id.compressionKeySwitch);
 
         Spinner spinner = (Spinner) findViewById(R.id.spinner);
@@ -76,12 +82,29 @@ public class FileEncrypt extends AppCompatActivity implements AdapterView.OnItem
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(this);
 
+        PROFILESWITCH.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    // Switch is ON
+                    Toast.makeText(getApplicationContext(), "Key generated from Profile details", Toast.LENGTH_SHORT).show();
+                } else {
+                    // Switch is OFF
+                    Toast.makeText(getApplicationContext(), "Key generated randomly\nor from input text below", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
         choose_file.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (USERNAMESWITCH.isChecked()) {
+                if (PROFILESWITCH.isChecked()) {
+                    if (!encrKey.getText().toString().isEmpty()) {
+                        Toast.makeText(FileEncrypt.this, "Cannot use both Profile key\nand secret key below", Toast.LENGTH_LONG).show();
+                        return;
+                    }
                     if (db.profileDao().getprofile().isEmpty()) {
-                        Toast.makeText(FileEncrypt.this, "        Username is empty\nProfile page must be updated", Toast.LENGTH_LONG).show();
+                        Toast.makeText(FileEncrypt.this, "Profile details are empty\nProfile page must be updated", Toast.LENGTH_LONG).show();
                     }
                     else if (!db.profileDao().getprofile().isEmpty()) {
                         // Checking permission to be granted
@@ -195,8 +218,6 @@ public class FileEncrypt extends AppCompatActivity implements AdapterView.OnItem
         InputStream inputStream = null;
         FileOutputStream outputStream = null;
 
-        ProfileDatabase db  = ProfileDatabase.getDbInstance(this.getApplicationContext());
-
         try {
             ContentResolver resolver = getContentResolver();
             inputStream = resolver.openInputStream(uri);
@@ -217,15 +238,25 @@ public class FileEncrypt extends AppCompatActivity implements AdapterView.OnItem
             // Cipher instantiation
             Cipher cipher = Cipher.getInstance(TRANSFORMATION);
 
-            if (USERNAMESWITCH.isChecked()) {
-                // Initializing key from Username with chosen key size
-                SecretKey myKey = generateAESKey(USERNAME, keySize);
+            if (PROFILESWITCH.isChecked()) {
+                // Initializing key from Profile details with chosen key size
+                String mySecretKey = USERNAME + EMAIL + AGE;
+                SecretKey myKey = generateAESKey(mySecretKey, keySize);
                 // Cipher initialization for personal key
                 cipher.init(Cipher.ENCRYPT_MODE, myKey);
             }
             else {
-                // Cipher initialization
-                cipher.init(Cipher.ENCRYPT_MODE, secretKey);
+                if (!encrKey.getText().toString().isEmpty()) {
+                    // Initializing key from input text with chosen key size
+                    String SecretKeymessage = encrKey.getText().toString();
+                    SecretKey myKey = generateAESKey(SecretKeymessage, keySize);
+                    // Cipher initialization for personal key
+                    cipher.init(Cipher.ENCRYPT_MODE, myKey);
+                }
+                else {
+                    // Cipher initialization
+                    cipher.init(Cipher.ENCRYPT_MODE, secretKey);
+                }
             }
 
             // Initialize output stream
