@@ -50,7 +50,7 @@ public class HashCrypticPage extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        Button encryptButton, decryptButton, checksumButton, encrFileButton, ciphersList, decrFileButton;
+        Button encryptButton, decryptButton, checksumButton, encrFileButton, ciphersList, decrFileButton, asymmetricAlgo;
 
         // Inflate the layout for this fragment
         View encryptView = inflater.inflate(R.layout.fragment_hashcrypticpage, container, false);
@@ -60,6 +60,7 @@ public class HashCrypticPage extends Fragment {
         encrFileButton = encryptView.findViewById(R.id.encryptFileBtn);
         ciphersList = encryptView.findViewById(R.id.ciphersBtn);
         decrFileButton = encryptView.findViewById(R.id.decryptFileBtn);
+        asymmetricAlgo = encryptView.findViewById(R.id.asymmetricBtn);
 
         // Button function listener for the ciphers list page
         ciphersList.setOnClickListener(new View.OnClickListener() {
@@ -116,6 +117,15 @@ public class HashCrypticPage extends Fragment {
             public void onClick(View view) {
                 // Creating an Intent for the next activity of the file encryption page
                 Intent intent = new Intent(HashCrypticPage.super.getContext(), FileDecrypt.class);
+                startActivity(intent);
+            }
+        });
+
+        asymmetricAlgo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Creating an Intent for the next activity of asymmetric encryption-decryption page
+                Intent intent = new Intent(HashCrypticPage.super.getContext(), SecretMessages.class);
                 startActivity(intent);
             }
         });
