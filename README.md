@@ -24,13 +24,13 @@ Author: Panagiotis Bampilis
 
 # Screenshots
 <br>
-Encrypt, Decrypt any text in no time
+Encrypt, Decrypt in no time
 <br><br>
 <p align="center">
   <img src="Screenshots/1.png" width=250></img>
 </p>
 <br>
-Setup your profile to give a personal touch
+Setup your profile to give a personal touch to your encrypted files
 <br><br>
 <p align="center">
   <img src="Screenshots/2.png" width=250></img>
